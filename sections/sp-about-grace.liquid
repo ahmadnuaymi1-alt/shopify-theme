@@ -290,19 +290,14 @@
       <div class="two-columns-img">
         <div class="two-columns-img-inner">
           {% if section.settings.background_image == blank %}
-            <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/about-grace-01.jpg" 
-              sizes="(min-width: 1100px) 1100px, (min-width: 750px) 750px"
-              loading="lazy"
-              width="100%"
-              height="100%"
-            />
+            {{ 'image' | placeholder_svg_tag: 'placeholder' }}
           {% else %}
             <img srcset="
             {%- if section.settings.background_image.width >= 750 -%}{{ section.settings.background_image | img_url: '750x' }} 750w,{%- endif -%}
             {%- if section.settings.background_image.width >= 1100 -%}{{ section.settings.background_image | img_url: '1100x' }} 1100w,{%- endif -%}"
               src="{{ section.settings.background_image | img_url: '750x' }}"
               alt="{{ section.settings.background_image.alt | escape }}"
-              sizes="(min-width: 1100px) 1100px, (min-width: 750px) 750px"
+              
               width="100%"
               height="100%"
               loading="lazy"

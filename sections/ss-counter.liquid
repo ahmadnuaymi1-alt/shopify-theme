@@ -1,4 +1,4 @@
-<link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
+<link href="{{ 'flip.min.css' | asset_url }}" rel="stylesheet">
 {%- liquid 
   assign padding_horizontal = section.settings.padding_horizontal
   assign padding_horizontal_mobile = section.settings.padding_horizontal_mobile
@@ -325,7 +325,7 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
+<script src="{{ 'flip.min.js' | asset_url }}"></script>
 
 {% assign global_max = 0 %}
 {% for block in section.blocks %}

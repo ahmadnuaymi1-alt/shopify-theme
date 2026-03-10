@@ -109,22 +109,22 @@ img {
 {% endif %}
 
 .pw-section__{{sec_id}} .pw-col-md-4:nth-child(1) .pw-img-wrapper {
-  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-1.jpg') no-repeat center/cover;
+  background: #e8e8e8;
 }
 .pw-section__{{sec_id}} .pw-col-md-4:nth-child(2) .pw-img-wrapper {
-  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-2.jpg') no-repeat center/cover;
+  background: #e8e8e8;
 }
 .pw-section__{{sec_id}} .pw-col-md-4:nth-child(3) .pw-img-wrapper {
-  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-3.jpg') no-repeat center/cover;
+  background: #e8e8e8;
 }
 .pw-section__{{sec_id}} .pw-col-md-4:nth-child(4) .pw-img-wrapper {
-  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-1.jpg') no-repeat center/cover;
+  background: #e8e8e8;
 }
 .pw-section__{{sec_id}} .pw-col-md-4:nth-child(5) .pw-img-wrapper {
-  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-2.jpg') no-repeat center/cover;
+  background: #e8e8e8;
 }
 .pw-section__{{sec_id}} .pw-col-md-4:nth-child(6) .pw-img-wrapper {
-  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-3.jpg') no-repeat center/cover;
+  background: #e8e8e8;
 }
 
 .pw-section__{{sec_id}} .pw-img-wrapper {
@@ -196,7 +196,7 @@ img {
           <div class="pw-col-md-4" {{ block.shopify_attributes }}>
             <div class="pw-img-wrapper">
               {% if block.settings.background_image == blank %}
-                <!--<img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-zoey-01-3.jpg?v=1639643931" loading="lazy">-->
+                {{ 'image' | placeholder_svg_tag: 'placeholder' }}
               {% else %}
                 <img srcset="
                   {%- if block.settings.background_image.width >= 320 -%}{{ block.settings.background_image | img_url: '320x' }} 320w,{%- endif -%}

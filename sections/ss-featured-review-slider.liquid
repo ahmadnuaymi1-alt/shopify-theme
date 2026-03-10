@@ -1,6 +1,6 @@
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+  href="{{ 'swiper-8-bundle.min.css' | asset_url }}"
 >
 {% style %}
   [data-review-quote-slider-target] p {
@@ -23,7 +23,7 @@
 
 <script
   defer
-  src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"
+  src="{{ 'swiper-8-bundle.min.js' | asset_url }}"
 ></script>
 
 <script>

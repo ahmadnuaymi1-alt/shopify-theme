@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="{{ 'swiper-9-bundle.min.css' | asset_url }}"/>
 
 {%- liquid 
   assign padding_horizontal = section.settings.padding_horizontal
@@ -383,7 +383,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@6.8.4/swiper-bundle.min.js"></script>
+<script src="{{ 'swiper-6.8.4-bundle.min.js' | asset_url }}"></script>
 
 {% assign slider_row = slider_row | plus: 0 %}
 {% assign slider_row_tablet = slider_row | times: 0.5 %}

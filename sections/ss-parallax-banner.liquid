@@ -565,7 +565,7 @@ For inquiries or permissions, contact daniel@section.store
 </div>
                           
 {% if parallax_mobile %}
-  <script src="https://cdn.jsdelivr.net/npm/simple-parallax-js@5.5.1/dist/simpleParallax.min.js"></script>
+  <script src="{{ 'simpleParallax-5.5.1.min.js' | asset_url }}"></script>
   <script>
     function initParallaxMobile() {
       var image = document.querySelector('.banner-parallax-mobile-{{ section.id }} img');

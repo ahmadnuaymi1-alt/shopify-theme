@@ -8,7 +8,7 @@ For inquiries or permissions, contact daniel@section.store
 ---------------------------------------------------------
 {% endcomment %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="{{ 'swiper-9-bundle.min.css' | asset_url }}"/>
 
 {%- liquid 
   assign padding_horizontal = section.settings.padding_horizontal
@@ -773,7 +773,7 @@ For inquiries or permissions, contact daniel@section.store
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.js"></script>
+<script src="{{ 'swiper-8.4.7-bundle.min.js' | asset_url }}"></script>
 
 <script>
   function initSlider() {

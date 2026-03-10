@@ -221,7 +221,7 @@ img {
 
 <div class="pw-section__{{sec_id}} {% if section.settings.overlay_off == true %} no-overlay{% endif %}">
   {% if section.settings.background_image == blank %}
-    <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/hero-mia-01.jpg" sizes="100vw"/>
+    {{ "image" | placeholder_svg_tag: "placeholder" }}
   {% else %}
     <img srcset="
       {%- if section.settings.background_image.width >= 320 -%}{{ section.settings.background_image | img_url: '320x' }} 320w,{%- endif -%}

@@ -385,7 +385,7 @@
       <div class="pw-product-image-wrapper">
         {% if product == blank %}
           <div class="pw-product-image">
-            <img class="lazyload" src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/product-vivian-01.png" alt="product name">
+            {{ "image" | placeholder_svg_tag: "placeholder" }}
           </div>
         {% else %}
           {% assign featured_media = product.featured_media %}

@@ -10,7 +10,7 @@ For inquiries or permissions, contact daniel@section.store
 
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  href="{{ 'swiper-11-bundle.min.css' | asset_url }}"
 />
 
 {%- liquid 
@@ -868,7 +868,7 @@ For inquiries or permissions, contact daniel@section.store
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="{{ 'swiper-11-bundle.min.js' | asset_url }}"></script>
 
 <script>
   function initScrollingProducts() {
