@@ -1,0 +1,551 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% if section.settings.override_fonts %}
+    {{ section.settings.text_font | font_face }}
+    {{ section.settings.headline_font | font_face }}
+  {% endif %}
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap p, #sp-hero-{{ section.id }}.sp-hero-wrap li {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+      font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+    color: {{section.settings.text_color}};
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+    {% if section.settings.text_shadow %}text-shadow: 0 2px 4px rgba(0,0,0,0.25);{% endif %}
+    text-align: {{section.settings.text_alignment}};
+  }
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap ul {
+    list-style-position: inside;
+  }
+
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap h1,
+  #sp-hero-{{ section.id }}.sp-hero-wrap h2,
+  #sp-hero-{{ section.id }}.sp-hero-wrap h3,
+  #sp-hero-{{ section.id }}.sp-hero-wrap h4,
+  #sp-hero-{{ section.id }}.sp-hero-wrap h5 {
+    font-size: {{ section.settings.headline_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    {% endif %}
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    color: {{section.settings.headline_color}};
+    {% if section.settings.text_shadow %}text-shadow: 0 2px 4px rgba(0,0,0,0.25);{% endif %}
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    color: {{section.settings.headline_color}};
+    text-align: {{section.settings.text_alignment}};
+  }
+  
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus:5 }}px;
+  }
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus:10 }}px;
+  }
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus:15 }}px;
+  }
+
+  #sp-hero-{{ section.id }}.sp-hero-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus:20 }}px;
+  }
+  
+  #sp-hero-{{ section.id }}.sp-hero-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero>.sp-hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: {{ section.settings.box_alignment }};
+    position: relative;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 100px 10px 100px 10px;
+    z-index: 2;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero-image {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero>.sp-hero-cover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: {{section.settings.cover_background}};
+    opacity: {{section.settings.cover_opacity}}%;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero-content {
+    padding: 0 25px 0 25px;
+    max-width: 60%;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-hero-{{ section.id }} .sp-hero-content {
+      padding: 0 10px 0 10px;
+      max-width: calc(100% - 20px);
+    }
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero p:last-child {
+    margin-bottom: 0;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero a.sp-hero-cta {
+    display: inline-block;
+    padding: 15px 40px;
+    padding: {{ section.settings.button_padding_tb }}px {{ section.settings.button_padding_lr }}px;
+    background-image: {{section.settings.button_background_color}};
+    border-radius: {{ section.settings.button_border_radius }}px;
+    color: {{section.settings.button_text_color}};
+    font-size: {{ section.settings.text_size }}px;
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow: none;
+    transition: .25s all;
+  }
+
+  #sp-hero-{{ section.id }} .sp-hero a.sp-hero-cta:hover {
+    transform: translateY(-2px);
+  }
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-hero-{{ section.id }}" class="sp-hero-wrap" sp-wrap>
+<div class="sp-hero" sp-container>
+  {% if section.settings.hero_image %}
+  <img class="sp-hero-image" 
+    src="{{ section.settings.hero_image | image_url: width: 600 }}"
+    srcset="{{ section.settings.hero_image| image_url: width: 600 }} 600w,
+      {{ section.settings.hero_image | image_url: width: 800 }} 800w,
+      {{ section.settings.hero_image | image_url: width: 1000 }} 1000w,
+      {{ section.settings.hero_image | image_url: width: 1100 }} 1100w">
+  {% endif %}
+  <div class="sp-hero-cover"></div>
+  <div class="sp-hero-container" sp-column>
+    <div class="sp-hero-content">
+      {% if section.settings.headline != "" %}<h2>{{ section.settings.headline }}</h2>{% endif %}
+      {% if section.settings.content != "" %}{{ section.settings.content }}{% endif %}
+      {% if section.settings.cta != "" %}<p><a class="sp-hero-cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta }}</a></p>{% endif %}
+    </div>
+  </div>
+</div>
+</div>
+
+{% schema %}
+  {
+    "name": "🚀SP - Hero",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+      },
+      {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text for your section"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Line Height",
+        "options": [
+          {
+            "value": "0.75",
+            "label": "0.75"
+          },
+          {
+            "value": "1.0",
+            "label": "1.0"
+          },
+          {
+            "value": "1.1",
+            "label": "1.1"
+          },
+          {
+            "value": "1.2",
+            "label": "1.2"
+          },
+          {
+            "value": "1.3",
+            "label": "1.3"
+          },
+          {
+            "value": "1.4",
+            "label": "1.4"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.6",
+            "label": "1.6"
+          },
+          {
+            "value": "1.7",
+            "label": "1.7"
+          },
+          {
+            "value": "1.8",
+            "label": "1.8"
+          },
+          {
+            "value": "1.9",
+            "label": "1.9"
+          },
+          {
+            "value": "2.0",
+            "label": "2.0"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ],
+        "default": "inherit"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#ffffff",
+        "label": "Text Color"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 45
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Line Height",
+        "options": [
+          {
+            "value": "0.75",
+            "label": "0.75"
+          },
+          {
+            "value": "1.0",
+            "label": "1.0"
+          },
+          {
+            "value": "1.1",
+            "label": "1.1"
+          },
+          {
+            "value": "1.2",
+            "label": "1.2"
+          },
+          {
+            "value": "1.3",
+            "label": "1.3"
+          },
+          {
+            "value": "1.4",
+            "label": "1.4"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.6",
+            "label": "1.6"
+          },
+          {
+            "value": "1.7",
+            "label": "1.7"
+          },
+          {
+            "value": "1.8",
+            "label": "1.8"
+          },
+          {
+            "value": "1.9",
+            "label": "1.9"
+          },
+          {
+            "value": "2.0",
+            "label": "2.0"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ],
+        "default": "inherit"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#ffffff",
+        "label": "Text Color"
+      },
+      {
+        "type": "checkbox",
+        "id": "text_shadow",
+        "default": true,
+        "label": "Subtle Shadow on Text"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color_background",
+        "id": "cover_background",
+        "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+        "label": "Cover Background"
+      },
+      {
+        "type": "range",
+        "id": "cover_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Cover Opacity",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Alignment",
+        "info": "Set alignment of the hero text."
+      },
+      {
+          "type": "select",
+          "id": "box_alignment",
+          "default": "center",
+          "label": "Box Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+      },
+      {
+          "type": "select",
+          "id": "text_alignment",
+          "default": "center",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 3000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 20,
+        "label": "Element Spacing"
+      },
+      {
+        "type": "header",
+        "content": "Button Style",
+        "info": "Set the look and feel of the button"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "default": "#fff",
+        "label": "Button Text Color"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_tb",
+        "default": 10,
+        "label": "Padding Top/Bottom"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_lr",
+        "default": 25,
+        "label": "Padding Left/Right"
+      },
+      {
+        "type": "number",
+        "id": "button_border_radius",
+        "default": 5,
+        "label": "Border Radius"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set the section content."
+      },
+      {
+          "type": "inline_richtext",
+          "id": "headline",
+          "default": "<b>This is our hero tagline</b>",
+          "label": "Headline"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "default": "<p>Use this to add a description to your hero section. This block supports richtext, so you can line breaks, lists, headlines, and more.</p>",
+        "label": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero Image"
+      },
+      {
+          "type": "inline_richtext",
+          "id": "cta",
+          "default": "Shop Now",
+          "label": "Call to Action"
+      },
+      {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Call to Action Link"
+      }
+    ],
+	"blocks": [],
+	"presets": [
+      {
+        "name": "🚀SP - Hero",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

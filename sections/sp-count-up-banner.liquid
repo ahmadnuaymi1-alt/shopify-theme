@@ -1,0 +1,1361 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+  
+
+  {%- capture sp_content -%} 
+
+  {% if section.settings.override_fonts %}
+      {{ section.settings.text_font | font_face }}
+      {{ section.settings.headline_font | font_face }}
+  {% endif %}
+
+  #sp-{{ section.id }} p,
+  #sp-{{ section.id }} li {
+      font-size: {{ section.settings.text_size }}px;
+      {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+      font-weight: {{ section.settings.text_font.weight }};
+  {% endif %}
+      {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+      margin: 0 0 {{ section.settings.element_spacing }}px 0;
+      padding: 0;
+      color: {{ section.settings.text_color }};
+  }
+
+  #sp-{{ section.id }} p a,
+  #sp-{{ section.id }} p a:visited
+  #sp-{{ section.id }} li a,
+  #sp-{{ section.id }} li a:visited {
+    color: {{ section.settings.link_color }};
+  }
+
+  @media (max-width: 800px) {
+      #sp-{{ section.id }} p,
+      #sp-{{ section.id }} li {
+        font-size: {{ section.settings.mobile_text_size }}px;
+      }
+  }
+
+  #sp-{{ section.id }} h1,
+  #sp-{{ section.id }} h2,
+  #sp-{{ section.id }} h3,
+  #sp-{{ section.id }} h4,
+  #sp-{{ section.id }} h5 {
+      font-size: {{ section.settings.headline_size }}px;
+      {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+      font-weight: {{ section.settings.headline_font.weight }};
+      {% endif %}
+      {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+      margin: 0 0 {{ section.settings.element_spacing }}px 0;
+      padding: 0;
+      color: {{ section.settings.text_color }};
+  }
+
+  @media (max-width: 800px) {
+      #sp-{{ section.id }} h1,
+      #sp-{{ section.id }} h2,
+      #sp-{{ section.id }} h3,
+      #sp-{{ section.id }} h4,
+      #sp-{{ section.id }} h5 {
+      font-size: {{ section.settings.mobile_headline_size }}px;
+      }
+  }
+
+  #sp-{{ section.id }} h2 {
+      font-size: {{ section.settings.headline_size | minus:5 }}px;
+  }
+
+  #sp-{{ section.id }} h3 {
+      font-size: {{ section.settings.headline_size | minus:10 }}px;
+  }
+
+  #sp-{{ section.id }} h4 {
+      font-size: {{ section.settings.headline_size | minus:15 }}px;
+  }
+
+  #sp-{{ section.id }} h5 {
+      font-size: {{ section.settings.headline_size | minus:20 }}px;
+  }
+
+  @media (max-width: 800px) {
+      #sp-{{ section.id }} h2 {
+      font-size: {{ section.settings.mobile_headline_size | minus:5 }}px;
+      }
+
+      #sp-{{ section.id }} h3 {
+      font-size: {{ section.settings.mobile_headline_size | minus:10 }}px;
+      }
+
+      #sp-{{ section.id }} h4 {
+      font-size: {{ section.settings.mobile_headline_size | minus:15 }}px;
+      }
+
+      #sp-{{ section.id }} h5 {
+      font-size: {{ section.settings.mobile_headline_size | minus:20 }}px;
+      }
+  }
+
+  #sp-{{ section.id }} {
+      background-image: {{ section.settings.section_background_color }};
+      width: 100%;
+      box-sizing: border-box;
+      padding: {{ section.settings.section_padding_top_bottom }}px {{ section.settings.section_padding_left_right }}px;
+      overflow: hidden;
+  }
+
+  @media (max-width: 800px) {
+      #sp-{{ section.id }} {
+        padding: {{ section.settings.mobile_section_padding_top_bottom }}px {{ section.settings.mobile_section_padding_left_right }}px;
+      }
+  }
+
+  {% if section.settings.show_on_device == 'mobile' %}
+    @media (min-width: 801px) {
+        #sp-{{ section.id }} {
+            display: none;
+        }
+    }
+  {% endif %}
+
+  {% if section.settings.show_on_device == 'desktop' %}
+    @media (max-width: 800px) {
+        #sp-{{ section.id }} {
+            display: none;
+        }
+    }
+  {% endif %}
+
+  #sp-{{ section.id }} .sp-container {
+      position: relative;
+      margin: 0 auto;
+      background-image: {{ section.settings.container_background_color }};
+      border-radius: {{ section.settings.container_radius }}px;
+      {% if section.settings.container_shadow %}box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);{% endif %}
+      border: {{ section.settings.container_border_size }}px solid {{ section.settings.container_border_color }};
+      max-width: {{ section.settings.container_max_width }}px;
+      padding: {{ section.settings.container_padding_top_bottom }}px {{ section.settings.container_padding_left_right }}px;
+  }
+
+  @media (max-width: 800px) {
+      #sp-{{ section.id }} .sp-container {
+      padding: {{ section.settings.mobile_container_padding_top_bottom }}px {{ section.settings.mobile_container_padding_left_right }}px;
+      }
+  }
+
+
+  #sp-{{ section.id }} .sp-headline p {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    color: {{ section.settings.text_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 25px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  ##sp-{{ section.id }} .sp-headline {
+    margin: 0;
+    padding: 0 0 {{ section.settings.headline_spacing }}px 0;
+  }
+
+  #sp-{{ section.id }} .sp-headline * {
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-{{ section.id }} .sp-headline * {
+      text-align: {{ section.settings.mobile_text_alignment }};
+    }
+  }
+
+  #sp-{{ section.id }} .sp-grid {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 1000px;
+    gap: 20px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-{{ section.id }} .sp-grid {
+      grid-template-columns: 1fr;
+      margin: 0 10px;
+    }
+  }
+
+  #sp-{{ section.id }} .sp-col h3 {
+    font-size: {{ section.settings.count_size }}px;
+    font-weight: bold;
+    color: {{ section.settings.count_color }};
+    padding: 0;
+    margin: 0 0 {{ section.settings.count_spacing }}px 0;
+    text-align: {{ section.settings.count_alignment }};
+    line-height: 1;
+  }
+
+  #sp-{{ section.id }} .sp-col p {
+    padding: 0;
+    margin: 0;
+    color: {{ section.settings.count_color }};
+    text-align: {{ section.settings.count_alignment }};
+    line-height: 1;
+  }
+
+  {%- endcapture -%} 
+
+  {%- liquid
+    assign chunks = sp_content | strip_newlines | split: ' ' | join: ' ' | split: '*/'
+    for chunk in chunks
+      assign mini = chunk | split: '/*' | first | strip | replace: ': ', ':' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | replace: ';}', '}'
+      echo mini
+    endfor
+  %}
+  
+</style>
+
+
+<div id="sp-{{ section.id }}" class="sp-section" sp-section>
+
+  <div class="sp-container" sp-container>
+
+    <div class="sp-headline">
+      {% if section.settings.headline %}<h2>{{ section.settings.headline }}</h2>{% endif %}
+      {% if section.settings.text %}<p>{{ section.settings.text }}</p>{% endif %}
+    </div>
+
+    <div class="sp-grid">
+      <div class="sp-col">
+        <h3>
+          <span class="js-count-up" data-value="{{ section.settings.box_1_number }}">
+            {{- section.settings.box_1_number -}}
+          </span>
+        </h3>
+        <p>{{ section.settings.box_1_text }}</p>
+      </div>
+      <!-- /.sp-col -->
+      <div class="sp-col">
+        <h3>
+          <span class="js-count-up" data-value="{{ section.settings.box_2_number }}">
+            {{- section.settings.box_2_number -}}
+          </span>
+        </h3>
+        <p>{{ section.settings.box_2_text }}</p>
+      </div>
+      <!-- /.sp-col -->
+      <div class="sp-col">
+        <h3>
+          <span class="js-count-up" data-value="{{ section.settings.box_3_number }}">
+            {{- section.settings.box_3_number -}}
+          </span>
+        </h3>
+        <p>{{ section.settings.box_3_text }}</p>
+      </div>
+      <!-- /.sp-col -->
+    </div>
+    <!-- /.sp-container -->
+  </div>
+  <!-- /.sp-container -->
+</div>
+<!-- /.sp-section -->
+
+<script>
+  var __assign =
+      (this && this.__assign) ||
+      function () {
+        return (__assign =
+          Object.assign ||
+          function (t) {
+            for (var e, i = 1, n = arguments.length; i < n; i++)
+              for (var r in (e = arguments[i])) Object.prototype.hasOwnProperty.call(e, r) && (t[r] = e[r]);
+            return t;
+          }).apply(this, arguments);
+      },
+    CountUp = (function () {
+      function t(t, e, i) {
+        var s = this;
+        (this.target = t),
+          (this.endVal = e),
+          (this.options = i),
+          (this.version = '2.0.7'),
+          (this.defaults = {
+            startVal: 0,
+            decimalPlaces: 0,
+            duration: 2,
+            useEasing: !0,
+            useGrouping: !0,
+            smartEasingThreshold: 999,
+            smartEasingAmount: 333,
+            separator: ',',
+            decimal: '.',
+            prefix: '',
+            suffix: '',
+          }),
+          (this.finalEndVal = null),
+          (this.useEasing = !0),
+          (this.countDown = !1),
+          (this.error = ''),
+          (this.startVal = 0),
+          (this.paused = !0),
+          (this.count = function (t) {
+            s.startTime || (s.startTime = t);
+            t -= s.startTime;
+            (s.remaining = s.duration - t),
+              s.useEasing
+                ? s.countDown
+                  ? (s.frameVal = s.startVal - s.easingFn(t, 0, s.startVal - s.endVal, s.duration))
+                  : (s.frameVal = s.easingFn(t, s.startVal, s.endVal - s.startVal, s.duration))
+                : s.countDown
+                ? (s.frameVal = s.startVal - (s.startVal - s.endVal) * (t / s.duration))
+                : (s.frameVal = s.startVal + (s.endVal - s.startVal) * (t / s.duration)),
+              s.countDown
+                ? (s.frameVal = s.frameVal < s.endVal ? s.endVal : s.frameVal)
+                : (s.frameVal = s.frameVal > s.endVal ? s.endVal : s.frameVal),
+              (s.frameVal = Number(s.frameVal.toFixed(s.options.decimalPlaces))),
+              s.printValue(s.frameVal),
+              t < s.duration
+                ? (s.rAF = requestAnimationFrame(s.count))
+                : null !== s.finalEndVal
+                ? s.update(s.finalEndVal)
+                : s.callback && s.callback();
+          }),
+          (this.formatNumber = function (t) {
+            var e,
+              i = t < 0 ? '-' : '',
+              t = Math.abs(t).toFixed(s.options.decimalPlaces),
+              n = (t = (t += '').split('.'))[0],
+              t = 1 < t.length ? s.options.decimal + t[1] : '';
+            if (s.options.useGrouping) {
+              e = '';
+              for (var r = 0, o = n.length; r < o; ++r)
+                0 !== r && r % 3 == 0 && (e = s.options.separator + e), (e = n[o - r - 1] + e);
+              n = e;
+            }
+            return (
+              s.options.numerals &&
+                s.options.numerals.length &&
+                ((n = n.replace(/[0-9]/g, function (t) {
+                  return s.options.numerals[+t];
+                })),
+                (t = t.replace(/[0-9]/g, function (t) {
+                  return s.options.numerals[+t];
+                }))),
+              i + s.options.prefix + n + t + s.options.suffix
+            );
+          }),
+          (this.easeOutExpo = function (t, e, i, n) {
+            return (i * (1 - Math.pow(2, (-10 * t) / n)) * 1024) / 1023 + e;
+          }),
+          (this.options = __assign(__assign({}, this.defaults), i)),
+          (this.formattingFn = this.options.formattingFn || this.formatNumber),
+          (this.easingFn = this.options.easingFn || this.easeOutExpo),
+          (this.startVal = this.validateValue(this.options.startVal)),
+          (this.frameVal = this.startVal),
+          (this.endVal = this.validateValue(e)),
+          (this.options.decimalPlaces = Math.max(this.options.decimalPlaces)),
+          this.resetDuration(),
+          (this.options.separator = String(this.options.separator)),
+          (this.useEasing = this.options.useEasing),
+          '' === this.options.separator && (this.options.useGrouping = !1),
+          (this.el = 'string' == typeof t ? document.getElementById(t) : t),
+          this.el ? this.printValue(this.startVal) : (this.error = '[CountUp] target is null or undefined');
+      }
+      return (
+        (t.prototype.determineDirectionAndSmartEasing = function () {
+          var t = this.finalEndVal || this.endVal;
+          this.countDown = this.startVal > t;
+          var e = t - this.startVal;
+          Math.abs(e) > this.options.smartEasingThreshold
+            ? ((this.finalEndVal = t),
+              (e = this.countDown ? 1 : -1),
+              (this.endVal = t + e * this.options.smartEasingAmount),
+              (this.duration = this.duration / 2))
+            : ((this.endVal = t), (this.finalEndVal = null)),
+            this.finalEndVal ? (this.useEasing = !1) : (this.useEasing = this.options.useEasing);
+        }),
+        (t.prototype.start = function (t) {
+          this.error ||
+            ((this.callback = t),
+            0 < this.duration
+              ? (this.determineDirectionAndSmartEasing(),
+                (this.paused = !1),
+                (this.rAF = requestAnimationFrame(this.count)))
+              : this.printValue(this.endVal));
+        }),
+        (t.prototype.pauseResume = function () {
+          this.paused
+            ? ((this.startTime = null),
+              (this.duration = this.remaining),
+              (this.startVal = this.frameVal),
+              this.determineDirectionAndSmartEasing(),
+              (this.rAF = requestAnimationFrame(this.count)))
+            : cancelAnimationFrame(this.rAF),
+            (this.paused = !this.paused);
+        }),
+        (t.prototype.reset = function () {
+          cancelAnimationFrame(this.rAF),
+            (this.paused = !0),
+            this.resetDuration(),
+            (this.startVal = this.validateValue(this.options.startVal)),
+            (this.frameVal = this.startVal),
+            this.printValue(this.startVal);
+        }),
+        (t.prototype.update = function (t) {
+          cancelAnimationFrame(this.rAF),
+            (this.startTime = null),
+            (this.endVal = this.validateValue(t)),
+            this.endVal !== this.frameVal &&
+              ((this.startVal = this.frameVal),
+              this.finalEndVal || this.resetDuration(),
+              (this.finalEndVal = null),
+              this.determineDirectionAndSmartEasing(),
+              (this.rAF = requestAnimationFrame(this.count)));
+        }),
+        (t.prototype.printValue = function (t) {
+          t = this.formattingFn(t);
+          'INPUT' === this.el.tagName
+            ? (this.el.value = t)
+            : 'text' === this.el.tagName || 'tspan' === this.el.tagName
+            ? (this.el.textContent = t)
+            : (this.el.innerHTML = t);
+        }),
+        (t.prototype.ensureNumber = function (t) {
+          return 'number' == typeof t && !isNaN(t);
+        }),
+        (t.prototype.validateValue = function (t) {
+          var e = Number(t);
+          return this.ensureNumber(e) ? e : ((this.error = '[CountUp] invalid start or end value: ' + t), null);
+        }),
+        (t.prototype.resetDuration = function () {
+          (this.startTime = null),
+            (this.duration = 1e3 * Number(this.options.duration)),
+            (this.remaining = this.duration);
+        }),
+        t
+      );
+    })();
+  !(function () {
+    'use strict';
+    var e = 0,
+      o = {};
+    function i(t) {
+      if (!t) throw new Error('No options passed to Waypoint constructor');
+      if (!t.element) throw new Error('No element option passed to Waypoint constructor');
+      if (!t.handler) throw new Error('No handler option passed to Waypoint constructor');
+      (this.key = 'waypoint-' + e),
+        (this.options = i.Adapter.extend({}, i.defaults, t)),
+        (this.element = this.options.element),
+        (this.adapter = new i.Adapter(this.element)),
+        (this.callback = t.handler),
+        (this.axis = this.options.horizontal ? 'horizontal' : 'vertical'),
+        (this.enabled = this.options.enabled),
+        (this.triggerPoint = null),
+        (this.group = i.Group.findOrCreate({ name: this.options.group, axis: this.axis })),
+        (this.context = i.Context.findOrCreateByElement(this.options.context)),
+        i.offsetAliases[this.options.offset] && (this.options.offset = i.offsetAliases[this.options.offset]),
+        this.group.add(this),
+        this.context.add(this),
+        (o[this.key] = this),
+        (e += 1);
+    }
+    (i.prototype.queueTrigger = function (t) {
+      this.group.queueTrigger(this, t);
+    }),
+      (i.prototype.trigger = function (t) {
+        this.enabled && this.callback && this.callback.apply(this, t);
+      }),
+      (i.prototype.destroy = function () {
+        this.context.remove(this), this.group.remove(this), delete o[this.key];
+      }),
+      (i.prototype.disable = function () {
+        return (this.enabled = !1), this;
+      }),
+      (i.prototype.enable = function () {
+        return this.context.refresh(), (this.enabled = !0), this;
+      }),
+      (i.prototype.next = function () {
+        return this.group.next(this);
+      }),
+      (i.prototype.previous = function () {
+        return this.group.previous(this);
+      }),
+      (i.invokeAll = function (t) {
+        var e,
+          i = [];
+        for (e in o) i.push(o[e]);
+        for (var n = 0, r = i.length; n < r; n++) i[n][t]();
+      }),
+      (i.destroyAll = function () {
+        i.invokeAll('destroy');
+      }),
+      (i.disableAll = function () {
+        i.invokeAll('disable');
+      }),
+      (i.enableAll = function () {
+        for (var t in (i.Context.refreshAll(), o)) o[t].enabled = !0;
+        return this;
+      }),
+      (i.refreshAll = function () {
+        i.Context.refreshAll();
+      }),
+      (i.viewportHeight = function () {
+        return window.innerHeight || document.documentElement.clientHeight;
+      }),
+      (i.viewportWidth = function () {
+        return document.documentElement.clientWidth;
+      }),
+      (i.adapters = []),
+      (i.defaults = { context: window, continuous: !0, enabled: !0, group: 'default', horizontal: !1, offset: 0 }),
+      (i.offsetAliases = {
+        'bottom-in-view': function () {
+          return this.context.innerHeight() - this.adapter.outerHeight();
+        },
+        'right-in-view': function () {
+          return this.context.innerWidth() - this.adapter.outerWidth();
+        },
+      }),
+      (window.Waypoint = i);
+  })(),
+    (function () {
+      'use strict';
+      function e(t) {
+        window.setTimeout(t, 1e3 / 60);
+      }
+      var i = 0,
+        n = {},
+        f = window.Waypoint,
+        t = window.onload;
+      function r(t) {
+        (this.element = t),
+          (this.Adapter = f.Adapter),
+          (this.adapter = new this.Adapter(t)),
+          (this.key = 'waypoint-context-' + i),
+          (this.didScroll = !1),
+          (this.didResize = !1),
+          (this.oldScroll = { x: this.adapter.scrollLeft(), y: this.adapter.scrollTop() }),
+          (this.waypoints = { vertical: {}, horizontal: {} }),
+          (t.waypointContextKey = this.key),
+          (n[t.waypointContextKey] = this),
+          (i += 1),
+          f.windowContext || ((f.windowContext = !0), (f.windowContext = new r(window))),
+          this.createThrottledScrollHandler(),
+          this.createThrottledResizeHandler();
+      }
+      (r.prototype.add = function (t) {
+        var e = t.options.horizontal ? 'horizontal' : 'vertical';
+        (this.waypoints[e][t.key] = t), this.refresh();
+      }),
+        (r.prototype.checkEmpty = function () {
+          var t = this.Adapter.isEmptyObject(this.waypoints.horizontal),
+            e = this.Adapter.isEmptyObject(this.waypoints.vertical),
+            i = this.element == this.element.window;
+          t && e && !i && (this.adapter.off('.waypoints'), delete n[this.key]);
+        }),
+        (r.prototype.createThrottledResizeHandler = function () {
+          var t = this;
+          function e() {
+            t.handleResize(), (t.didResize = !1);
+          }
+          this.adapter.on('resize.waypoints', function () {
+            t.didResize || ((t.didResize = !0), f.requestAnimationFrame(e));
+          });
+        }),
+        (r.prototype.createThrottledScrollHandler = function () {
+          var t = this;
+          function e() {
+            t.handleScroll(), (t.didScroll = !1);
+          }
+          this.adapter.on('scroll.waypoints', function () {
+            (t.didScroll && !f.isTouch) || ((t.didScroll = !0), f.requestAnimationFrame(e));
+          });
+        }),
+        (r.prototype.handleResize = function () {
+          f.Context.refreshAll();
+        }),
+        (r.prototype.handleScroll = function () {
+          var t,
+            e,
+            i = {},
+            n = {
+              horizontal: {
+                newScroll: this.adapter.scrollLeft(),
+                oldScroll: this.oldScroll.x,
+                forward: 'right',
+                backward: 'left',
+              },
+              vertical: {
+                newScroll: this.adapter.scrollTop(),
+                oldScroll: this.oldScroll.y,
+                forward: 'down',
+                backward: 'up',
+              },
+            };
+          for (t in n) {
+            var r,
+              o = n[t],
+              s = o.newScroll > o.oldScroll ? o.forward : o.backward;
+            for (r in this.waypoints[t]) {
+              var a,
+                l,
+                h = this.waypoints[t][r];
+              null !== h.triggerPoint &&
+                ((a = o.oldScroll < h.triggerPoint),
+                (l = o.newScroll >= h.triggerPoint),
+                ((a && l) || (!a && !l)) && (h.queueTrigger(s), (i[h.group.id] = h.group)));
+            }
+          }
+          for (e in i) i[e].flushTriggers();
+          this.oldScroll = { x: n.horizontal.newScroll, y: n.vertical.newScroll };
+        }),
+        (r.prototype.innerHeight = function () {
+          return this.element == this.element.window ? f.viewportHeight() : this.adapter.innerHeight();
+        }),
+        (r.prototype.remove = function (t) {
+          delete this.waypoints[t.axis][t.key], this.checkEmpty();
+        }),
+        (r.prototype.innerWidth = function () {
+          return this.element == this.element.window ? f.viewportWidth() : this.adapter.innerWidth();
+        }),
+        (r.prototype.destroy = function () {
+          var t,
+            e = [];
+          for (t in this.waypoints) for (var i in this.waypoints[t]) e.push(this.waypoints[t][i]);
+          for (var n = 0, r = e.length; n < r; n++) e[n].destroy();
+        }),
+        (r.prototype.refresh = function () {
+          var t,
+            e,
+            i = this.element == this.element.window,
+            n = i ? void 0 : this.adapter.offset(),
+            r = {};
+          for (e in (this.handleScroll(),
+          (t = {
+            horizontal: {
+              contextOffset: i ? 0 : n.left,
+              contextScroll: i ? 0 : this.oldScroll.x,
+              contextDimension: this.innerWidth(),
+              oldScroll: this.oldScroll.x,
+              forward: 'right',
+              backward: 'left',
+              offsetProp: 'left',
+            },
+            vertical: {
+              contextOffset: i ? 0 : n.top,
+              contextScroll: i ? 0 : this.oldScroll.y,
+              contextDimension: this.innerHeight(),
+              oldScroll: this.oldScroll.y,
+              forward: 'down',
+              backward: 'up',
+              offsetProp: 'top',
+            },
+          }))) {
+            var o,
+              s = t[e];
+            for (o in this.waypoints[e]) {
+              var a,
+                l = this.waypoints[e][o],
+                h = l.options.offset,
+                u = l.triggerPoint,
+                p = 0,
+                d = null == u;
+              l.element !== l.element.window && (p = l.adapter.offset()[s.offsetProp]),
+                'function' == typeof h
+                  ? (h = h.apply(l))
+                  : 'string' == typeof h &&
+                    ((h = parseFloat(h)),
+                    -1 < l.options.offset.indexOf('%') && (h = Math.ceil((s.contextDimension * h) / 100))),
+                (a = s.contextScroll - s.contextOffset),
+                (l.triggerPoint = Math.floor(p + a - h)),
+                (a = u < s.oldScroll),
+                (h = l.triggerPoint >= s.oldScroll),
+                (u = !a && !h),
+                !d && a && h
+                  ? (l.queueTrigger(s.backward), (r[l.group.id] = l.group))
+                  : ((!d && u) || (d && s.oldScroll >= l.triggerPoint)) &&
+                    (l.queueTrigger(s.forward), (r[l.group.id] = l.group));
+            }
+          }
+          return (
+            f.requestAnimationFrame(function () {
+              for (var t in r) r[t].flushTriggers();
+            }),
+            this
+          );
+        }),
+        (r.findOrCreateByElement = function (t) {
+          return r.findByElement(t) || new r(t);
+        }),
+        (r.refreshAll = function () {
+          for (var t in n) n[t].refresh();
+        }),
+        (r.findByElement = function (t) {
+          return n[t.waypointContextKey];
+        }),
+        (window.onload = function () {
+          t && t(), r.refreshAll();
+        }),
+        (f.requestAnimationFrame = function (t) {
+          (
+            window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            e
+          ).call(window, t);
+        }),
+        (f.Context = r);
+    })(),
+    (function () {
+      'use strict';
+      function s(t, e) {
+        return t.triggerPoint - e.triggerPoint;
+      }
+      function a(t, e) {
+        return e.triggerPoint - t.triggerPoint;
+      }
+      var e = { vertical: {}, horizontal: {} },
+        i = window.Waypoint;
+      function n(t) {
+        (this.name = t.name),
+          (this.axis = t.axis),
+          (this.id = this.name + '-' + this.axis),
+          (this.waypoints = []),
+          this.clearTriggerQueues(),
+          (e[this.axis][this.name] = this);
+      }
+      (n.prototype.add = function (t) {
+        this.waypoints.push(t);
+      }),
+        (n.prototype.clearTriggerQueues = function () {
+          this.triggerQueues = { up: [], down: [], left: [], right: [] };
+        }),
+        (n.prototype.flushTriggers = function () {
+          for (var t in this.triggerQueues) {
+            var e = this.triggerQueues[t],
+              i = 'up' === t || 'left' === t;
+            e.sort(i ? a : s);
+            for (var n = 0, r = e.length; n < r; n += 1) {
+              var o = e[n];
+              (!o.options.continuous && n !== e.length - 1) || o.trigger([t]);
+            }
+          }
+          this.clearTriggerQueues();
+        }),
+        (n.prototype.next = function (t) {
+          this.waypoints.sort(s);
+          t = i.Adapter.inArray(t, this.waypoints);
+          return t === this.waypoints.length - 1 ? null : this.waypoints[t + 1];
+        }),
+        (n.prototype.previous = function (t) {
+          this.waypoints.sort(s);
+          t = i.Adapter.inArray(t, this.waypoints);
+          return t ? this.waypoints[t - 1] : null;
+        }),
+        (n.prototype.queueTrigger = function (t, e) {
+          this.triggerQueues[e].push(t);
+        }),
+        (n.prototype.remove = function (t) {
+          t = i.Adapter.inArray(t, this.waypoints);
+          -1 < t && this.waypoints.splice(t, 1);
+        }),
+        (n.prototype.first = function () {
+          return this.waypoints[0];
+        }),
+        (n.prototype.last = function () {
+          return this.waypoints[this.waypoints.length - 1];
+        }),
+        (n.findOrCreate = function (t) {
+          return e[t.axis][t.name] || new n(t);
+        }),
+        (i.Group = n);
+    })(),
+    (function () {
+      'use strict';
+      var t = window.Waypoint;
+      function i(t) {
+        return t === t.window;
+      }
+      function n(t) {
+        return i(t) ? t : t.defaultView;
+      }
+      function e(t) {
+        (this.element = t), (this.handlers = {});
+      }
+      (e.prototype.innerHeight = function () {
+        return i(this.element) ? this.element.innerHeight : this.element.clientHeight;
+      }),
+        (e.prototype.innerWidth = function () {
+          return i(this.element) ? this.element.innerWidth : this.element.clientWidth;
+        }),
+        (e.prototype.off = function (t, e) {
+          function i(t, e, i) {
+            for (var n = 0, r = e.length - 1; n < r; n++) {
+              var o = e[n];
+              (i && i !== o) || t.removeEventListener(o);
+            }
+          }
+          var t = t.split('.'),
+            n = t[0],
+            r = t[1],
+            o = this.element;
+          if (r && this.handlers[r] && n) i(o, this.handlers[r][n], e), (this.handlers[r][n] = []);
+          else if (n) for (var s in this.handlers) i(o, this.handlers[s][n] || [], e), (this.handlers[s][n] = []);
+          else if (r && this.handlers[r]) {
+            for (var a in this.handlers[r]) i(o, this.handlers[r][a], e);
+            this.handlers[r] = {};
+          }
+        }),
+        (e.prototype.offset = function () {
+          if (!this.element.ownerDocument) return null;
+          var t = this.element.ownerDocument.documentElement,
+            e = n(this.element.ownerDocument),
+            i = { top: 0, left: 0 };
+          return (
+            this.element.getBoundingClientRect && (i = this.element.getBoundingClientRect()),
+            { top: i.top + e.pageYOffset - t.clientTop, left: i.left + e.pageXOffset - t.clientLeft }
+          );
+        }),
+        (e.prototype.on = function (t, e) {
+          var i = t.split('.'),
+            t = i[0],
+            i = i[1] || '__default',
+            i = (this.handlers[i] = this.handlers[i] || {});
+          (i[t] = i[t] || []).push(e), this.element.addEventListener(t, e);
+        }),
+        (e.prototype.outerHeight = function (t) {
+          var e = this.innerHeight();
+          return (
+            t &&
+              !i(this.element) &&
+              ((t = window.getComputedStyle(this.element)),
+              (e += parseInt(t.marginTop, 10)),
+              (e += parseInt(t.marginBottom, 10))),
+            e
+          );
+        }),
+        (e.prototype.outerWidth = function (t) {
+          var e = this.innerWidth();
+          return (
+            t &&
+              !i(this.element) &&
+              ((t = window.getComputedStyle(this.element)),
+              (e += parseInt(t.marginLeft, 10)),
+              (e += parseInt(t.marginRight, 10))),
+            e
+          );
+        }),
+        (e.prototype.scrollLeft = function () {
+          var t = n(this.element);
+          return t ? t.pageXOffset : this.element.scrollLeft;
+        }),
+        (e.prototype.scrollTop = function () {
+          var t = n(this.element);
+          return t ? t.pageYOffset : this.element.scrollTop;
+        }),
+        (e.extend = function () {
+          var t = Array.prototype.slice.call(arguments);
+          for (var e = 1, i = t.length; e < i; e++)
+            !(function (t, e) {
+              if ('object' == typeof t && 'object' == typeof e) for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+            })(t[0], t[e]);
+          return t[0];
+        }),
+        (e.inArray = function (t, e, i) {
+          return null == e ? -1 : e.indexOf(t, i);
+        }),
+        (e.isEmptyObject = function (t) {
+          for (var e in t) return !1;
+          return !0;
+        }),
+        t.adapters.push({ name: 'noframework', Adapter: e }),
+        (t.Adapter = e);
+    })();
+
+  // setup countup
+  function countStart() {
+    const $counters = document.querySelectorAll('.js-count-up'),
+      options = {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+      };
+
+    $counters.forEach((item) => {
+      const value = item.dataset.value;
+      const counter = new CountUp(item, value, options);
+      counter.start();
+    });
+  }
+
+  var el = document.querySelector('#sp-{{ section.id }}');
+
+  if (el) {
+    new Waypoint({
+      element: el,
+      handler: function () {
+        countStart();
+        //this.destroy() //for once
+      },
+      offset: '75%',
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "🚀SP - Count Up Banner",
+  "settings": [
+    
+    {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+    },
+    {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+    },
+    {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+    },
+    {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+    },
+    {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text for your section"
+    },
+    {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+    },
+    {
+        "type": "range",
+        "id": "mobile_text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Mobile Text Size",
+        "default": 15
+    },
+    {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "options": [
+            {
+                "value": "0.75",
+                "label": "0.75"
+            },
+            {
+                "value": "1.0",
+                "label": "1.0"
+            },
+            {
+                "value": "1.1",
+                "label": "1.1"
+            },
+            {
+                "value": "1.2",
+                "label": "1.2"
+            },
+            {
+                "value": "1.3",
+                "label": "1.3"
+            },
+            {
+                "value": "1.4",
+                "label": "1.4"
+            },
+            {
+                "value": "1.5",
+                "label": "1.5"
+            },
+            {
+                "value": "1.6",
+                "label": "1.6"
+            },
+            {
+                "value": "1.7",
+                "label": "1.7"
+            },
+            {
+                "value": "1.8",
+                "label": "1.8"
+            },
+            {
+                "value": "1.9",
+                "label": "1.9"
+            },
+            {
+                "value": "2.0",
+                "label": "2.0"
+            },
+            {
+                "value": "inherit",
+                "label": "Inherit"
+            }
+        ],
+        "default": "inherit"
+    },
+    {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "mobile_headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Mobile Headline Size",
+        "default": 40
+    },
+    {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "options": [
+            {
+                "value": "0.75",
+                "label": "0.75"
+            },
+            {
+                "value": "1.0",
+                "label": "1.0"
+            },
+            {
+                "value": "1.1",
+                "label": "1.1"
+            },
+            {
+                "value": "1.2",
+                "label": "1.2"
+            },
+            {
+                "value": "1.3",
+                "label": "1.3"
+            },
+            {
+                "value": "1.4",
+                "label": "1.4"
+            },
+            {
+                "value": "1.5",
+                "label": "1.5"
+            },
+            {
+                "value": "1.6",
+                "label": "1.6"
+            },
+            {
+                "value": "1.7",
+                "label": "1.7"
+            },
+            {
+                "value": "1.8",
+                "label": "1.8"
+            },
+            {
+                "value": "1.9",
+                "label": "1.9"
+            },
+            {
+                "value": "2.0",
+                "label": "2.0"
+            },
+            {
+                "value": "inherit",
+                "label": "Inherit"
+            }
+        ],
+        "default": "inherit"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111",
+        "label": "Text Color"
+    },
+    {
+        "type": "color",
+        "id": "link_color",
+        "default": "#005bd3",
+        "label": "Link Color"
+    },
+    {
+        "type": "header",
+        "content": "Section Design",
+        "info": "Set the design for the section"
+    },
+    {
+        "type": "select",
+        "id": "show_on_device",
+        "label": "Show Section",
+        "options": [
+            {
+                "value": "all",
+                "label": "All Devices"
+            },
+            {
+                "value": "mobile",
+                "label": "Mobile Only"
+            },
+            {
+                "value": "desktop",
+                "label": "Desktop Only"
+            }
+        ],
+        "default": "all"
+    },
+    {
+        "type": "color_background",
+        "id": "section_background_color",
+        "default": "linear-gradient(319deg, rgba(226, 236, 253, 1) 13%, rgba(234, 253, 246, 1) 85%)",
+        "label": "Background Color"
+    },
+    {
+        "type": "number",
+        "id": "section_padding_top_bottom",
+        "default": 25,
+        "label": "Padding Top/Bottom"
+    },
+    {
+        "type": "number",
+        "id": "mobile_section_padding_top_bottom",
+        "default": 25,
+        "label": "Mobile Padding Top/Bottom"
+    },
+    {
+        "type": "number",
+        "id": "section_padding_left_right",
+        "default": 25,
+        "label": "Padding Left/Right"
+    },
+    {
+        "type": "number",
+        "id": "mobile_section_padding_left_right",
+        "default": 25,
+        "label": "Mobile Padding Left/Right"
+    },
+    {
+        "type": "header",
+        "content": "Container Design",
+        "info": "Set the design for your inner container"
+    },
+    {
+        "type": "color_background",
+        "id": "container_background_color",
+        "label": "Background Color"
+    },
+    {
+        "type": "number",
+        "id": "container_max_width",
+        "default": 1000,
+        "label": "Max Width"
+    },
+    {
+        "type": "number",
+        "id": "container_padding_top_bottom",
+        "default": 10,
+        "label": "Padding Top/Bottom"
+    },
+    {
+        "type": "number",
+        "id": "mobile_container_padding_top_bottom",
+        "default": 10,
+        "label": "Mobile Padding Top/Bottom"
+    },
+    {
+        "type": "number",
+        "id": "container_padding_left_right",
+        "default": 10,
+        "label": "Padding Left/Right"
+    },
+    {
+        "type": "number",
+        "id": "mobile_container_padding_left_right",
+        "default": 10,
+        "label": "Mobile Padding Left/Right"
+    },
+    {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 15,
+        "label": "Spacing Between Elements"
+    },
+    {
+        "type": "range",
+        "id": "container_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Round Borders on Container",
+        "default": 0
+    },
+    {
+        "type": "checkbox",
+        "id": "container_shadow",
+        "default": false,
+        "label": "Subtle Shadow on Container"
+    },
+    {
+        "type": "range",
+        "id": "container_border_size",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Border Size on Container",
+        "default": 0
+    },
+    {
+        "type": "color",
+        "id": "container_border_color",
+        "default": "#888",
+        "label": "Border Color on Container"
+    }
+,
+    {
+      "type": "header",
+      "content": "Count Display",
+      "info": "Set the display of the count section"
+    },
+    {
+      "type": "range",
+      "id": "count_size",
+      "min": 10,
+      "max": 75,
+      "step": 1,
+      "unit": "px",
+      "label": "Count Size",
+      "default": 75
+    },
+    {
+      "type": "number",
+      "id": "count_spacing",
+      "label": "Count Spacing",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "count_color",
+      "default": "#111",
+      "label": "Count Color"
+    },
+    {
+      "type": "number",
+      "id": "box_1_number",
+      "label": "Box 1 Number",
+      "default": 5000
+    },
+    {
+      "type": "text",
+      "id": "box_1_text",
+      "default": "Milestone Reached",
+      "label": "Box 1 Text"
+    },
+    {
+      "type": "number",
+      "id": "box_2_number",
+      "label": "Box 2 Number",
+      "default": 500
+    },
+    {
+      "type": "inline_richtext",
+      "id": "box_2_text",
+      "default": "Milestone Reached",
+      "label": "Box 2 Text"
+    },
+    {
+      "type": "number",
+      "id": "box_3_number",
+      "label": "Box 3 Number",
+      "default": 100
+    },
+    {
+      "type": "inline_richtext",
+      "id": "box_3_text",
+      "default": "Milestone Reached",
+      "label": "Box 3 Text"
+    },
+    {
+      "type": "text_alignment",
+      "id": "count_alignment",
+      "default": "center",
+      "label": "Count Alignment"
+    },
+    {
+      "type": "header",
+      "content": "Headline",
+      "info": "Set text for the headline"
+    },
+    {
+        "type": "text_alignment",
+        "id": "text_alignment",
+        "label": "Text Alignment",
+        "default": "center"
+    },
+    {
+        "type": "text_alignment",
+        "id": "mobile_text_alignment",
+        "label": "Mobile Text Alignment",
+        "default": "center"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "<b>Sample Headline</b>"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "Use this block to add a description. Leave blank to remove."
+    },
+    {
+      "type": "number",
+      "id": "headline_spacing",
+      "default": 15,
+      "label": "Spacing between Headline and Features"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "🚀SP - Count Up Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

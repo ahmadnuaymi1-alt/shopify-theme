@@ -1,0 +1,516 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% if section.settings.override_fonts %}
+    {{ section.settings.text_font | font_face }}
+    {{ section.settings.headline_font | font_face }}
+  {% endif %}
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap p,
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap li {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% endif  %}
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+    color: {{ section.settings.text_color }};
+    margin: 0;
+    padding: 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap li: {
+    margin: 0 0 5px 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap li:last-child {
+    margin: 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap ul {
+    margin: 0 0 {{ section.settings.content_spacing }}px 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap p {
+    margin: 0 0 {{ section.settings.content_spacing }}px 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h1,
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h2,
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h3,
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h4,
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h5 {
+    font-size: {{ section.settings.headline_size }}px;
+    {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+      font-weight: {{ section.settings.headline_font.weight }};
+    {% endif %}
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    color: {{ section.settings.headline_color }};
+    margin: 0 0 {{ section.settings.content_spacing }}px 0;
+    padding: 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap p {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus: 5 }}px;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus: 10 }}px;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus: 15 }}px;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus: 20 }}px;
+  }
+
+  #sp-triptych-{{ section.id }}.sp-triptych-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-triptych-{{ section.id }}  .sp-triptych .sp-triptych-grid {
+    display: grid;
+    align-items: center;
+    gap: {{ section.settings.grid_gap}}px;
+    position: relative;
+    z-index: 2;
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych a.sp-triptych-cta {
+    display: inline-block;
+    padding: {{ section.settings.button_padding_tb }}px {{ section.settings.button_padding_lr }}px;
+    background-image: {{section.settings.button_background_color}};
+    border-radius: {{ section.settings.button_border_radius }}px;
+    color: {{section.settings.button_text_color}};
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow: none;
+    white-space: nowrap;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-triptych-{{ section.id }} .sp-triptych .sp-triptych-grid {
+      display: grid;
+      grid-auto-columns: 1fr 1.25fr;
+      grid-auto-flow: column;
+      
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-triptych-{{ section.id }} .sp-triptych .sp-triptych-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      
+    }
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-grid>div {
+    position: relative;
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-images>div {
+    position: relaive;
+    width: 100%;
+    height: 425px;
+    z-index: 0;
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-images img {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    object-fit:cover;
+    z-index: 1;
+    transition: .25s all ease;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-images img:hover {
+    z-index: 4;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.30);
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-images .sp-triptych-image1 {
+    top: 0;
+    left: calc(50% - 125px);
+    z-index: 3;
+    transform: rotate(5deg);
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-images .sp-triptych-image2 {
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    transform: rotate(-5deg);
+  }
+
+  #sp-triptych-{{ section.id }} .sp-triptych-images .sp-triptych-image3 {
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    transform: rotate(5deg);
+  }
+</style>
+
+
+<div id="sp-triptych-{{ section.id }}" class="sp-triptych-wrap" sp-wrap>
+
+<div class="sp-triptych" sp-container>
+
+  <div class="sp-triptych-grid">
+
+    <div class="sp-triptych-content">
+      {% if section.settings.headline %}<h2>{{ section.settings.headline }}</h2>{% endif %}
+      {% if section.settings.content %}{{ section.settings.content }}{% endif %}
+      {% if section.settings.link_text %}<p><a class="sp-triptych-cta" href="{{ section.settings.link }}">{{ section.settings.link_text }}</a></p>{% endif %}
+    </div>
+
+    <div class="sp-triptych-images">
+      <div>&nbsp;</div>
+
+      {% if section.settings.image_1 %}
+      <img class="sp-triptych-image1" 
+        loading="lazy"
+        src="{{ section.settings.image_1 | image_url: width: 500 }}"
+        srcset="{{ section.settings.image_1 | image_url: width: 400 }} 600w, {{ section.settings.image_1 | image_url: width: 500 }} 1100w">
+      {% else %}
+        <img class="sp-triptych-image1" 
+          src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect x='2' y='2' width='100%' height='100%' fill='%23C8C8C8' stroke='%23D8D8D8' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E">
+      {% endif %}
+      
+      {% if section.settings.image_2 %}
+        <img class="sp-triptych-image2" 
+        loading="lazy"
+        src="{{ section.settings.image_2 | image_url: width: 500 }}"
+        srcset="{{ section.settings.image_2 | image_url: width: 400 }} 600w, {{ section.settings.image_2 | image_url: width: 500 }} 1100w">
+      {% else %}
+        <img class="sp-triptych-image2" 
+          src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect x='2' y='2' width='100%' height='100%' fill='%23C8C8C8' stroke='%23D8D8D8' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E">
+      {% endif %}
+      
+      {% if section.settings.image_3 %}
+        <img class="sp-triptych-image3" 
+        loading="lazy"
+        src="{{ section.settings.image_3 | image_url: width: 500 }}"
+        srcset="{{ section.settings.image_3 | image_url: width: 400 }} 600w, {{ section.settings.image_3 | image_url: width: 500 }} 1100w">
+      {% else %}
+        <img class="sp-triptych-image3" 
+          src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect x='2' y='2' width='100%' height='100%' fill='%23C8C8C8' stroke='%23D8D8D8' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E">
+      {% endif %}
+    </div>
+
+  </div>
+  <!-- /.sp-triptych-grid -->
+  
+</div>
+<!-- /.sp-triptych -->
+
+</div>
+<!-- /.sp-triptych-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Triptych",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+      },
+      {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text for your section"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 40
+      },
+      {
+        "type": "select",
+        "id": "text_headline_height",
+        "label": "Headline Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section"
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap Between Columns"
+      },
+      {
+        "type": "number",
+        "id": "content_spacing",
+        "default": 15,
+        "label": "Gap between Text Elements"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 15,
+        "label": "Spacing between Elements"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set content for the section"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "<b>Sample Headline</b>"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>This is sample content for the description. Use it to describe your product.</p>"
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link Text",
+        "default": "Shop More"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Images",
+        "info": "Select the images."
+      },
+      {
+        "type": "image_picker",
+        "id": "image_1",
+        "label": "Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_2",
+        "label": "Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_3",
+        "label": "Image 3"
+      },
+      {
+        "type": "header",
+        "content": "Button Style",
+        "info": "Set the look and feel of the button"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "default": "#fff",
+        "label": "Button Text Color"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_tb",
+        "default": 10,
+        "label": "Padding Top/Bottom"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_lr",
+        "default": 25,
+        "label": "Padding Left/Right"
+      },
+      {
+        "type": "number",
+        "id": "button_border_radius",
+        "default": 5,
+        "label": "Border Radius"
+      }
+    ],
+	"blocks": [
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Triptych"
+      }
+    ]
+  }
+{% endschema %}

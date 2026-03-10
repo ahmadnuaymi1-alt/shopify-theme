@@ -1,0 +1,422 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-{{ section.id }}.sp-section p,
+  #sp-{{ section.id }}.sp-section a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-{{ section.id }}.sp-section h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-{{ section.id }}.sp-section {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+
+  #sp-{{ section.id }} .sp-container {
+    z-index: 0;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-{{ section.id }} .sp-container>.sp-container {
+    display: grid;
+    align-items: center;
+    justify-items: {{ section.settings.box_alignment }};
+    position: relative;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 100px 10px 100px 10px;
+    z-index: 1;
+  }
+
+  #sp-{{ section.id }} .sp-container>.sp-cover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-image: {{section.settings.cover_background}};
+    opacity: {{section.settings.cover_opacity}}%;
+  }
+
+  #sp-{{ section.id }} .sp-video {
+      display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+      #sp-{{ section.id }} .sp-video video {
+        display: block;
+        width: 100%;
+        height: 100%;
+
+  object-fit: cover;
+
+      }
+
+      #sp-{{ section.id }} .sp-content {
+    z-index: 2;
+    padding: 0 25px 0 25px;
+    max-width: 60%;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-{{ section.id }} .sp-content {
+      padding: 0 10px 0 10px;
+      max-width: calc(100% - 20px);
+    }
+  }
+
+  #sp-{{ section.id }} .sp-container h2 {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+    color: {{section.settings.text_color}};
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    text-align: {{section.settings.text_alignment}};
+  }
+
+  #sp-{{ section.id }} .sp-container p {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+    color: {{section.settings.text_color}};
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    text-align: {{section.settings.text_alignment}};
+  }
+
+  #sp-{{ section.id }} .sp-container p:last-child {
+    margin-bottom: 0;
+  }
+
+  #sp-{{ section.id }} .sp-cta {
+    display: inline-block;
+    padding: 15px 40px;
+    background-image: {{section.settings.button_background_color}};
+    border-radius: 27.5px;
+    color: {{section.settings.button_text_color}};
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: none;
+    transition: .25s all;
+  }
+
+  {% if section.settings.cta_animate %}
+  #sp-{{ section.id }} .sp-cta:hover {
+    transform: translateY(-2px);
+  }
+  {% endif %}
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-{{ section.id }}" class="sp-section sp-video-hero-section" sp-section>
+  <div class="sp-container" sp-container>
+    <div class="sp-cover"></div>
+    <div class="sp-video">
+      {{
+        section.settings.hero_video
+        | video_tag:
+          image_size: '1100x',
+          playsinline: section.settings.video_inline,
+          autoplay: section.settings.video_autoplay,
+          loop: section.settings.video_loop,
+          controls: section.settings.video_controls,
+          muted: section.settings.video_muted
+      }}
+    </div>
+    <div class="sp-container" sp-column>
+      <div class="sp-content">
+        <h2>{{ section.settings.headline }}</h2>
+        <p>{{ section.settings.content }}</p>
+        {% if section.settings.cta != '' %}
+        <p>
+          <a class="sp-cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta }}</a>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "🚀SP - Video Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text",
+      "info": "Set the text size for your widget"
+    },
+    {
+      "type": "font_picker",
+      "id": "text_font",
+      "label": "Text Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 15
+    },
+    {
+      "type": "font_picker",
+      "id": "headline_font",
+      "label": "Headline Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Headline Size",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Set colors for the section."
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "cover_background",
+      "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+      "label": "Cover Background"
+    },
+    {
+      "type": "range",
+      "id": "cover_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Cover Opacity",
+      "default": 25
+    },
+    {
+      "type": "color_background",
+      "id": "button_background_color",
+      "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+      "label": "Button Background Color"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "default": "#ffffff",
+      "label": "Button Text Color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#ffffff",
+      "label": "Text Color"
+    },
+    {
+      "type": "header",
+      "content": "Alignment",
+      "info": "Set alignment of the hero text."
+    },
+    {
+      "type": "select",
+      "id": "box_alignment",
+      "default": "left",
+      "label": "Box Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "default": "left",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Dimensions",
+      "info": "Set the section dimensions in pixels."
+    },
+    {
+      "type": "number",
+      "id": "max_width",
+      "default": 3000,
+      "label": "Max Width of Section"
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "default": 25,
+      "label": "Padding Top"
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "default": 25,
+      "label": "Padding Bottom"
+    },
+    {
+      "type": "number",
+      "id": "padding_left",
+      "default": 10,
+      "label": "Padding Left"
+    },
+    {
+      "type": "number",
+      "id": "padding_right",
+      "default": 10,
+      "label": "Padding Right"
+    },
+    {
+      "type": "number",
+      "id": "element_spacing",
+      "default": 15,
+      "label": "Space between Elements"
+    },
+    {
+      "type": "header",
+      "content": "Content",
+      "info": "Set the section content."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "default": "<strong>This is our hero tagline</strong>",
+      "label": "Headline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "content",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mauris dui, tempor ultrices laoreet ac, aliquet vel magna. Curabitur malesuada lorem vitae sapien bibendum, sed vulputate nibh venenatis. Nam lacinia malesuada sapien, ac luctus ex tincidunt ut. Nullam tempus at tortor non congue. Ut at tristique odio. Nullam lobortis sed velit semper ultrices.",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "default": "Shop Now",
+      "label": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "default": "#",
+      "label": "Call to Action Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_animate",
+      "default": true,
+      "label": "Animate Call to Action"
+    },
+    {
+      "type": "header",
+      "content": "Video",
+      "info": "Setup the video"
+    },
+    {
+      "type": "video",
+      "id": "hero_video",
+      "label": "Hero Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_inline",
+      "label": "Play Inline",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_controls",
+      "label": "Show Video Controls",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "video_muted",
+      "label": "Mute Video",
+      "default": true
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "🚀SP - Video Hero"
+    }
+  ]
+}
+{% endschema %}

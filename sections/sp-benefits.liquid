@@ -1,0 +1,250 @@
+<div class="custom-comp">
+  <div class="page-Container">
+    <div class="pg-row">
+  <h2>{{ section.settings.title }}</h2>
+  <div class="des">
+      {{ section.settings.description }}
+  </div>  
+  <div class="benefits">
+    <div class="benefit-cont">
+    <h3>{{ section.settings.bene-title }}</h3>
+      <ul>
+      {% for block in section.blocks %}
+          <li class="bene" >
+                {{ block.settings.bene-list }}
+          </li> 
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="benefit-image" style="background:url({{ section.settings.bene-image | img_url:'master' }});     
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;">
+       <!--<img src="{{ section.settings.bene-image | img_url:'master' }}" alt="">-->
+    </div>
+  </div>
+    </div>
+  </div>
+</div> 
+<style>
+.custom-comp h2{font-size:{{section.settings.font_size_title | append:'px' }}; color:{{section.settings.color_title}};}
+.custom-comp .benefits .benefit-cont h3{font-size:{{ section.settings.font_size_title_benefits | append:'px'  }};color:{{section.settings.color_title_bene}}; background:{{section.settings.background_title_bene}}; } 
+.custom-comp .des p, .custom-comp .des {  font-size:{{ section.settings.font_size_description | append:'px'  }}; color:{{section.settings.color_description}}; }
+.custom-comp .benefits .benefit-cont ul{}
+.custom-comp .benefits .benefit-cont ul li{color:{{ section.settings.color_list_bene}};font-size:{{ section.settings.font_size_benefit_list | append:'px' }}; position:relative; display:block; }
+.custom-comp .benefits .benefit-cont ul li:nth-child(odd){background:{{ section.settings.background_list_bene_odd}};}
+.custom-comp .benefits .benefit-cont ul li:nth-child(even){background:{{ section.settings.background_list_bene_even}};}
+.custom-comp .benefits .benefit-cont ul li:before{background:{{ section.settings.color_dot_list_bene}};content:'';height:5px; width:5px; border-radius:5px;  position:absolute;}
+ .custom-comp {
+    padding: 20px 0 50px;
+}
+  .custom-comp .benefits {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.custom-comp .benefits .benefit-cont { 
+    width: 65%;
+}
+
+.custom-comp .benefits .benefit-image {
+    
+  width: calc(35% - 25px);
+    margin-left: 25px;
+}
+
+.custom-comp .benefits .benefit-cont ul{margin:0px; padding:0px;}
+.custom-comp .benefits .benefit-cont ul li {
+    padding: 0 30px;
+    line-height: 40px;
+    margin-bottom: 1px;
+}
+
+.custom-comp .benefits .benefit-cont ul li:before {
+    left: 15px;
+    top: 16px;
+}
+
+.custom-comp .benefits .benefit-cont h3 {
+    padding: 5px 15px;
+    margin-bottom: 5px;
+  text-transform:none;
+  margin: 0;
+}
+
+.custom-comp h2 {
+    margin-bottom: 10px;
+  
+}
+.custom-comp .des p {
+    margin-bottom: 10px;
+  text-align:justify;
+}
+
+.custom-comp .des {
+    padding-bottom: 15px;
+}
+.custom-comp .page-Container{padding: 0px; max-width: 1300px; margin: 0 auto;}
+.custom-comp .pg-row {
+    display: inline-block;
+    margin: 0 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 767px){
+  .custom-comp .des p, .custom-comp .des{text-align:justify;}
+  .custom-comp .page-Container{padding:0 15px;}
+.custom-comp .pg-row{margin:0px; }
+.custom-comp .benefits .benefit-cont {width: 100%;}
+body .custom-comp h2{font-size:35px; line-height: 40px;}
+.custom-comp .benefits .benefit-image {width: 100%;min-height: 800px;margin-left: 0;margin-top: 10px;}
+}
+</style>
+{% schema %}
+  {
+    "name": "🚀SP - Benefits",
+    "settings": [
+      { 
+        "type": "text",
+        "id": "title",
+        "label":"Section Title"
+      },
+      {
+        "type": "range",
+        "id": "font_size_title",
+        "min":  16,
+        "max":  50,
+        "step":  1,
+        "unit": "px" ,
+        "label": "Font size",
+        "default":  18
+      },
+      {
+      "type": "color",
+      "id": "color_title",
+      "label": "Title color",
+      "default": "#1c1d1d"
+      },
+      { 
+        "type": "textarea",
+        "id": "description",
+        "label":"Section Description"
+      },
+      {
+      "type": "color",
+      "id": "color_description",
+      "label": "Description color",
+      "default": "#1c1d1d"
+      },
+      {
+        "type": "range",
+        "id": "font_size_description",
+        "min":  12,
+        "max":  22,
+        "step":  1,
+        "unit": "px" ,
+        "label": "Font size",
+        "default":  15
+      },
+      
+      {
+      "type": "header",
+      "content": "Benefits"
+      },
+      { 
+        "type": "text",
+        "id": "bene-title",
+        "label":"Benefits Title"
+      },
+      {
+        "type": "range",
+        "id": "font_size_title_benefits",
+        "min":  16,
+        "max":  38,
+        "step":  1,
+        "unit": "px" ,
+        "label": "Font size",
+        "default":  16
+      },
+      {
+      "type": "color",
+      "id": "background_title_bene",
+      "label": "Benefits Title Background",
+      "default": "#ff0000"
+      },
+      {
+      "type": "color",
+      "id": "color_title_bene",
+      "label": "Benefits Title color",
+      "default": "#ffffff"
+      },
+      {
+          "type": "image_picker",
+          "id": "bene-image",
+          "label": "Benefits Image"
+        },
+      {
+      "type": "color",
+      "id": "color_list_bene",
+      "label": "Benefits list color",
+      "default": "#6c6b6e"
+      },
+      {
+        "type": "range",
+        "id": "font_size_benefit_list",
+        "min":  14,
+        "max":  22,
+        "step":  1,
+        "unit": "px" ,
+        "label": "Font size",
+        "default":  15
+      },
+      {
+      "type": "color",
+      "id": "background_list_bene_odd",
+      "label": "Benefits List Background Odd",
+      "default": "#f5f5f6"
+      },
+      {
+      "type": "color",
+      "id": "background_list_bene_even",
+      "label": "Benefits List Background Even",
+      "default": "#e2e1e2"
+      },
+      {
+      "type": "color",
+      "id": "color_dot_list_bene",
+      "label": "Benefits List Dot Color",
+       "default": "#e77817"
+      }
+    ], 
+    "blocks": [
+    {
+      "type": "benefit",
+      "name": "benefit",
+      "settings": [
+        {
+          "id": "bene-list",
+          "type": "text",
+          "label": "Benefits list"
+        }
+      ]
+    }
+    ],
+  
+    "presets": [
+    {
+      "name": "🚀SP - Benefits",
+      "blocks": [
+      {
+        "type": "benefit"
+      },
+      {
+        "type": "benefit"
+      }
+    ]
+    }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,649 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap p, 
+  #sp-sv-{{ section.id }}.sp-sv-wrap li,
+  #sp-sv-{{ section.id }}.sp-sv-wrap a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: {{ section.settings.text_line_height }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap p {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+    text-align: {{ section.settings.alignment }};
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap li {
+    text-align: {{ section.settings.alignment }};
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap p:last-child {
+    padding: 0;
+    margin: 0;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap h1,
+  #sp-sv-{{ section.id }}.sp-sv-wrap h2,
+  #sp-sv-{{ section.id }}.sp-sv-wrap h3,
+  #sp-sv-{{ section.id }}.sp-sv-wrap h4,
+  #sp-sv-{{ section.id }}.sp-sv-wrap h5 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: {{ section.settings.headline_line_height }};
+    color: {{ section.settings.headline_color }};
+    text-align: {{ section.settings.alignment }};
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap p {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus: 5 }}px;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus: 10 }}px;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus: 15 }}px;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus: 20 }}px;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-sv-{{ section.id }} .sp-sv-grid {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  #sp-sv-{{ section.id }}.sp-sv-wrap .sp-sv-rt {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+  }
+
+  #sp-sv-{{ section.id }} .sp-sv-grid-left {
+    display: grid;
+    {% if section.settings.video_aspect_ratio == "21 / 9" %}
+    grid-template-columns: 3fr 1fr;
+    {% elsif section.settings.video_aspect_ratio == "16 / 9"%}
+    grid-template-columns: 2fr 1fr;
+    {% else %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    align-items: center;
+  }
+
+  #sp-sv-{{ section.id }} .sp-sv-grid-right {
+    display: grid;
+    {% if section.settings.video_aspect_ratio == "21 / 9" %}
+    grid-template-columns: 1fr 3fr;
+    {% elsif section.settings.video_aspect_ratio == "16 / 9"%}
+    grid-template-columns: 1fr 2fr;
+    {% else %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    align-items: center;
+  }
+
+  #sp-sv-{{ section.id }} .sp-sv-grid-left .sp-sv-column-video {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  #sp-sv-{{ section.id }} .sp-sv-grid-left .sp-sv-column-text {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #sp-sv-{{ section.id }} .sp-sv-grid-right .sp-sv-column-video {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  #sp-sv-{{ section.id }} .sp-sv-grid-right .sp-sv-column-text {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-sv-{{ section.id }} .sp-sv-grid-left,
+    #sp-sv-{{ section.id }} .sp-sv-grid-right {
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-sv-{{ section.id }} .sp-sv-column-video {
+      margin: 0 0 {{ section.settings.grid_gap }}px 0;
+    }
+  }
+
+  #sp-sv-{{ section.id }} .sp-sv-grid video {
+    aspect-ratio: {{ section.settings.video_aspect_ratio }};
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    border-radius: {{ section.settings.media_radius }}px;
+    {% if section.settings.media_shadow %}box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);{% endif %}
+  }
+
+
+  #sp-sv-{{ section.id }} a.sp-sv-cta {
+    display: inline-block;
+    padding: {{ section.settings.button_padding_tb }}px {{ section.settings.button_padding_lr }}px;
+    background-image: {{ section.settings.button_background_color }};
+    border-radius: {{ section.settings.button_border_radius }}px;
+    color: {{ section.settings.button_text_color }};
+    font-size: {{ section.settings.button_text_size }}px;
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow: none;
+    transition: .25s all;
+    font-size: 13px;
+  }
+</style>
+
+
+<div id="sp-sv-{{ section.id }}" class="sp-sv-wrap" sp-wrap>
+  <div class="sp-sv-grid sp-sv-grid-{{ section.settings.video_location }}" sp-container>
+
+    <div class="sp-sv-column sp-sv-column-video" sp-column>
+      <div class="sp-video-container">
+      {{
+        section.settings.video
+        | video_tag:
+          image_size: '1100x',
+          playsinline: section.settings.video_inline,
+          autoplay: section.settings.video_autoplay,
+          loop: section.settings.video_loop,
+          controls: section.settings.video_controls,
+          muted: section.settings.video_muted
+      }}
+      </div>
+    </div>
+    <div class="sp-sv-column sp-sv-column-text" sp-column>
+      {% if section.settings.headline %}<h2 class="heading">{{ section.settings.headline }}</h2>{% endif %}
+      {% if section.settings.content %}<div class="sp-sv-rt">{{ section.settings.content }}</div>{% endif %}
+      {% if section.settings.link_text %}<p><a class="sp-sv-cta" href="{{ section.settings.link }}">{{ section.settings.link_text }}</a></p>{% endif %}
+    </div>
+    
+  </div>
+</div>
+
+{% if section.settings.big_play_pause_button %}
+  <!-- play/pause js -->
+  <style>
+    #sp-sv-{{ section.id }} .sp-video-container {
+      position: relative;
+      cursor: pointer;
+    }
+  
+    #sp-sv-{{ section.id }} .sp-video-container svg.sections-ai-play-button,
+    #sp-sv-{{ section.id }} .sp-video-container svg.sections-ai-pause-button {
+      position: absolute;
+      top: calc(50% - 45px);
+      left: calc(50% - 45px);
+      transition: all .5s;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.25));
+    }
+  
+    #sp-sv-{{ section.id }} .sp-video-container svg.sections-ai-play-button *,
+    #sp-sv-{{ section.id }} .sp-video-container svg.sections-ai-pause-button * {
+      pointer-events: none;
+    }
+  
+    #sp-sv-{{ section.id }} .sp-video-container[data-state="paused"] svg.sections-ai-play-button {
+      visibility: visible;
+      opacity: 0.8;
+      opacity: .9;
+    }  
+  
+    #sp-sv-{{ section.id }} .sp-video-container[data-state="playing"]:hover svg.sections-ai-pause-button {
+      visibility: visible;
+      opacity: 0.8;
+    }
+  </style>
+  <script>
+  
+    var ai_play_button = `
+    <svg class="sections-ai-play-button" width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="media-grid" transform="translate(-325, -205)" fill="#FFFFFF" fill-rule="nonzero">
+                <g transform="translate(40, 145)">
+                    <g transform="translate(230, 0)">
+                        <path d="M99.5,60 C105.655833,60 111.440833,61.168125 116.855,63.504375 C122.269167,65.840625 126.97875,69.01125 130.98375,73.01625 C134.98875,77.02125 138.159375,81.7308333 140.495625,87.145 C142.831875,92.5591667 144,98.3441667 144,104.5 C144,110.655833 142.831875,116.440833 140.495625,121.855 C138.159375,127.269167 134.98875,131.97875 130.98375,135.98375 C126.97875,139.98875 122.269167,143.159375 116.855,145.495625 C111.440833,147.831875 105.655833,149 99.5,149 C93.3441667,149 87.5591667,147.831875 82.145,145.495625 C76.7308333,143.159375 72.02125,139.98875 68.01625,135.98375 C64.01125,131.97875 60.840625,127.269167 58.504375,121.855 C56.168125,116.440833 55,110.655833 55,104.5 C55,98.3441667 56.168125,92.5591667 58.504375,87.145 C60.840625,81.7308333 64.01125,77.02125 68.01625,73.01625 C72.02125,69.01125 76.7308333,65.840625 82.145,63.504375 C87.5591667,61.168125 93.3441667,60 99.5,60 Z M90,85 L90,125 L121,105 L90,85 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>`;
+  
+    var ai_pause_button = `
+  <svg class="sections-ai-pause-button" width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="media-grid" transform="translate(-402, -205)" fill="#FFFFFF">
+              <g id="Group-21" transform="translate(40, 145)">
+                  <g id="Group-20" transform="translate(230, 0)">
+                      <path d="M176.5,60 C182.655833,60 188.440833,61.168125 193.855,63.504375 C199.269167,65.840625 203.97875,69.01125 207.98375,73.01625 C211.98875,77.02125 215.159375,81.7308333 217.495625,87.145 C219.831875,92.5591667 221,98.3441667 221,104.5 C221,110.655833 219.831875,116.440833 217.495625,121.855 C215.159375,127.269167 211.98875,131.97875 207.98375,135.98375 C203.97875,139.98875 199.269167,143.159375 193.855,145.495625 C188.440833,147.831875 182.655833,149 176.5,149 C170.344167,149 164.559167,147.831875 159.145,145.495625 C153.730833,143.159375 149.02125,139.98875 145.01625,135.98375 C141.01125,131.97875 137.840625,127.269167 135.504375,121.855 C133.168125,116.440833 132,110.655833 132,104.5 C132,98.3441667 133.168125,92.5591667 135.504375,87.145 C137.840625,81.7308333 141.01125,77.02125 145.01625,73.01625 C149.02125,69.01125 153.730833,65.840625 159.145,63.504375 C164.559167,61.168125 170.344167,60 176.5,60 Z M167.073333,88 C164.823693,88 163,89.8236935 163,92.0733333 L163,119.926667 C163,122.176307 164.823693,124 167.073333,124 C169.322973,124 171.146667,122.176307 171.146667,119.926667 L171.146667,92.0733333 C171.146667,89.8236935 169.322973,88 167.073333,88 Z M185.873333,88 C183.623693,88 181.8,89.8236935 181.8,92.0733333 L181.8,119.926667 C181.8,122.176307 183.623693,124 185.873333,124 C188.122973,124 189.946667,122.176307 189.946667,119.926667 L189.946667,92.0733333 C189.946667,89.8236935 188.122973,88 185.873333,88 Z" id="Combined-Shape"></path>
+                  </g>
+              </g>
+          </g>
+      </g>
+  </svg>`;
+  
+    var sp_video_containers = document.querySelectorAll(`#sp-sv-{{ section.id }} .sp-video-container`);
+
+    for(var x=0; x<sp_video_containers.length; x++) {
+      sp_video_containers[x].innerHTML += ai_play_button;
+      sp_video_containers[x].innerHTML += ai_pause_button;
+    }
+  
+    var sp_videos = document.querySelectorAll(`#sp-sv-{{ section.id }} .sp-video-container video`);
+  
+    for(var x=0; x<sp_videos.length; x++) {
+  
+      sp_videos[x].parentNode.setAttribute('data-state', 'paused'); 
+  
+      if(sp_videos[x].hasAttribute('autoplay')) {
+          sp_videos[x].parentNode.setAttribute('data-state', 'playing');
+      }
+      else {
+          sp_videos[x].parentNode.setAttribute('data-state', 'paused');
+        
+      }
+      
+      sp_videos[x].addEventListener('click', (e) => {
+  
+        if (e.target.paused) {
+          e.target.play();
+          e.target.parentNode.setAttribute('data-state', 'playing');
+        }
+        else { 
+          e.target.pause();
+          e.target.parentNode.setAttribute('data-state', 'paused');    
+        }  
+      });
+      
+    }
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "🚀SP - Video Rich Text",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 40
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "header",
+        "content": "Background",
+        "info": "Set the background for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Spacing between columns"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 15,
+        "label": "Spacing between Elements"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set image and text for section"
+      },
+      {
+        "type": "select",
+        "id": "video_location",
+        "label": "Video Location",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "video_aspect_ratio",
+        "label": "Video Aspect Ratio",
+        "options": [
+          {
+            "value": "21 / 9",
+            "label": "21:9"
+          },
+          {
+            "value": "16 / 9",
+            "label": "16:9"
+          },
+          {
+            "value": "4 / 3",
+            "label": "4:3"
+          }
+        ],
+        "default": "21 / 9"
+      },
+      {
+        "type": "text_alignment",
+        "id": "alignment",
+        "label": "Text Alignment",
+        "default": "center"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "Sample headline"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>This is an example of the rich text content that can be added to the <b>Video with Rich Text</b> section."
+      },
+      {
+        "type": "inline_richtext",
+        "id": "link_text",
+        "label": "Link Text",
+        "default": "Shop More"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Video",
+        "info": "Setup the video"
+      },
+      {
+        "type": "video",
+        "id": "video",
+        "label": "Video"
+      },
+      {
+        "type": "checkbox",
+        "id": "video_inline",
+        "label": "Play Inline",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "video_autoplay",
+        "label": "Autoplay",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "video_loop",
+        "label": "Loop Video",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "video_controls",
+        "label": "Show Video Controls",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "video_muted",
+        "label": "Mute Video",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "big_play_pause_button",
+        "label": "Show Big Play Button",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "media_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Round Borders on Media",
+        "default": 5
+      },
+      {
+        "type": "checkbox",
+        "id": "media_shadow",
+        "default": true,
+        "label": "Subtle Shadow on Media"
+      },
+      {
+        "type": "header",
+        "content": "Button Style",
+        "info": "Set the look and feel of the button"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "default": "#fff",
+        "label": "Button Text Color"
+      },
+      {
+        "type": "range",
+        "id": "button_text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "number",
+        "id": "button_padding_tb",
+        "default": 10,
+        "label": "Padding Top/Bottom"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_lr",
+        "default": 25,
+        "label": "Padding Left/Right"
+      },
+      {
+        "type": "number",
+        "id": "button_border_radius",
+        "default": 5,
+        "label": "Border Radius"
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Video Rich Text",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

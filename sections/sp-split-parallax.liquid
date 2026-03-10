@@ -1,0 +1,774 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% if section.settings.override_fonts %}
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+  {% endif %}
+
+  {% assign short_id = section.id | slice: -3, 3 %}
+
+  #sp-split-{{ section.id }}.sp-split-wrap p,
+  #sp-split-{{ section.id }}.sp-split-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap p {
+    color: {{ section.settings.text_color }};
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap h1,
+  #sp-split-{{ section.id }}.sp-split-wrap h2,
+  #sp-split-{{ section.id }}.sp-split-wrap h3,
+  #sp-split-{{ section.id }}.sp-split-wrap h4,
+  #sp-split-{{ section.id }}.sp-split-wrap h5 {
+    font-size: {{ section.settings.headline_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    {% endif %}
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    color: {{section.settings.headline_color}};
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus:5 }}px;
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus:10 }}px;
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus:15 }}px;
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus:20 }}px;
+  }
+
+  #sp-split-{{ section.id }}.sp-split-wrap {
+    box-sizing: border-box;
+    background-image: {{section.settings.background_color}};
+    width: 100%;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-split-{{ section.id }} .sp-split-grid {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    min-height: {{ section.settings.height }}px;
+  }
+
+  #sp-split-{{ section.id }} .sp-split-grid-left .sp-split-column-content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #sp-split-{{ section.id }} .sp-split-column-image {
+    width: 100%;
+    aspect-ratio: {{ section.settings.window_aspect_ratio }};
+    border-radius: {{ section.settings.window_radius }}px ;
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    clip-path: border-box;
+  }
+
+  #sp-split-{{ section.id }} .sp-split-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-split-{{ section.id }} .sp-split-image {
+      width: 100vw;
+      left: 0 !important;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-split-{{ section.id }} .sp-split-column-image {
+      min-height: {{ section.settings.mobile_height }}px;
+      margin: 0 0 {{ section.settings.grid_gap }}px 0;
+    }
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    #sp-split-{{ section.id }} .sp-split-column-image {
+      background-attachment: scroll;
+    }
+  }
+
+  #sp-split-{{ section.id }} .sp-split-cover  {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: {{ section.settings.cover_background }};
+    opacity: {{ section.settings.cover_opacity }}%;
+    border-radius: {{ section.settings.window_radius }}px;
+  }
+  
+  #sp-split-{{ section.id }} .sp-split-grid-left .sp-split-column-image {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #sp-split-{{ section.id }} .sp-split-grid-right .sp-split-column-content {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  #sp-split-{{ section.id }} .sp-split-grid-right .sp-split-column-image {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  #sp-split-{{ section.id }} .sp-split-grid-right {
+    display: grid;
+    {% if section.settings.window_aspect_ratio == "21 / 9" %}
+    grid-template-columns: 3fr 1fr;
+    {% elsif section.settings.window_aspect_ratio == "16 / 9"%}
+    grid-template-columns: 2fr 1fr;
+    {% else %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    align-items: center;
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  #sp-split-{{ section.id }} .sp-split-grid-left {
+    display: grid;
+    {% if section.settings.window_aspect_ratio == "21 / 9" %}
+    grid-template-columns: 1fr 3fr;
+    {% elsif section.settings.window_aspect_ratio == "16 / 9"%}
+    grid-template-columns: 1fr 2fr;
+    {% else %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    align-items: center;
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-split-{{ section.id }} .sp-split-grid {
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-split-{{ section.id }} .sp-split-column {
+      padding: 5px 0;
+    }
+  }
+
+  #sp-split-{{ section.id }} .sp-split-grid p:last-child {
+    margin: 0 !important;
+    padding: 0;
+  }
+
+</style>
+
+<div id="sp-split-{{ section.id }}" class="sp-split-wrap" sp-wrap>
+  <div class="sp-split-grid sp-split-grid-{{ section.settings.text_location }}" sp-container>
+
+    {% assign image_height = section.settings.height | times:1.5 %}
+
+    <div class="sp-split-column sp-split-column-image"  sp-column>
+      {% if section.settings.image %}
+        <img class="sp-split-image" 
+          src="{{ section.settings.image | image_url: width: 600 }}"
+          srcset="{{ section.settings.image| image_url: width: 600 }} 600w,
+            {{ section.settings.image | image_url: width: 800 }} 800w,
+            {{ section.settings.image | image_url: width: 1000 }} 1000w,
+            {{ section.settings.image | image_url: width: 1100 }} 1100w">
+      {% endif %}
+      
+      <div class="sp-split-cover"></div>
+    </div>
+    <!-- column-text -->
+
+    <div class="sp-split-column sp-split-column-content" sp-column>
+
+      {% for block in section.blocks %}
+
+        {% if block.type == 'five_star' %}
+  
+          <style>
+            #sp-split-star-{{ forloop.index }} {
+              text-align: {{ block.settings.alignment }};
+            }
+            
+            #sp-split-star-{{ forloop.index }} svg,
+            #sp-split-star-{{ forloop.index }} svg * {
+              fill: {{ block.settings.color }};
+            }
+          </style>
+  
+          <p id="sp-split-star-{{ forloop.index }}">
+            <svg width="101px" height="20px" viewBox="0 0 101 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>5 Stars</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Group-5">
+                        <polygon points="10 15 4.12214748 18.0901699 5.24471742 11.545085 0.489434837 6.90983006 7.06107374 5.95491503 10 0 12.9389263 5.95491503 19.5105652 6.90983006 14.7552826 11.545085 15.8778525 18.0901699"></polygon>
+                        <polygon points="30.5 15 24.6221475 18.0901699 25.7447174 11.545085 20.9894348 6.90983006 27.5610737 5.95491503 30.5 0 33.4389263 5.95491503 40.0105652 6.90983006 35.2552826 11.545085 36.3778525 18.0901699"></polygon>
+                        <polygon points="50 15 44.1221475 18.0901699 45.2447174 11.545085 40.4894348 6.90983006 47.0610737 5.95491503 50 0 52.9389263 5.95491503 59.5105652 6.90983006 54.7552826 11.545085 55.8778525 18.0901699"></polygon>
+                        <polygon points="70.5 15 64.6221475 18.0901699 65.7447174 11.545085 60.9894348 6.90983006 67.5610737 5.95491503 70.5 0 73.4389263 5.95491503 80.0105652 6.90983006 75.2552826 11.545085 76.3778525 18.0901699"></polygon>
+                        <polygon points="90.5 15 84.6221475 18.0901699 85.7447174 11.545085 80.9894348 6.90983006 87.5610737 5.95491503 90.5 0 93.4389263 5.95491503 100.010565 6.90983006 95.2552826 11.545085 96.3778525 18.0901699"></polygon>
+                    </g>
+                </g>
+            </svg></p>
+        {% endif %}
+  
+        {% if block.type == '@app' %}
+          <div class="sp-splitp-app-block">
+            {% render block %}
+          </div>
+        {% endif %}
+  
+        {% if block.type == 'headline' %}
+  
+          <style>
+          #sp-split-{{ section.id }} #sp-headline-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          
+           <h1 id="sp-headline-{{ forloop.index }}">{{ block.settings.content }}</h1>
+        {% endif %}
+  
+        {% if block.type == 'paragraph' %}
+  
+          <style>
+          #sp-split-{{ section.id }} #sp-paragraph-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          
+           <p id="sp-paragraph-{{ forloop.index }}">{{ block.settings.content }}</p>
+        {% endif %}
+  
+        {% if block.type == 'content' %}
+  
+          <style>
+          #sp-split-{{ section.id }} #sp-content-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          
+           <{{ block.settings.tag }} id="sp-content-{{ forloop.index }}">{{ block.settings.content }}</{{ block.settings.tag }}>
+        {% endif %}
+  
+        {% if block.type == 'richtext' %}
+          <style>
+          #sp-split-{{ section.id }} #sp-content-{{ forloop.index }}, #sp-split-{{ section.id }} #sp-content-{{ forloop.index }} * {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          <div id="sp-content-{{ forloop.index }}">
+          {{ block.settings.richtext }}
+          </div>
+        {% endif %}
+  
+        {% if block.type == 'button' %}
+          <style>
+            #sp-split-button-{{ forloop.index }} .sp-split-button {
+              display: inline-block;
+              padding: {{ block.settings.button_padding_tb }}px {{ block.settings.button_padding_lr }}px;
+              background-image: {{ block.settings.button_background_color }};
+              border-radius: {{ block.settings.button_border_radius }}px;
+              color: {{ block.settings.button_text_color }} !important;
+              font-size: {{ block.settings.button_text_size }}px !important;
+              text-decoration: none;
+              cursor: pointer;
+              text-shadow: none;
+              transition: .25s all;
+            }
+  
+            #sp-split-button-{{ forloop.index }} .sp-split-button * {
+              color: {{ block.settings.button_text_color }};
+            }
+          </style>
+  
+          <p id="sp-split-button-{{ forloop.index }}" style="text-align: {{ block.settings.alignment }};"><a class="sp-split-button" href="{{ block.settings.cta_link }}">{{ block.settings.cta }}</a></p>
+        {% endif %}
+  
+      {% endfor %}
+      
+    </div>
+    <!-- column-content -->
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "🚀SP - Split Parallax",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+      },
+      {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "default": "1.25",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color_background",
+        "id": "cover_background",
+        "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+        "label": "Cover Background"
+      },
+      {
+        "type": "range",
+        "id": "cover_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Cover Opacity",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Image",
+        "info": "Set the background image."
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "height",
+        "default": 500,
+        "label": "Height of Section"
+      },
+      {
+        "type": "number",
+        "id": "mobile_height",
+        "default": 300,
+        "label": "Height of Window on Mobile"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 30,
+        "label": "Gap between Columns"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 20,
+        "label": "Spacing between Elements"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set content for the section"
+      },
+      {
+        "type": "select",
+        "id": "text_location",
+        "label": "Text Location",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "right"
+      },
+      {
+        "type": "header",
+        "content": "Window",
+        "info": "Set settings for your slideshow"
+      },
+      {
+        "type": "range",
+        "id": "window_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Round Borders on Window",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "window_aspect_ratio",
+        "default": "4 / 3",
+        "label": "Window Aspect Ratio",
+        "options": [
+          {
+            "value": "21 / 9",
+            "label": "21:9"
+          },
+          {
+            "value": "16 / 9",
+            "label": "16:9"
+          },
+          {
+            "value": "4 / 3",
+            "label": "4:3"
+          },
+          {
+            "value": "1 / 1",
+            "label": "1:1"
+          }
+        ],
+        "default": "4 / 3"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "name": "Headline",
+        "type": "headline",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "<strong>This is Split Parallax.</strong>"
+          }
+        ]
+      },
+      {
+        "name": "Paragraph",
+        "type": "paragraph",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "This is sample content for your hero section. Use it to describe your product or service or to add a customer testimonial."
+          }
+        ]
+      },
+      {
+        "name": "Rich Text",
+        "type": "richtext",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "richtext",
+            "id": "richtext",
+            "label": "Content",
+            "default": "<h4><b>Create Amazing Content</b></h4><p>Use the <b>rich text block</b> to add headlines, paragraphs, lists, and more to your tab.</p>"
+          }
+        ]
+      },
+      {
+        "name": "Button",
+        "type": "button",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "cta",
+            "default": "Shop Now",
+            "label": "Call to Action"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "Call to Action Link"
+          },
+          {
+            "type": "header",
+            "content": "Button Style",
+            "info": "Set the look and feel of the button"
+          },
+          {
+            "type": "color_background",
+            "id": "button_background_color",
+            "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+            "label": "Button Background Color"
+          },
+          {
+            "type": "color",
+            "id": "button_text_color",
+            "default": "#fff",
+            "label": "Button Text Color"
+          },
+          {
+            "type": "range",
+            "id": "button_text_size",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "px",
+            "label": "Text Size",
+            "default": 15
+          },
+          {
+            "type": "number",
+            "id": "button_padding_tb",
+            "default": 10,
+            "label": "Padding Top/Bottom"
+          },
+          {
+            "type": "number",
+            "id": "button_padding_lr",
+            "default": 25,
+            "label": "Padding Left/Right"
+          },
+          {
+            "type": "number",
+            "id": "button_border_radius",
+            "default": 5,
+            "label": "Border Radius"
+          }
+        ]
+      },
+       {
+        "name": "5 Star",
+        "type": "five_star",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "default": "#111",
+            "label": "Icon Color"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Split Parallax",
+        "blocks": [
+          {
+            "type": "five_star"
+          },
+          {
+            "type": "headline"
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

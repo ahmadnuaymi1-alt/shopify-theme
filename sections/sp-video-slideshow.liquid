@@ -1,0 +1,275 @@
+<div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+  {% style %}
+    .video-slideshow-wrapper {
+
+    }
+
+    .video-slideshow-wrapper .video-slideshow {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .video-slideshow-wrapper .video-slideshow .slideshow__slide {
+      position: relative;
+    }
+
+    .video-slideshow-wrapper .video-slideshow .slideshow__slide .slideshow__video {
+      max-width: 100%;
+      display: block;
+    }
+
+    .video-slideshow-wrapper .video-slideshow .slideshow__slide .slideshow__link {
+
+    }
+
+    .video-slideshow-wrapper .video-slideshow .slideshow__slide .slideshow__image {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+    }
+  {% endstyle %}
+
+  <!-- https://shopify.dev/docs/api/liquid/objects/video_source -->
+
+  {% if section.blocks.size > 0 %}
+    <div class="video-slideshow-wrapper" id="video-slideshow-container">
+      <div
+        class="video-slideshow slideshow--{{ section.settings.slideshow_height }}"
+        id="Slideshow-{{ section.id }}"
+      >
+        {% for block in section.blocks %}
+          {%- assign is_background_video = false -%}
+          {% if block.type == 'video' %}
+            {% if block.settings.video_type == 'background' or block.settings.video_type == 'background-chrome' %}
+              {%- assign is_background_video = true -%}
+            {% endif %}
+          {% endif %}
+
+          {% assign video_url = blank %}
+          {% if block.settings.video_shopify %}
+            {%- for source in block.settings.video_shopify.sources -%}
+              {% if source.format == 'mp4' or source.format == 'mov' %}
+                {% assign video_url = source.url %}
+              {% endif %}
+            {%- endfor -%}
+          {% endif %}
+
+          <div
+            class="slideshow__slide slideshow__slide--{{ block.id }}{% if is_background_video %} slideshow__slide--background-video{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="slideshow__link">
+            {% endif %}
+
+            {% assign cover_image = blank %}
+            {% if block.settings.image %}
+              {% assign cover_image = block.settings.image %}
+            {% elsif block.settings.video_shopify %}
+              {% assign cover_image = block.settings.video_shopify.preview_image %}
+            {% endif %}
+
+            {%- if cover_image -%}
+              <div
+                id="video_slideshow_thumbnail_{{ block.id }}"
+                class="slideshow__image lazyload fade-in"
+                data-bgset="{% render 'bgset', image: cover_image %}"
+                data-sizes="auto"
+                data-parent-fit="cover"
+              ></div>
+            {%- endif -%}
+
+            {% if block.type == 'video' %}
+              {%- if video_url -%}
+                <video
+                  id="video_slideshow_preview_{{ block.id }}"
+                  class="slideshow__video"
+                  src="{{ video_url }}"
+                  playsinline="true"
+                  loop="true"
+                  autoplay="false"
+                  muted="muted"
+                  data-video-shopify-sources="
+                    {%- for source in block.settings.video_shopify.sources -%}
+                      {{ source.format }} {{ source.mime_type }} {{ source.url }}
+                      {%- unless forloop.last -%}|{%- endunless -%}
+                    {%- endfor -%}
+                  "
+                ></video>
+              {%- endif -%}
+            {% endif %}
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size == 0 %}
+    <div class="placeholder-noblocks">
+      {{ 'homepage.onboarding.no_content' | t }}
+    </div>
+  {% endif %}
+</div>
+
+<script id="VideoSlideShowScript">
+  // @author abhijithvijayan <abhijithvijayan.in>
+  // https://jsfiddle.net/6qdfwpma/95/
+  (() => {
+        document.addEventListener("DOMContentLoaded", () => {
+          const container = document.getElementById("video-slideshow-container");
+          if (container) {
+            container.querySelectorAll("video.slideshow__video").forEach((videoElement) => {
+              // only muted videos can be autoplayed without user interaction
+              // https://developer.chrome.com/blog/autoplay/
+              videoElement.muted = "muted";
+              videoElement.loop = "true";
+              videoElement.playsinline = "true";
+              videoElement.autoplay = "false";
+              // auto pause any playing videos
+              videoElement.pause();
+            })
+
+            // play video on mouse hover
+            container.addEventListener("mouseover", (e) => {
+              const {
+                target
+              } = e;
+
+              // if the mouse is over the thumbnail, hide thumbnail and play video
+              if (target.tagName === "DIV" && target.id.startsWith("video_slideshow_thumbnail")) {
+                target.style.display = "none";
+
+
+                if (target.nextElementSibling instanceof HTMLVideoElement && target.nextElementSibling.id.startsWith("video_slideshow_preview")) {
+                  target.nextElementSibling.play()
+                    .then(() => {
+                      //
+                    }).catch((err) => {
+                      console.error(err)
+                    });
+                }
+              }
+            })
+
+            // pause video on leaving
+            container.addEventListener("mouseout", (e) => {
+              const {
+                target
+              } = e;
+
+              // when mouse leaves video element, pause the video and restore the thumbnail
+              if (target.tagName === "VIDEO" && target.id.startsWith("video_slideshow_preview")) {
+                target.pause();
+                target.currentTime = 0;
+
+                if (target.previousElementSibling instanceof HTMLDivElement && target.previousElementSibling.id.startsWith("video_slideshow_thumbnail")) {
+                  target.previousElementSibling.style.display = "block";
+                }
+              }
+            })
+          }
+        })
+  })()
+</script>
+
+{% schema %}
+{
+  "name": "🚀SP -Video Slideshow",
+  "class": "index-section index-section--flush",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "select",
+      "id": "slideshow_height",
+      "label": "Section height",
+      "default": "small",
+      "options": [
+        {
+          "label": "Small",
+          "value": "small"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "Large",
+          "value": "large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text size",
+      "default": "medium",
+      "options": [
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "Large",
+          "value": "large"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video slide",
+      "settings": [
+        {
+          "id": "video_shopify",
+          "type": "video",
+          "label": "Video upload",
+          "info": "Hosted by Shopify. Replaces External video if both are set."
+        },
+        {
+          "type": "select",
+          "id": "video_type",
+          "label": "Style",
+          "options": [
+            {
+              "value": "background-chrome",
+              "label": "Background video with thumbnail"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Fallback when autoplaying video is not supported on mobile devices"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+    "name": "🚀SP -Video Slideshow",
+    "category": "Image",
+    "settings": {
+
+    },
+    "blocks": [
+      {
+        "type": "video"
+      },
+      {
+        "type": "video"
+      }
+    ]
+  }]
+}
+{% endschema %}

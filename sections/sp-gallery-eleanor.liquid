@@ -1,0 +1,439 @@
+ {% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} .pw-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(var(--pw-gutter-x, 15px) * -1);
+  margin-left: calc(var(--pw-gutter-x, 15px) * -1);
+}
+
+.pw-section__{{sec_id}} .pw-row > * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+@media (min-width: 750px) {
+  .pw-section__{{sec_id}} .pw-col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: {{section.settings.gutter}}px;
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  line-height: 1.5;
+}
+
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: #242424;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 40px;
+  text-align: {{section.settings.text_align}};
+  line-height: 1.2;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+{% endif %}
+
+.pw-section__{{sec_id}} .pw-img-wrapper {
+  position: relative;
+  height: 0;
+  padding-top: 100%;
+  margin-bottom: calc( var(--pw-gutter-x) * 2 );
+  overflow: hidden;
+}
+
+.pw-section__{{sec_id}} .pw-img-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+.pw-section__{{sec_id}} .pw-img-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+{% if section.settings.is_fullwidth == true %}
+  {% assign container = 'pw-container-fluid' %}
+{% else %}
+  {% assign container = 'pw-container' %}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="{{container}}">
+    {% if section.settings.heading_text != blank %}
+      <{{ section.settings.heading_tag }} class="pw-section-title">
+      {{ section.settings.heading_text | escape }}
+      </{{ section.settings.heading_tag }}>
+    {% endif %}
+    <div class="pw-row">
+      <div class="pw-col-md-6">
+        <div class="pw-img-wrapper" data-index="1">
+          {% if section.settings.background_image_1 == blank %}
+            <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-eleanor-01.jpg" loading="lazy">
+          {% else %}
+            <img srcset="
+              {%- if section.settings.background_image_1.width >= 320 -%}{{ section.settings.background_image_1 | img_url: '320x' }} 320w,{%- endif -%}
+              {%- if section.settings.background_image_1.width >= 750 -%}{{ section.settings.background_image_1 | img_url: '750x' }} 750w,{%- endif -%}
+              {%- if section.settings.background_image_1.width >= 1500 -%}{{ section.settings.background_image_1 | img_url: '1500x' }} 1500w,{%- endif -%}"
+              src="{{ section.settings.background_image_1 | img_url: '750x' }}"
+              alt="{{ section.settings.background_image_1.alt | escape }}"
+              sizes="100%"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+      </div>
+      <div class="pw-col-md-6">
+        <div class="pw-row">
+          <div class="pw-col-md-6">
+            <div class="pw-img-wrapper" data-index="2">
+              {% if section.settings.background_image_2 == blank %}
+                <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-eleanor-02.jpg" loading="lazy">
+              {% else %}
+                <img srcset="
+                  {%- if section.settings.background_image_2.width >= 320 -%}{{ section.settings.background_image_2 | img_url: '320x' }} 320w,{%- endif -%}
+                  {%- if section.settings.background_image_2.width >= 750 -%}{{ section.settings.background_image_2 | img_url: '750x' }} 750w,{%- endif -%}
+                  {%- if section.settings.background_image_2.width >= 1500 -%}{{ section.settings.background_image_2 | img_url: '1500x' }} 1500w,{%- endif -%}"
+                  src="{{ section.settings.background_image_2 | img_url: '750x' }}"
+                  alt="{{ section.settings.background_image_2.alt | escape }}"
+                  sizes="100%"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+          </div>
+          <div class="pw-col-md-6">
+            <div class="pw-img-wrapper" data-index="3">
+              {% if section.settings.background_image_3 == blank %}
+                <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-chloe-03.jpg" loading="lazy">
+              {% else %}
+                <img srcset="
+                  {%- if section.settings.background_image_3.width >= 320 -%}{{ section.settings.background_image_3 | img_url: '320x' }} 320w,{%- endif -%}
+                  {%- if section.settings.background_image_3.width >= 750 -%}{{ section.settings.background_image_3 | img_url: '750x' }} 750w,{%- endif -%}
+                  {%- if section.settings.background_image_3.width >= 1500 -%}{{ section.settings.background_image_3 | img_url: '1500x' }} 1500w,{%- endif -%}"
+                  src="{{ section.settings.background_image_3 | img_url: '750x' }}"
+                  alt="{{ section.settings.background_image_3.alt | escape }}"
+                  sizes="100%"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+          </div>
+          <div class="pw-col-md-6">
+            <div class="pw-img-wrapper" data-index="4">
+              {% if section.settings.background_image_4 == blank %}
+                <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-eleanor-03.jpg" loading="lazy">
+              {% else %}
+                <img srcset="
+                  {%- if section.settings.background_image_4.width >= 320 -%}{{ section.settings.background_image_4 | img_url: '320x' }} 320w,{%- endif -%}
+                  {%- if section.settings.background_image_4.width >= 750 -%}{{ section.settings.background_image_4 | img_url: '750x' }} 750w,{%- endif -%}
+                  {%- if section.settings.background_image_4.width >= 1500 -%}{{ section.settings.background_image_4 | img_url: '1500x' }} 1500w,{%- endif -%}"
+                  src="{{ section.settings.background_image_4 | img_url: '750x' }}"
+                  alt="{{ section.settings.background_image_4.alt | escape }}"
+                  sizes="100%"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+          </div>
+          <div class="pw-col-md-6">
+            <div class="pw-img-wrapper" data-index="5">
+              {% if section.settings.background_image_5 == blank %}
+                <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/gallery-eleanor-04.jpg" loading="lazy">
+              {% else %}
+                <img srcset="
+                  {%- if section.settings.background_image_5.width >= 320 -%}{{ section.settings.background_image_5 | img_url: '320x' }} 320w,{%- endif -%}
+                  {%- if section.settings.background_image_5.width >= 750 -%}{{ section.settings.background_image_5 | img_url: '750x' }} 750w,{%- endif -%}
+                  {%- if section.settings.background_image_5.width >= 1500 -%}{{ section.settings.background_image_5 | img_url: '1500x' }} 1500w,{%- endif -%}"
+                  src="{{ section.settings.background_image_5 | img_url: '750x' }}"
+                  alt="{{ section.settings.background_image_5.alt | escape }}"
+                  sizes="100%"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Gallery-Eleanor-01",
+  "tag": "section",
+  "class": "kava-gallery kava-gallery-eleanor-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+    
+    {
+      "type": "checkbox",
+      "id": "is_fullwidth",
+      "default": false,
+      "label": "Full width section"
+    },
+    {
+      "type": "range",
+      "id": "gutter",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Space between images",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading_text",
+      "label": "Heading text"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        }, {
+          "value": "h2",
+          "label": "H2"
+        }, {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Heading align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Gallery-Eleanor-01"
+    }
+  ]
+}
+
+{% endschema %}

@@ -1,0 +1,286 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% if section.settings.override_fonts %}
+    {{ section.settings.text_font | font_face }}
+  {% endif %}
+
+
+  #sp-ptag-{{ section.index }} {
+    position: fixed;
+    background-image: {{ section.settings.background_color }};
+    color: {{section.settings.text_color}} !important;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+      font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    line-height: 1.15;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: all .25s;
+    z-index: 10;
+  }
+
+  #sp-ptag-{{ section.index }}:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transform: scale(1.02);
+  }
+  
+  #sp-ptag-{{ section.index }}.sp-ptag-left {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    -webkit-transform-origin: 0 50%;
+       -moz-transform-origin: 0 50%;
+        -ms-transform-origin: 0 50%;
+         -o-transform-origin: 0 50%;
+            transform-origin: 0 50%;
+    -webkit-transform: rotate(-90deg) translate(-50%, 50%);
+       -moz-transform: rotate(-90deg) translate(-50%, 50%);
+        -ms-transform: rotate(-90deg) translate(-50%, 50%);
+         -o-transform: rotate(-90deg) translate(-50%, 50%);
+            transform: rotate(-90deg) translate(-50%, 50%);
+  }
+
+  #sp-ptag-{{ section.index }}.sp-ptag-right {
+    top: 50%;
+    right: 0;
+    -webkit-transform-origin: 100% 50%;
+       -moz-transform-origin: 100% 50%;
+        -ms-transform-origin: 100% 50%;
+         -o-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+    -webkit-transform: rotate(90deg) translate(50%, 50%);
+       -moz-transform: rotate(90deg) translate(50%, 50%);
+        -ms-transform: rotate(90deg) translate(50%, 50%);
+         -o-transform: rotate(90deg) translate(50%, 50%);
+            transform: rotate(90deg) translate(50%, 50%);
+  }
+
+  #sp-ptag-{{ section.index }}.sp-ptag-top-left {
+    top: 0;
+    left: 10px;
+  }
+
+  #sp-ptag-{{ section.index }}.sp-ptag-top-right {
+    top: 0;
+    right: 10px;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-ptag-{{ section.index }}.sp-ptag-custom {
+      {% if section.settings.custom_top %}top: {{ section.settings.custom_top }}px;{% endif %}
+      {% if section.settings.custom_bottom %}bottom: {{ section.settings.custom_bottom }}px;{% endif %}
+      {% if section.settings.custom_left %}left: {{ section.settings.custom_left }}px;{% endif %}
+      {% if section.settings.custom_right %}right: {{ section.settings.custom_right }}px;{% endif %}
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-ptag-{{ section.index }}.sp-ptag-custom {
+      {% if section.settings.custom_top_mobile %}top: {{ section.settings.custom_top_mobile }}px;{% endif %}
+      {% if section.settings.custom_bottom_mobile %}bottom: {{ section.settings.custom_bottom_mobile }}px;{% endif %}
+      {% if section.settings.custom_left_mobile %}left: {{ section.settings.custom_left_mobile }}px;{% endif %}
+      {% if section.settings.custom_right_mobile %}right: {{ section.settings.custom_right_mobile }}px;{% endif %}
+    }
+  }
+</style>
+
+<a id="sp-ptag-{{ section.index }}" class="sp-ptag sp-ptag-{{ section.settings.alignment }}" href="{{ section.settings.link }}">
+  {{ section.settings.text }}
+</a>
+
+{% schema %}
+  {
+    "name": "🚀SP - Page Tag",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+      },
+      {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text for your section"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#ffffff",
+        "label": "Text Color"
+      },
+      {
+        "type": "select",
+        "id": "alignment",
+        "label": "Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "top-left",
+            "label": "Top Left"
+          },
+          {
+            "value": "top-right",
+            "label": "Top Right"
+          },
+          {
+            "value": "custom",
+            "label": "Custom"
+          }
+        ],
+        "default": "right"
+      },
+      {
+        "type": "header",
+        "content": "Custom Desktop",
+        "info": "Set the position on destop (when custom selected)"
+      },
+      {
+        "type": "number",
+        "id": "custom_top",
+        "label": "Custom Top"
+      },
+      {
+        "type": "number",
+        "id": "custom_left",
+        "label": "Custom Left"
+      },
+      {
+        "type": "number",
+        "id": "custom_right",
+        "label": "Custom Top"
+      },
+      {
+        "type": "number",
+        "id": "custom_bottom",
+        "label": "Custom Bottom"
+      },
+      {
+        "type": "header",
+        "content": "Custom Mobile",
+        "info": "Set the position on mobile (when custom selected)"
+      },
+      {
+        "type": "number",
+        "id": "custom_top_mobile",
+        "label": "Custom Top"
+      },
+      {
+        "type": "number",
+        "id": "custom_left_mobile",
+        "label": "Custom Left"
+      },
+      {
+        "type": "number",
+        "id": "custom_right_mobile",
+        "label": "Custom Top"
+      },
+      {
+        "type": "number",
+        "id": "custom_bottom_mobile",
+        "label": "Custom Bottom"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #111 0%, #000 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 10,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 10,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 25,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 25,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set the section content."
+      },
+      {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "<b>Get in Touch</b>",
+          "label": "Tag Text"
+      },
+      {
+          "type": "url",
+          "id": "link",
+          "label": "Tag Link"
+      }
+    ],
+	"blocks": [],
+	"presets": [
+      {
+        "name": "🚀SP - Page Tag",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

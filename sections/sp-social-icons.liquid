@@ -1,0 +1,665 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% if section.settings.override_fonts %}
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+  {% endif %}
+
+  #sp-sicon-{{ section.id }} p,
+  #sp-sicon-{{ section.id }} p a {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+  }
+
+  #sp-sicon-{{ section.id }} p {
+    text-align: {{ section.settings.text_alignment }};
+    color: {{ section.settings.text_color }};
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-sicon-{{ section.id }} h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    {% endif %}
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    text-align: {{ section.settings.text_alignment }};
+    color: {{ section.settings.headline_color }};
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-sicon-{{ section.id }} {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon .sp-sicon-grid {
+    display: block;
+    position: relative;
+    z-index: 2;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+
+  @media only screen and (max-width: 800px) {
+    #sp-sicon-{{ section.id }} .sp-sicon .sp-sicon-grid {
+      display: block;
+    }
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon .sp-sicon-icon {
+    margin-top: {{ section.settings.icon_top_margin }}px;
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon-col {
+    display: inline-block;
+    margin: 0 {{ section.settings.grid_gap | divided_by: 2 }}px;
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon-col:first-child {
+    margin-left: 0;
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon-col:last-child {
+    margin-right: 0;
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon-col svg {
+    position: relative;
+    height: {{ section.settings.icon_height }}px;
+    transition: all 0.5s ease;
+    fill: {{ section.settings.icon_color }};
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon-col svg g, #sp-sicon-{{ section.id }} .sp-sicon-col svg path[fill="#111111"] {
+    fill: {{ section.settings.icon_color }};
+  }
+
+  #sp-sicon-{{ section.id }} .sp-sicon-col:hover svg {
+    transform: scale(1.05);
+  }
+</style>
+
+<div id="sp-sicon-{{ section.id }}" class="sp-sicon-wrap" sp-wrap>
+
+<div class="sp-sicon" sp-container>
+
+  <div class="sp-sicon-grid sp-sicon-text" sp-column>
+    <h2>{{ section.settings.headline }}</h2>
+    <p>{{ section.settings.text }}</p>
+  </div>
+
+  <div class="sp-sicon-grid sp-sicon-icon">
+
+    {% if section.settings.show_instagram %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.instagram_link }}">
+      <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-353, -122)" fill="#111111" fill-rule="nonzero">
+                <g transform="translate(183, 122)">
+                    <g transform="translate(170, 0)">
+                        <path d="M10.0022309,4.87225259 C7.16452872,4.87225259 4.87562744,7.16166462 4.87562744,10 C4.87562744,12.8383354 7.16452872,15.1277474 10.0022309,15.1277474 C12.8399331,15.1277474 15.1288344,12.8383354 15.1288344,10 C15.1288344,7.16166462 12.8399331,4.87225259 10.0022309,4.87225259 Z M10.0022309,13.3337052 C8.16843279,13.3337052 6.66926938,11.8386701 6.66926938,10 C6.66926938,8.16132991 8.163971,6.66629477 10.0022309,6.66629477 C11.8404908,6.66629477 13.3351924,8.16132991 13.3351924,10 C13.3351924,11.8386701 11.836029,13.3337052 10.0022309,13.3337052 L10.0022309,13.3337052 Z M16.5343001,4.66250139 C16.5343001,5.32745732 15.9988846,5.85852951 15.3385388,5.85852951 C14.6737312,5.85852951 14.1427775,5.32299453 14.1427775,4.66250139 C14.1427775,4.00200826 14.678193,3.46647328 15.3385388,3.46647328 C15.9988846,3.46647328 16.5343001,4.00200826 16.5343001,4.66250139 Z M19.9297267,5.87638068 C19.8538762,4.27423854 19.4880089,2.85507085 18.3145566,1.68581948 C17.1455661,0.516568113 15.726715,0.150619212 14.1249303,0.0702889657 C12.4740658,-0.0234296552 7.52593419,-0.0234296552 5.87506972,0.0702889657 C4.27774679,0.146156421 2.85889571,0.512105322 1.68544339,1.68135669 C0.511991076,2.85060806 0.150585611,4.26977574 0.070273285,5.87191788 C-0.0234244283,7.52315073 -0.0234244283,12.4723865 0.070273285,14.1236193 C0.146123815,15.7257615 0.511991076,17.1449292 1.68544339,18.3141805 C2.85889571,19.4834319 4.273285,19.8493808 5.87506972,19.929711 C7.52593419,20.0234297 12.4740658,20.0234297 14.1249303,19.929711 C15.726715,19.8538436 17.1455661,19.4878947 18.3145566,18.3141805 C19.4835471,17.1449292 19.8494144,15.7257615 19.9297267,14.1236193 C20.0234244,12.4723865 20.0234244,7.52761352 19.9297267,5.87638068 Z M17.7969883,15.8953475 C17.4489682,16.7700547 16.775237,17.4439362 15.8962632,17.7964967 C14.5800335,18.3186433 11.4567764,18.1981479 10.0022309,18.1981479 C8.54768544,18.1981479 5.41996654,18.3141805 4.10819855,17.7964967 C3.23368656,17.448399 2.55995538,16.7745175 2.20747351,15.8953475 C1.68544339,14.5788241 1.80591188,11.45487 1.80591188,10 C1.80591188,8.54512998 1.68990519,5.41671315 2.20747351,4.10465246 C2.55549359,3.22994533 3.22922476,2.55606382 4.10819855,2.20350329 C5.42442833,1.68135669 8.54768544,1.80185206 10.0022309,1.80185206 C11.4567764,1.80185206 14.5844953,1.68581948 15.8962632,2.20350329 C16.7707752,2.55160103 17.4445064,3.22548254 17.7969883,4.10465246 C18.3190184,5.42117595 18.1985499,8.54512998 18.1985499,10 C18.1985499,11.45487 18.3190184,14.5832868 17.7969883,15.8953475 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+      </svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col -->
+
+    {% if section.settings.show_facebook %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.facebook_link }}">
+        <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Group-3" transform="translate(-383, -122)" fill="#111111" fill-rule="nonzero">
+                  <g id="Left" transform="translate(183, 122)">
+                      <g id="social" transform="translate(170, 0)">
+                          <path d="M47.8571429,0 L32.1428571,0 C30.9593898,0 30,0.959389822 30,2.14285714 L30,17.8571429 C30,19.0406102 30.9593898,20 32.1428571,20 L38.2700893,20 L38.2700893,13.2004464 L35.4575893,13.2004464 L35.4575893,10 L38.2700893,10 L38.2700893,7.56071429 C38.2700893,4.78616071 39.921875,3.25357143 42.4517857,3.25357143 C43.6633929,3.25357143 44.9303571,3.46964286 44.9303571,3.46964286 L44.9303571,6.19285714 L43.534375,6.19285714 C42.1589286,6.19285714 41.7299107,7.04642857 41.7299107,7.921875 L41.7299107,10 L44.8004464,10 L44.309375,13.2004464 L41.7299107,13.2004464 L41.7299107,20 L47.8571429,20 C49.0406102,20 50,19.0406102 50,17.8571429 L50,2.14285714 C50,0.959389822 49.0406102,0 47.8571429,0 L47.8571429,0 Z" id="Path"></path>
+                      </g>
+                  </g>
+              </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col -->
+
+    {% if section.settings.show_x %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.x_link }}">
+        <svg viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="#111111"/>
+        </svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col -->
+
+    {% if section.settings.show_threads %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.threads_link }}">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Threads" viewBox="0 0 192 192"><path class="x19hqcy" d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/></svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col --> 
+
+    {% if section.settings.show_spotify %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.spotify_link }}">
+        <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g transform="translate(-413, -122)" fill="#000000" fill-rule="nonzero">
+                  <g transform="translate(183, 122)">
+                      <g transform="translate(170, 0)">
+                          <path d="M70,0 C64.4798387,0 60,4.47983871 60,10 C60,15.5201613 64.4798387,20 70,20 C75.5201613,20 80,15.5201613 80,10 C80,4.47983871 75.5201613,0 70,0 Z M74.0604839,14.7137097 C73.891129,14.7137097 73.7862903,14.6612903 73.6290323,14.5685484 C71.1129032,13.0524194 68.1854839,12.9879032 65.2943548,13.5806452 C65.1370968,13.6209677 64.9314516,13.6854839 64.8145161,13.6854839 C64.4233871,13.6854839 64.1774194,13.375 64.1774194,13.0483871 C64.1774194,12.6330645 64.4233871,12.4354839 64.7258065,12.3709677 C68.0282258,11.641129 71.4032258,11.7056452 74.2822581,13.4274194 C74.5282258,13.5846774 74.6733871,13.7258065 74.6733871,14.0927419 C74.6733871,14.4596774 74.3870968,14.7137097 74.0604839,14.7137097 L74.0604839,14.7137097 Z M75.1451613,12.0685484 C74.9354839,12.0685484 74.7943548,11.9758065 74.6491935,11.8991935 C72.1290323,10.4072581 68.3709677,9.80645161 65.0282258,10.7137097 C64.8346774,10.766129 64.7298387,10.8185484 64.5483871,10.8185484 C64.1169355,10.8185484 63.766129,10.4677419 63.766129,10.0362903 C63.766129,9.60483871 63.9758065,9.31854839 64.391129,9.2016129 C65.5120968,8.88709677 66.6572581,8.65322581 68.3346774,8.65322581 C70.9516129,8.65322581 73.4798387,9.30241935 75.4717742,10.4879032 C75.7983871,10.6814516 75.9274194,10.9314516 75.9274194,11.2822581 C75.9233871,11.7177419 75.5846774,12.0685484 75.1451613,12.0685484 L75.1451613,12.0685484 Z M76.3951613,8.99596774 C76.1854839,8.99596774 76.0564516,8.94354839 75.875,8.83870968 C73.0040323,7.125 67.8709677,6.71370968 64.5483871,7.64112903 C64.4032258,7.68145161 64.2217742,7.74596774 64.0282258,7.74596774 C63.4959677,7.74596774 63.0887097,7.33064516 63.0887097,6.79435484 C63.0887097,6.24596774 63.4274194,5.93548387 63.7903226,5.83064516 C65.2096774,5.41532258 66.7983871,5.21774194 68.5282258,5.21774194 C71.4717742,5.21774194 74.5564516,5.83064516 76.8104839,7.14516129 C77.125,7.3266129 77.3306452,7.5766129 77.3306452,8.05645161 C77.3306452,8.60483871 76.8870968,8.99596774 76.3951613,8.99596774 L76.3951613,8.99596774 Z" id="Shape"></path>
+                      </g>
+                  </g>
+              </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col -->
+
+    {% if section.settings.show_linkedin %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.linkedin_link }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72"><g fill="none" fill-rule="evenodd"><path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" fill="#111111"/><path d="M62,62 L51.315625,62 L51.315625,43.8021149 C51.315625,38.8127542 49.4197917,36.0245323 45.4707031,36.0245323 C41.1746094,36.0245323 38.9300781,38.9261103 38.9300781,43.8021149 L38.9300781,62 L28.6333333,62 L28.6333333,27.3333333 L38.9300781,27.3333333 L38.9300781,32.0029283 C38.9300781,32.0029283 42.0260417,26.2742151 49.3825521,26.2742151 C56.7356771,26.2742151 62,30.7644705 62,40.051212 L62,62 Z M16.349349,22.7940133 C12.8420573,22.7940133 10,19.9296567 10,16.3970067 C10,12.8643566 12.8420573,10 16.349349,10 C19.8566406,10 22.6970052,12.8643566 22.6970052,16.3970067 C22.6970052,19.9296567 19.8566406,22.7940133 16.349349,22.7940133 Z M11.0325521,62 L21.769401,62 L21.769401,27.3333333 L11.0325521,27.3333333 L11.0325521,62 Z" fill="#FFF"/></g></svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col -->
+
+    {% if section.settings.show_youtube %}
+    <div class="sp-sicon-col" sp-column>
+      <a href="{{ section.settings.youtube_link }}">
+        <svg viewBox="0 0 923.076923 650.347415" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g fill-rule="nonzero">
+                  <path d="M903.786741,101.55274 C893.17006,61.579895 861.894318,30.0996076 822.177154,19.4160563 C750.19299,0 461.536495,0 461.536495,0 C461.536495,0 172.883933,0 100.899769,19.4160563 C61.1826054,30.0996076 29.9029296,61.579895 19.2901824,101.55274 C0,174.008931 0,325.175674 0,325.175674 C0,325.175674 0,476.342418 19.2901824,548.798609 C29.9029296,588.771454 61.1826054,620.247808 100.899769,630.935293 C172.883933,650.347415 461.536495,650.347415 461.536495,650.347415 C461.536495,650.347415 750.19299,650.347415 822.177154,630.935293 C861.894318,620.247808 893.17006,588.76752 903.786741,548.802542 C923.076923,476.338484 923.076923,325.175674 923.076923,325.175674 C923.076923,325.175674 923.076923,174.008931 903.786741,101.55274" id="Path" fill="#111111"></path>
+                  <polygon id="Path" fill="#FFFFFF" points="367.131034 462.421546 608.392055 325.179608 367.131034 187.925869"></polygon>
+              </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+    {% endif %}
+    <!-- /.sp-sicon-col -->
+
+    {% if section.settings.show_pinterest %}
+      <div class="sp-sicon-col" sp-column>
+        <a href="{{ section.settings.pinterest_link }}">
+          <svg viewBox="0 0 923.07729 924.593835" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g fill="#111111" fill-rule="nonzero">
+                  <path d="M461.916739,0 C206.817042,0 0,206.817042 0,461.916739 C0,657.708608 121.657084,824.987098 293.497714,892.278672 C289.315752,855.781547 285.894146,799.515146 295.018428,759.596415 C303.382352,723.479469 349.003758,529.96867 349.003758,529.96867 C349.003758,529.96867 335.317336,502.215648 335.317336,461.536561 C335.317336,397.286413 372.574818,349.383937 418.956581,349.383937 C458.495134,349.383937 477.504053,379.037851 477.504053,414.394441 C477.504053,453.932993 452.412279,513.240821 439.106036,568.366687 C428.080863,614.368272 462.296917,652.005932 507.538145,652.005932 C589.656677,652.005932 652.766289,565.32526 652.766289,440.626749 C652.766289,329.994839 573.309006,252.818627 459.635669,252.818627 C328.093947,252.818627 250.917735,351.284829 250.917735,453.172636 C250.917735,492.711188 266.12487,535.291168 285.13379,558.482049 C288.935573,563.04419 289.315752,567.226152 288.175217,571.788293 C284.753611,586.235071 276.769865,617.789877 275.249151,624.25291 C273.34826,632.616834 268.405941,634.517726 259.661838,630.335764 C201.874723,603.343099 165.757776,519.323675 165.757776,451.271744 C165.757776,305.663422 271.447368,171.84063 471.04102,171.84063 C631.096121,171.84063 755.794631,285.894146 755.794631,438.725857 C755.794631,598.020601 655.427538,726.140717 516.282248,726.140717 C469.520307,726.140717 425.419614,701.809301 410.592657,672.915743 C410.592657,672.915743 387.401775,761.117129 381.6991,782.787297 C371.434283,823.086206 343.301083,873.269753 324.292163,904.064202 C367.632499,917.370446 413.253906,924.593835 461.156382,924.593835 C716.256079,924.593835 923.075211,717.776793 923.075211,462.677096 C923.833478,206.817042 717.016436,0 461.916739,0 Z" id="Path"></path>
+              </g>
+          </g>
+          </svg>
+        </a>
+      </div>
+      {% endif %}
+      <!-- /.sp-sicon-col -->
+
+      {% if section.settings.show_tiktok %}
+        <div class="sp-sicon-col" sp-column>
+          <a href="{{ section.settings.tiktok_link }}">
+            <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 449.45 515.38"><path fill-rule="nonzero" d="M382.31 103.3c-27.76-18.1-47.79-47.07-54.04-80.82-1.35-7.29-2.1-14.8-2.1-22.48h-88.6l-.15 355.09c-1.48 39.77-34.21 71.68-74.33 71.68-12.47 0-24.21-3.11-34.55-8.56-23.71-12.47-39.94-37.32-39.94-65.91 0-41.07 33.42-74.49 74.48-74.49 7.67 0 15.02 1.27 21.97 3.44V190.8c-7.2-.99-14.51-1.59-21.97-1.59C73.16 189.21 0 262.36 0 352.3c0 55.17 27.56 104 69.63 133.52 26.48 18.61 58.71 29.56 93.46 29.56 89.93 0 163.08-73.16 163.08-163.08V172.23c34.75 24.94 77.33 39.64 123.28 39.64v-88.61c-24.75 0-47.8-7.35-67.14-19.96z"/></svg>
+          </a>
+        </div>
+        {% endif %}
+        <!-- /.sp-sicon-col -->
+
+
+  </div>
+  <!-- /.sp-sicon-grid -->
+  
+</div>
+<!-- /.sp-sicon -->
+
+</div>
+<!-- /.sp-sicon-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Social Icons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+      },
+      {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text for your section"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "options": [
+          {
+            "value": "0.75",
+            "label": "0.75"
+          },
+          {
+            "value": "1.0",
+            "label": "1.0"
+          },
+          {
+            "value": "1.1",
+            "label": "1.1"
+          },
+          {
+            "value": "1.2",
+            "label": "1.2"
+          },
+          {
+            "value": "1.3",
+            "label": "1.3"
+          },
+          {
+            "value": "1.4",
+            "label": "1.4"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.6",
+            "label": "1.6"
+          },
+          {
+            "value": "1.7",
+            "label": "1.7"
+          },
+          {
+            "value": "1.8",
+            "label": "1.8"
+          },
+          {
+            "value": "1.9",
+            "label": "1.9"
+          },
+          {
+            "value": "2.0",
+            "label": "2.0"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ],
+        "default": "inherit"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "options": [
+          {
+            "value": "0.75",
+            "label": "0.75"
+          },
+          {
+            "value": "1.0",
+            "label": "1.0"
+          },
+          {
+            "value": "1.1",
+            "label": "1.1"
+          },
+          {
+            "value": "1.2",
+            "label": "1.2"
+          },
+          {
+            "value": "1.3",
+            "label": "1.3"
+          },
+          {
+            "value": "1.4",
+            "label": "1.4"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.6",
+            "label": "1.6"
+          },
+          {
+            "value": "1.7",
+            "label": "1.7"
+          },
+          {
+            "value": "1.8",
+            "label": "1.8"
+          },
+          {
+            "value": "1.9",
+            "label": "1.9"
+          },
+          {
+            "value": "2.0",
+            "label": "2.0"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ],
+        "default": "inherit"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "icon_color",
+        "default": "#111111",
+        "label": "Icon Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels"
+      },
+      {
+        "type": "select",
+        "id": "mobile_columns",
+        "label": "Columns on Mobile",
+        "options": [
+          {
+            "value": "1fr",
+            "label": "1 column"
+          },
+          {
+            "value": "1fr 1fr",
+            "label": "2 columns"
+          },
+          {
+            "value": "1fr 1fr 1fr",
+            "label": "3 columns"
+          },
+          {
+            "value": "1fr 1fr 1fr 1fr",
+            "label": "4 columns"
+          }
+        ],
+        "default": "1fr 1fr"
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap Between Badges"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "icon_top_margin",
+        "default": 20,
+        "label": "Icon Top Margin"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 20,
+        "label": "Element Spacing"
+      },
+      {
+        "type": "number",
+        "id": "icon_height",
+        "default": 25,
+        "label": "Icon Height"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set the content for the section"
+      },
+      {
+        "type": "text_alignment",
+        "id": "text_alignment",
+        "label": "Alignment",
+        "default": "center"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "<b>Follow us on social</b>"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "Get the latest news, updates and connect with us on our social networks"
+      },
+      {
+        "type": "header",
+        "content": "Icons",
+        "info": "Set the icons you want displayed with links to social"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_instagram",
+        "default": true,
+        "label": "Show Instagram"
+      },
+      {
+        "type": "url",
+        "id": "instagram_link",
+        "label": "Instagram Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_facebook",
+        "default": true,
+        "label": "Show Facebook"
+      },
+      {
+        "type": "url",
+        "id": "facebook_link",
+        "label": "Facebook Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_x",
+        "default": true,
+        "label": "Show X"
+      },
+      {
+        "type": "url",
+        "id": "x_link",
+        "label": "X Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_threads",
+        "default": true,
+        "label": "Show Threads"
+      },
+      {
+        "type": "url",
+        "id": "threads_link",
+        "label": "Threads Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_spotify",
+        "default": true,
+        "label": "Show Spotify"
+      },
+      {
+        "type": "url",
+        "id": "spotify_link",
+        "label": "Spotify Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_linkedin",
+        "default": true,
+        "label": "Show LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "linkedin_link",
+        "label": "LinkedIn Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_youtube",
+        "default": true,
+        "label": "Show YouTube"
+      },
+      {
+        "type": "url",
+        "id": "youtube_link",
+        "label": "YouTube Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_pinterest",
+        "default": true,
+        "label": "Show Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "pinterest_link",
+        "label": "Pinterest Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tiktok",
+        "default": true,
+        "label": "Show TikTok"
+      },
+      {
+        "type": "url",
+        "id": "tiktok_link",
+        "label": "TikTok Link"
+      }
+    ],
+	"blocks": [
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Social Icons"
+      }
+    ]
+  }
+{% endschema %}

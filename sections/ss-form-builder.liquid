@@ -1,0 +1,661 @@
+{%- style -%}
+  
+  .section-{{ section.id }}-padding {
+    max-width: {{section.settings.section-width}}rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding: 0 5rem;
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .ss-form-field:focus {
+    outline: none;
+    box-shadow: none;
+    /* Add any other properties you want to override */
+  }
+
+  .ss-form-field {
+    border: 1px solid {{section.settings.field_border_color}};
+    outline: none;
+    color: {{section.settings.field_color}};
+    margin: 0;
+    width: 100%;
+    padding:15px 10px;
+    display: block;
+    margin-bottom: 20px;
+    background: #fff;
+    font-size: {{section.settings.font_size_placeholder}}px;
+    line-height:1.3;
+    border-radius: {{section.settings.input_border_radius}}px;
+  } 
+
+  @media screen and (min-width: 750px) {
+    .ss-form-field {
+      padding:15px;
+    }
+  }
+  
+
+  .section-{{ section.id }}-padding label {
+    color: {{section.settings.field_title_color}};
+    font-size: {{section.settings.font_size_label}}px;
+    line-height:1;
+    margin-bottom:10px;
+  }
+
+  .ss-form-field::placeholder { /* Most modern browsers support this */
+    font-size: {{section.settings.font_size_placeholder}}px;
+    color: {{section.settings.field_color}}; /* Change to desired color */
+    opacity: 1; /* Firefox requires this to not be 0 */
+  }
+  
+  .ss-form-field::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-size: {{section.settings.font_size_placeholder}}px;
+    color: {{section.settings.field_color}};
+  }
+  
+  .ss-form-field::-ms-input-placeholder { /* Microsoft Edge */
+    font-size: {{section.settings.font_size_placeholder}}px;
+    color: {{section.settings.field_color}};
+  }
+
+  .ss-submit-button:hover {
+     color: {{ section.settings.button_color_hover }};
+     background: {{ section.settings.button_background_color_hover }};
+  }
+  
+  .ss-submit-button {
+
+    height: {{ section.settings.button_height }}px;
+    {% if section.settings.button_full_width %}
+      width: 100%;
+    {% else %}
+       width: {{ section.settings.button_width }}px;
+    {% endif %}
+    color: {{ section.settings.button_color }};
+    background: {{ section.settings.button_background_color }};
+    font-size: {{ section.settings.button_font_size | times: 0.85 }}px;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    border: {{ section.settings.button_border_thickness }}px {{ section.settings.button_border_color }} solid;
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    line-height: 1;
+    padding: 0 10px! important;
+    -webkit-appearance: none;
+    
+  }
+
+  .ss-text-area {
+    height: 150px;
+  }
+
+{%- endstyle -%}
+
+
+<div style="background-color:{{section.settings.background-color}};">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div style="">
+          
+      {% if section.settings.title %}
+        <h1 style="color:{{ section.settings.header_color }};text-align: {{ section.settings.text_align }};font-size:{{ section.settings.font_size_title }}">
+          {{section.settings.title}}
+        </h1>
+      {% endif %}
+      
+      {% if section.settings.text %} 
+        <div style="color:{{ section.settings.header_color }};text-align: {{ section.settings.text_align }};margin-bottom:20px;">
+          {{ section.settings.text }}
+        </div>
+      {% endif %} 
+           
+      {% form 'contact' %}
+      
+        {% comment %}
+        Successful message
+        {% endcomment %}
+        {% if form.posted_successfully? %}
+        <p class="note form-success">
+        {{ section.settings.form_success }}
+        </p>
+        {% endif %}
+        
+        {{ form.errors | default_errors }}
+        
+        
+        <div style="display: flex; flex-wrap: wrap;justify-content: space-between;">
+        
+          {% for block in section.blocks %}
+             <div style="width: {% if block.settings.width == 'half' %}49{% else %}100{% endif %}%;">      
+            {% if block.type == 'text' %}
+            
+            <div>
+            
+              {% if block.settings.type == 'text' %}
+                {% if block.settings.use_label %}
+                  <label for="ContactFormName">
+                  {{ block.settings.title }}{% if block.settings.required and block.settings.title != blank %}*{% endif %}
+                  </label>
+                {% endif %}
+                <input class="ss-form-field" type="text" id="ContactFormName" name="contact[{{block.settings.title}}]" placeholder="{% if block.settings.placeholder != blank %}{{block.settings.placeholder}}{% if block.settings.required %}*{% endif %}{% endif %}" autocapitalize="words" value=""
+                {% if block.settings.required %}required{% endif %}>
+              
+                           
+              {% elsif block.settings.type == 'email' %}
+
+                {% if block.settings.use_label %}
+                  <label for="ContactFormEmail">
+                  {{block.settings.title}}{% if block.settings.required %}*{% endif %}
+                  </label>
+                {% endif %}
+                <input class="ss-form-field" type="email" id="ContactFormEmail" name="contact[email]" placeholder="{% if block.settings.placeholder != blank %}{{block.settings.placeholder}}{% if block.settings.required %}*{% endif %}{% endif %}" autocorrect="off" autocapitalize="off" value=""
+                {% if block.settings.required %}required{% endif %}>
+                           
+              
+              {% elsif block.settings.type == 'tel' %}
+
+                {% if block.settings.use_label %}
+                  <label for="ContactFormPhone">
+                  {{block.settings.title}}{% if block.settings.required %}*{% endif %}
+                  </label>
+                {% endif %}
+                <input class="ss-form-field" type="tel" id="ContactFormPhone" name="contact[{{block.settings.title}}]" placeholder="{% if block.settings.placeholder != blank %}{{block.settings.placeholder}}{% if block.settings.required %}*{% endif %}{% endif %}" pattern="[0-9\-]*" value=""
+                {% if block.settings.required %}required{% endif %}>
+              
+              
+              {% endif %}      
+            </div>
+            
+            
+            {% elsif block.type == 'textarea' %}
+            
+            <div>
+              {% if block.settings.use_label %}
+                <label for="ContactFormMessage">
+                  {{block.settings.title}}{% if block.settings.required %}*{% endif %}
+                </label>
+              {% endif %}
+              <textarea class="ss-form-field ss-text-area" rows="10" id="ContactFormMessage" name="contact[{{block.settings.title}}]" placeholder="{% if block.settings.placeholder != blank %}{{block.settings.placeholder}}{% if block.settings.required %}*{% endif %}{% endif %}"
+              {% if block.settings.required %}required{% endif %}></textarea>
+            </div>
+            
+            
+            {% elsif block.type == 'dropdown' %}
+            
+              <div>
+                {% assign options = block.settings.dropdown_options | strip | split: ',' %}
+
+                {% if block.settings.use_label %}
+                <label for="ContactFormDropdown">
+                  {{block.settings.title}}{% if block.settings.required %}*{% endif %}
+                </label>
+                {% endif %}
+                <select class="ss-form-field" {% if block.settings.required %}required{% endif %} id="ContactFormSelect" name="contact[{{block.settings.title}}]">
+                
+                {% if block.settings.placeholder %}
+                  <option value = "" disabled selected>{% if block.settings.placeholder != blank %}{{block.settings.placeholder}}{% if block.settings.required %}*{% endif %}{% endif %}</option>
+                {% endif %}
+                
+                {% for option in options %}
+                  <option value = "{{option}}">{{option}}</option>
+                {% endfor %}
+                </select>              
+              </div>
+            
+            
+            {% elsif block.type == 'message' %}
+                        
+              <div style="margin-bottom:20px">
+                         
+                {{block.settings.message}}
+                
+                <style>
+                p {
+                font-size:{{block.settings.font_size}}px;
+                margin:0;
+                line-height:1.3;
+                }
+                </style>
+              </div>
+            {% endif %}
+            </div>
+          {% endfor %}      
+
+          <div style="display:flex;width:100%;{% if section.settings.text_align == "center" %}justify-content:center;{% endif %}">
+          <input type="submit" class="ss-submit-button" 
+                 value="{% if section.settings.submit_btn_label != blank%}{{ section.settings.submit_btn_label }}{% else %}Send{% endif %}">
+          </div>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SS - Contact Form",
+  "settings": [
+     {
+      "type": "header",
+      "content": "Form labels"
+    },    
+	{
+	  "type": "text",
+	  "id": "title",
+	  "label": "Page title"
+	},
+	{
+	  "type": "richtext",
+	  "id": "text",
+	  "label": "Sub-text"
+	},
+    {
+	  "type": "richtext",
+	  "id": "form_success",
+	  "label": "Form success message"
+	},
+    {
+      "type": "header",
+      "content": "Other"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Input field border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Page title, sub-text & button alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"}
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Button colors"
+    },
+    {
+          "type": "color",
+          "label": "Button text color",
+          "id": "button_color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "label": "Button background color",
+          "id": "button_background_color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "label": "Button text color hover",
+          "id": "button_color_hover",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "label": "Button background color hover",
+          "id": "button_background_color_hover",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "label": "Button text border color",
+          "id": "button_border_color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Button settings"
+        },
+        {
+    	  "type": "text",
+    	  "id": "submit_btn_label",
+    	  "label": "Submit button label"
+    	},
+        {
+          "type": "range",
+          "id": "button_height",
+          "min": 20,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Button height",
+          "default": 44
+        },
+        {
+          "type": "range",
+          "id": "button_width",
+          "min": 100,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "Button width",
+          "default": 200
+        },
+        {
+          "type": "checkbox",
+          "id": "button_full_width",
+          "label": "Make button full width",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "button_font_size",
+          "min": 10,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Button font size",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "button_border_radius",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Button radius",
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "button_border_thickness",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "label": "Button border thickness",
+          "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Font sizes"
+    },
+    {
+      "type": "range",
+      "id": "font_size_title",
+      "label": "Title font size",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "font_size_label",
+      "label": "Label font size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "font_size_placeholder",
+      "label": "Placeholder font size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "header_color",
+      "label": "Header",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "field_color",
+      "label": "Placeholder",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "field_title_color",
+      "label": "Field title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "field_border_color",
+      "label": "Field border",
+      "default": "#d5d5d5"
+    },
+    {
+      "type": "color",
+      "label": "Section background color",
+      "id": "background-color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section content width"
+    },
+    {
+      "type": "range",
+      "id": "section-width",
+      "min": 40,
+      "max": 200,
+      "step": 5,
+      "unit": "rem",
+      "label": "Section width",
+      "default": 75
+    }
+  ],
+ 	"blocks": [
+	  {
+		"name": "Text Field (Oneline)",
+		"type": "text",
+		"settings": [
+		  {
+			"type": "checkbox",
+			"id": "required",
+			"label": "Required",
+			"default": false
+		  },
+          {
+			"type": "checkbox",
+			"id": "use_label",
+			"label": "Use Label",
+			"default": false
+		  },
+		  {
+		    "type": "text",
+			"id": "title",
+			"label": "Field title",
+            "info": "This field is required!"
+		  },
+		  {
+		    "type": "text",
+			"id": "placeholder",
+			"label": "Placeholder text",
+			"info": "Please leave empty if you don't want any text."
+		  },
+		  {
+			"type": "select",
+			"id": "type",
+			"options": [
+				{"value": "text", "label": "Standard Text"},
+				{"value": "email", "label": "Email Address"},
+                {"value": "tel", "label": "Telephone Number"}
+			],
+			"label": "Text Field Data"
+		  },
+          {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "default": "full",
+            "options": [
+              { "value": "half", "label": "Half Width" },
+              { "value": "full", "label": "Full Width" }
+            ]
+          }
+		]
+	  },
+	  {
+		"name": "Text Field (Multiline)",
+		"type": "textarea",
+		"settings": [
+		  {
+			"type": "checkbox",
+			"id": "required",
+			"label": "Required",
+			"default": false
+		  },
+          {
+			"type": "checkbox",
+			"id": "use_label",
+			"label": "Use Label",
+			"default": false
+		  },
+		  {
+		    "type": "text",
+			"id": "title",
+			"label": "Field title",
+            "info": "This field is required!"
+		  },
+		  {
+		    "type": "text",
+			"id": "placeholder",
+			"label": "Placeholder text",
+			"info": "Please leave empty if you don't want any text."
+		  },
+          {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "default": "full",
+            "options": [
+              { "value": "half", "label": "Half Width" },
+              { "value": "full", "label": "Full Width" }
+            ]
+          }
+		]
+	  },
+	  {
+		"name": "Dropdown Box",
+		"type": "dropdown",
+		"settings": [
+		  {
+			"type": "checkbox",
+			"id": "required",
+			"label": "Required",
+			"default": false
+		  },
+          {
+			"type": "checkbox",
+			"id": "use_label",
+			"label": "Use Label",
+			"default": false
+		  },
+		  {
+		    "type": "text",
+			"id": "title",
+			"label": "Dropdown title",
+            "info": "This field is required!"
+		  },
+		  {
+		    "type": "text",
+			"id": "placeholder",
+			"label": "Placeholder option"
+		  },
+		  {
+			"type": "textarea",
+			"id": "dropdown_options",
+			"label": "Dropdown Box Options",
+			"info": "Please separate options with a comma."
+		  },
+          {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "default": "full",
+            "options": [
+              { "value": "half", "label": "Half Width" },
+              { "value": "full", "label": "Full Width" }
+            ]
+          }
+		]
+	},
+	{
+		"name": "Custom Message",
+		"type": "message",
+		"settings": [
+		  {
+		    "type": "richtext",
+			"id": "message",
+			"label": "Message"
+		  },
+		  {
+			"type": "range",
+            "id": "font_size",
+            "min": 10,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "label": "Font size",
+            "default": 15
+		  }
+		]
+	}
+  ],
+  "presets": [
+     {
+       "name": "SS - Contact Form"
+     }
+  ]
+}
+{% endschema %}

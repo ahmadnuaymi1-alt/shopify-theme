@@ -1,0 +1,238 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  
+  #sp-image-masonry-{{ section.id }}.sp-image-masonry-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+
+  #sp-image-masonry-{{ section.id }} .sp-image-masonry {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-image-masonry-{{ section.id }}  .sp-image-masonry .sp-image-masonry-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    {% if section.settings.columns == "1" %}
+    grid-template-columns: 1fr;
+    {% endif %}
+    {% if section.settings.columns == "2" %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    {% if section.settings.columns == "3" %}
+    grid-template-columns: 1fr 1fr 1fr;
+    {% endif %}
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-image-masonry-{{ section.id }}  .sp-image-masonry .sp-image-masonry-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  #sp-image-masonry-{{ section.id }} .sp-image-masonry-grid-col {
+    margin: 0;
+    padding: 0;
+  }
+
+  #sp-image-masonry-{{ section.id }} .sp-image-masonry-grid-item {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 0 {{ section.settings.grid_gap }}px 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    transition: .25s all ease;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
+    
+  }
+
+  #sp-image-masonry-{{ section.id }} .sp-image-masonry-img {
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+
+  #sp-image-masonry-{{ section.id }} .sp-image-masonry-grid-item:hover {
+    z-index: 3;
+    transform: scale(1.01);
+  }
+  
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-image-masonry-{{ section.id }}" class="sp-image-masonry-wrap">
+
+<div class="sp-image-masonry">
+
+  <div class="sp-image-masonry-grid">
+
+    {% for block in section.blocks %}
+
+      {% assign break = forloop.length | divided_by: section.settings.columns | plus: 1 %}
+      {% assign break_2 = forloop.length | divided_by: section.settings.columns | times: 2 | plus: 1 %}
+
+      {% if forloop.index == 1 %}
+        <div class="sp-image-masonry-grid-col">
+      {% endif %}
+
+      {% if forloop.index == break %}
+        </div><div class="sp-image-masonry-grid-col">
+      {% endif %}
+
+      {% if forloop.index == break_2 %}
+        </div><div class="sp-image-masonry-grid-col">
+      {% endif %}
+
+      <div class="sp-image-masonry-grid-item">
+          {% if block.settings.link %}
+          <a class="sp-image-masonry-cta" href="{{ block.settings.link }}">
+            <img class="sp-image-masonry-img" src="{{ block.settings.image | image_url: width: 2048 }}">
+          </a>
+          {% else %}
+            <img class="sp-image-masonry-img" src="{{ block.settings.image | image_url: width: 2048 }}">
+          {% endif %}
+      </div>
+      <!-- /.sp-image-masonry-grid-item -->
+
+
+      {% if forloop.length == forloop.index %}
+        </div>
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+  <!-- /.sp-image-masonry-grid -->
+  
+</div>
+<!-- /.sp-image-masonry -->
+
+</div>
+<!-- /.sp-image-masonry-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Image Masonry Gri",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "select",
+        "id": "columns",
+        "label": "Columns",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 10,
+        "label": "Gap Between Images"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      }
+    ],
+	"blocks": [
+      {
+       "name": "Image",
+       "type": "image",
+       "settings": [
+         
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Optional Link"
+          }
+       ]
+      }
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Image Masonry Gri",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

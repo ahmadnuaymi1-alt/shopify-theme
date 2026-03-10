@@ -1,0 +1,567 @@
+{% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  color: {{section.settings.text_color}};
+  background-color: {{section.settings.background_color}};
+  {% if section.settings.section_height == true %}
+    min-height: 100vh;
+  {% endif %}
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-partners-inner {
+  width: 100%;
+  padding: 80px 0;
+  background-color: {{section.settings.inner_bg_color}};
+  text-align: {{section.settings.text_align}};
+}
+
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 30px;
+  position: relative;
+  max-width: 720px;
+  line-height: 1.2;
+  text-align: {{section.settings.text_align}};
+  {% if section.settings.text_align == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-section-text {
+  color: {{section.settings.text_color}};
+  margin-bottom: 50px;
+  max-width: 720px;
+  text-align: {{section.settings.text_align}};
+  {% if section.settings.text_align == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-section-text p {
+  margin-top: 0;
+  opacity: 0.65;
+  color: {{section.settings.text_color}};
+}
+
+.pw-section__{{sec_id}} .pw-partners-list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper {
+  width: 20%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} .pw-partner {
+  display: block;
+  padding-top: {{section.settings.logo_ratio}};
+  height: 0;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.pw-section__{{sec_id}} .pw-partner img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.pw-mb-30 {
+  margin-bottom: 30px;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-section-text p {
+    font-size: 24px; margin-bottom: 24px;
+  }
+{% endif %}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(1) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-1.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(2) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-2.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(3) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/PARTNER-LOGO-WHITE-3_da1a6cd4-9cde-4c3b-9899-488d624bac72.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(4) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-4.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(5) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/PARTNER-LOGO-WHITE-5_5f7a55aa-1d0a-4b8b-8d30-947e0bbb57b5.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(6) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-6.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(7) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-7.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(8) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-8.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(9) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-9.png') no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-partner-wrapper:nth-child(10) .pw-partner.placeholder {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/partner-logo-white-6.png') no-repeat center/contain;
+}
+
+@media only screen and (max-width: 991px) {
+  .pw-section__{{sec_id}} .pw-partner-wrapper {
+    width: 33.333%;
+  }
+}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} .pw-partners-inner {
+    padding: 50px 0;
+  }
+  .pw-section__{{sec_id}} .pw-partner-wrapper {
+    width: 50%;
+  }
+  .pw-section__{{sec_id}} {
+    min-height: auto;
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} .pw-section-text p {
+      font-size: 20px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="pw-partners-inner">
+    <div class="pw-container">
+      {% for block in section.blocks %}
+        {% case block.type %}
+
+          {% when 'heading' %}
+            {% if block.settings.heading_text != blank %}
+              <{{ block.settings.heading_tag }} class="pw-section-title" {{ block.shopify_attributes }}>
+              {{ block.settings.heading_text | escape }}
+              </{{ block.settings.heading_tag }}>
+            {% endif %}
+
+          {% when 'text' %}
+            {% if block.settings.section_text != blank %}
+              <div class="pw-section-text" {{ block.shopify_attributes }}>
+                {{ block.settings.section_text }}
+              </div>
+            {% endif %}
+
+        {% endcase %}
+      {% endfor %}
+
+      <div class="pw-partners-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'partner' %}
+
+            <div class="pw-partner-wrapper" {{ block.shopify_attributes }}>
+              {% if block.settings.partner_logo == blank %}
+                <div class="pw-partner placeholder"></div>
+              {% else %}
+               {% if block.settings.partner_link == blank %}
+                <div class="pw-partner">
+                  <img srcset="
+                  {%- if block.settings.partner_logo >= 750 -%}{{ block.settings.partner_logo | img_url: '750x' }} 750w,{%- endif -%}"
+                    src="{{ block.settings.partner_logo | img_url: '750x' }}"
+                    alt="{{ block.settings.partner_logo.alt | escape }}"
+                    sizes="(min-width: 750px) 750px"
+                    width="100%"
+                    height="100%"
+                    loading="lazy"
+                  >
+                </div>
+                {% else %}
+                  <a href="{{block.settings.partner_link}}" class="pw-partner">
+                    <img srcset="
+                    {%- if block.settings.partner_logo >= 750 -%}{{ block.settings.partner_logo | img_url: '750x' }} 750w,{%- endif -%}"
+                      src="{{ block.settings.partner_logo | img_url: '750x' }}"
+                      alt="{{ block.settings.partner_logo.alt | escape }}"
+                      sizes="(min-width: 750px) 750px"
+                      width="100%"
+                      height="100%"
+                      loading="lazy"
+                    >
+                  </a>
+                {% endif %}
+              {% endif %}
+            </div>
+
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Partners-Rose-01",
+  "tag": "section",
+  "class": "kava-partners kava-partners-rose-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Title and text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "inner_bg_color",
+      "label": "Inner container background color",
+      "default": "transparent"
+    },
+    {
+      "type": "select",
+      "id": "logo_ratio",
+      "label": "Partner logo shape",
+      "options": [
+        {
+          "value": "100%",
+          "label": "Square(1x1)"
+        }, {
+          "value": "50%",
+          "label": "Rectangle (2x1)"
+        }, {
+          "value": "33%",
+          "label": "Rectangle (3x1)"
+        }, {
+          "value": "75%",
+          "label": "Rectangle (4x3)"
+        }
+      ],
+      "default": "50%"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "section_height",
+      "default": false,
+      "label": "Full screen"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            }, {
+              "value": "h2",
+              "label": "H2"
+            }, {
+              "value": "h3",
+              "label": "H3"
+            }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Heading text"
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "type": "text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "section_text",
+          "label": "Section text"
+        }
+      ]
+    },
+    {
+      "name": "Partner",
+      "type": "partner",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "partner_logo",
+          "label": "Partner logo"
+        },
+        {
+          "type": "url",
+          "id": "partner_link",
+          "label": "Partner link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP -Partners-Rose-01",
+      "settings": {
+        "text_align": "center",
+        "background_color": "#212B36",
+        "text_color": "#fff"
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+              "heading_text": "Boost supporters"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+              "section_text": "<p>To ensure first-class delivery of their services or products, many companies rely on their trusted partners.</p>"
+          }
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        },
+        {
+          "type": "partner"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

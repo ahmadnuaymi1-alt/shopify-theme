@@ -1,0 +1,291 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-sizechart-{{ section.id }}.sp-size-chart-wrap p,
+  #sp-sizechart-{{ section.id }}.sp-size-chart-wrap th,
+  #sp-sizechart-{{ section.id }}.sp-size-chart-wrap td,
+  #sp-sizechart-{{ section.id }}.sp-size-chart-wrap a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-sizechart-{{ section.id }}.sp-size-chart-wrap {
+    background-image: {{section.settings.background_color}};
+    width: 100%;
+  }
+  
+  #sp-sizechart-{{ section.id }} .sp-size-chart {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-sizechart-{{ section.id }} .sp-size-chart h2 {
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    font-weight: bold;
+    max-width: 1000px;
+    margin: 0 auto 25px auto;
+    padding: 0;
+  }
+
+  #sp-sizechart-{{ section.id }}  .sp-size-chart .sp-size-chart-grid {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    max-width: 1000px;
+  }
+
+  #sp-sizechart-{{ section.id }} .sp-size-chart-col {
+    width: 100%;
+    overflow: auto;
+  }
+
+  #sp-sizechart-{{ section.id }}  .sp-size-chart table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-sizechart-{{ section.id }}  .sp-size-chart table {
+      width: auto;
+    }
+  }
+
+  #sp-sizechart-{{ section.id }} .sp-size-chart table td,
+  #sp-sizechart-{{ section.id }} .sp-size-chart table th {
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.table_padding }}px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-sizechart-{{ section.id }} .sp-size-chart table td,
+    #sp-sizechart-{{ section.id }} .sp-size-chart table th {
+      white-space: nowrap;
+    }
+  }
+
+  #sp-sizechart-{{ section.id }} .sp-size-chart table thead th {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid {{ section.settings.border_color }};
+  }
+
+  #sp-sizechart-{{ section.id }} .sp-size-chart table thead th:first-child {
+    text-align: left;
+    border-right: 1px solid {{ section.settings.border_color }};
+  }
+
+  #sp-sizechart-{{ section.id }} .sp-size-chart table tbody th {
+    text-align: left;
+    border-right: 1px solid {{ section.settings.border_color }};
+  }
+
+  #sp-sizechart-{{ section.id }}  .sp-size-chart table tbody td {
+    text-align: center;
+  }
+
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-sizechart-{{ section.id }}" class="sp-size-chart-wrap" sp-wrap>
+
+  <div class="sp-size-chart" sp-container>
+
+  <div class="sp-size-chart-grid">
+    <div class="sp-size-chart-col" sp-column>
+
+      <table id="sp-size-chart-{{ section.id }}" class="sp-size-chart-table">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>XS</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>XL</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for block in section.blocks %}
+          <tr>
+            <th>{{block.settings.label}}</th>
+            <td>{{block.settings.xs}}</td>
+            <td>{{block.settings.s}}</td>
+            <td>{{block.settings.m}}</td>
+            <td>{{block.settings.l}}</td>
+            <td>{{block.settings.xl}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    
+    </div>
+    <!-- /.sp-size-chart-col -->
+  </div>
+  <!-- /.sp-size-chart-container -->
+
+  </div>
+  <!-- /.sp-size-chart -->
+  
+</div>
+<!-- /.sp-size-chart-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Size Chart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "default": "#CCCCCC",
+        "label": "Border Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "table_padding",
+        "default": 5,
+        "label": "Table Padding"
+      }
+      
+    ],
+    "blocks": [
+      {
+       "name": "Size",
+       "type": "size",
+       "settings": [
+          {
+          "type": "inline_richtext",
+          "id": "label",
+          "label": "Label"
+          },
+          {
+          "type": "inline_richtext",
+          "id": "xs",
+          "label": "XS"
+          },
+          {
+          "type": "inline_richtext",
+          "id": "s",
+          "label": "S"
+          },
+          {
+          "type": "inline_richtext",
+          "id": "m",
+          "label": "M"
+          },
+          {
+          "type": "inline_richtext",
+          "id": "l",
+          "label": "L"
+          },
+          {
+          "type": "inline_richtext",
+          "id": "xl",
+          "label": "XL"
+          }
+       ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Size Chart",
+        "blocks": [
+          {
+            "type": "size"
+          },
+          {
+            "type": "size"
+          },
+          {
+            "type": "size"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

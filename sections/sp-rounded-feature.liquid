@@ -1,0 +1,768 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  {% assign short_id = section.id | slice: -3, 3 %}
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap p,
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap p {
+    color: {{ section.settings.text_color }};
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h1,
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h2,
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h3,
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h4,
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h5 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    color: {{section.settings.headline_color}};
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus:5 }}px;
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus:10 }}px;
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus:15 }}px;
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus:20 }}px;
+  }
+
+  #sp-rfs-{{ section.id }}.sp-rfs-wrap {
+    box-sizing: border-box;
+    background-image: {{section.settings.background_color}};
+    width: 100%;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-grid {
+    position: relative;
+    margin: 0 auto;
+    border-radius: {{ section.settings.container_radius }}px;
+    background-image: {{ section.settings.container_background_color }};
+    max-width: {{ section.settings.max_width }}px;
+    min-height: {{ section.settings.height }}px;
+    overflow: hidden;
+    {% if section.settings.container_shadow %}box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);{% endif %}
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-grid-left .sp-rfs-column-content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-column-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-rfs-{{ section.id }} .sp-rfs-column-image {
+    }
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    #sp-rfs-{{ section.id }} .sp-rfs-column-image {
+      background-attachment: scroll;
+    }
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-cover  {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: {{ section.settings.cover_background }};
+    opacity: {{ section.settings.cover_opacity }}%;
+  }
+  
+  #sp-rfs-{{ section.id }} .sp-rfs-grid-left .sp-rfs-column-image {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-grid-right .sp-rfs-column-content {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  #sp-rfs-{{ section.id }} .sp-rfs-grid-right .sp-rfs-column-image {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  #sp-rfs-{{ section.id }} .sp-rfs-grid-right {
+    display: grid;
+    {% if section.settings.media_aspect_ratio == "21 / 9" %}
+    grid-template-columns: 3fr 1fr;
+    {% elsif section.settings.media_aspect_ratio == "16 / 9"%}
+    grid-template-columns: 2fr 1fr;
+    {% else %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    align-items: center;
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-grid-left {
+    display: grid;
+    {% if section.settings.media_aspect_ratio == "21 / 9" %}
+    grid-template-columns: 1fr 3fr;
+    {% elsif section.settings.media_aspect_ratio == "16 / 9"%}
+    grid-template-columns: 1fr 2fr;
+    {% else %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    align-items: center;
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-column-image img {
+    aspect-ratio: {{ section.settings.media_aspect_ratio }};
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-column-content {
+    margin: 0;
+    padding: 0 {{ section.settings.grid_gap }}px 0 0;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-rfs-{{ section.id }} .sp-rfs-column-content {
+      overflow: hidden;
+      padding: {{ section.settings.grid_gap }}px;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-rfs-{{ section.id }} .sp-rfs-grid {
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-rfs-{{ section.id }} .sp-rfs-column {
+      overflow: hidden;
+    }
+  }
+
+  #sp-rfs-{{ section.id }} .sp-rfs-grid p:last-child {
+    margin: 0 !important;
+    padding: 0;
+  }
+</style>
+
+<div id="sp-rfs-{{ section.id }}" class="sp-rfs-wrap" sp-wrap>
+  <div class="sp-rfs-grid sp-rfs-grid-{{ section.settings.text_location }}" sp-container>
+
+    <div class="sp-rfs-column sp-rfs-column-image">
+      <div class="sp-rfs-cover"></div>
+      {% if section.settings.image %}
+        <img src="{{ section.settings.image | image_url: height: section.settings.height }}"
+          srcset="{{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: height: section.settings.height }} 1100w">
+      {% endif %}
+    </div>
+    <!-- column-text -->
+
+    <div class="sp-rfs-column sp-rfs-column-content" sp-column>
+
+      {% for block in section.blocks %}
+
+        {% if block.type == 'five_star' %}
+  
+          <style>
+            #sp-rfs-star-{{ forloop.index }} {
+              text-align: {{ block.settings.alignment }};
+            }
+            
+            #sp-rfs-star-{{ forloop.index }} svg,
+            #sp-rfs-star-{{ forloop.index }} svg * {
+              fill: {{ block.settings.color }};
+            }
+          </style>
+  
+          <p id="sp-rfs-star-{{ forloop.index }}">
+            <svg width="101px" height="20px" viewBox="0 0 101 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>5 Stars</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Group-5">
+                        <polygon points="10 15 4.12214748 18.0901699 5.24471742 11.545085 0.489434837 6.90983006 7.06107374 5.95491503 10 0 12.9389263 5.95491503 19.5105652 6.90983006 14.7552826 11.545085 15.8778525 18.0901699"></polygon>
+                        <polygon points="30.5 15 24.6221475 18.0901699 25.7447174 11.545085 20.9894348 6.90983006 27.5610737 5.95491503 30.5 0 33.4389263 5.95491503 40.0105652 6.90983006 35.2552826 11.545085 36.3778525 18.0901699"></polygon>
+                        <polygon points="50 15 44.1221475 18.0901699 45.2447174 11.545085 40.4894348 6.90983006 47.0610737 5.95491503 50 0 52.9389263 5.95491503 59.5105652 6.90983006 54.7552826 11.545085 55.8778525 18.0901699"></polygon>
+                        <polygon points="70.5 15 64.6221475 18.0901699 65.7447174 11.545085 60.9894348 6.90983006 67.5610737 5.95491503 70.5 0 73.4389263 5.95491503 80.0105652 6.90983006 75.2552826 11.545085 76.3778525 18.0901699"></polygon>
+                        <polygon points="90.5 15 84.6221475 18.0901699 85.7447174 11.545085 80.9894348 6.90983006 87.5610737 5.95491503 90.5 0 93.4389263 5.95491503 100.010565 6.90983006 95.2552826 11.545085 96.3778525 18.0901699"></polygon>
+                    </g>
+                </g>
+            </svg></p>
+        {% endif %}
+  
+        {% if block.type == '@app' %}
+          <div class="sp-rfsp-app-block">
+            {% render block %}
+          </div>
+        {% endif %}
+  
+        {% if block.type == 'headline' %}
+  
+          <style>
+          #sp-rfs-{{ section.id }} #sp-headline-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          
+           <h1 id="sp-headline-{{ forloop.index }}">{{ block.settings.content }}</h1>
+        {% endif %}
+  
+        {% if block.type == 'paragraph' %}
+  
+          <style>
+          #sp-rfs-{{ section.id }} #sp-paragraph-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          
+           <p id="sp-paragraph-{{ forloop.index }}">{{ block.settings.content }}</p>
+        {% endif %}
+  
+        {% if block.type == 'content' %}
+  
+          <style>
+          #sp-rfs-{{ section.id }} #sp-content-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          
+           <{{ block.settings.tag }} id="sp-content-{{ forloop.index }}">{{ block.settings.content }}</{{ block.settings.tag }}>
+        {% endif %}
+  
+        {% if block.type == 'richtext' %}
+          <style>
+          #sp-rfs-{{ section.id }} #sp-content-{{ forloop.index }}, #sp-rfs-{{ section.id }} #sp-content-{{ forloop.index }} * {
+            text-align: {{ block.settings.alignment }};
+          }
+          </style>
+          <div id="sp-content-{{ forloop.index }}">
+          {{ block.settings.richtext }}
+          </div>
+        {% endif %}
+  
+        {% if block.type == 'button' %}
+          <style>
+            #sp-rfs-button-{{ forloop.index }} .sp-rfs-button {
+              display: inline-block;
+              padding: {{ block.settings.button_padding_tb }}px {{ block.settings.button_padding_lr }}px;
+              background-image: {{ block.settings.button_background_color }};
+              border-radius: {{ block.settings.button_border_radius }}px;
+              color: {{ block.settings.button_text_color }} !important;
+              font-size: {{ block.settings.button_text_size }}px !important;
+              text-decoration: none;
+              cursor: pointer;
+              text-shadow: none;
+              transition: .25s all;
+            }
+  
+            #sp-rfs-button-{{ forloop.index }} .sp-rfs-button * {
+              color: {{ block.settings.button_text_color }};
+            }
+          </style>
+  
+          <p id="sp-rfs-button-{{ forloop.index }}" style="text-align: {{ block.settings.alignment }};"><a class="sp-rfs-button" href="{{ block.settings.cta_link }}">{{ block.settings.cta }}</a></p>
+        {% endif %}
+  
+      {% endfor %}
+      
+    </div>
+    <!-- column-content -->
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "🚀SP - Rounded Feature",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "default": "1.25",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color_background",
+        "id": "cover_background",
+        "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+        "label": "Cover Background"
+      },
+      {
+        "type": "range",
+        "id": "cover_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Cover Opacity",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Image",
+        "info": "Set the background image."
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "height",
+        "default": 500,
+        "label": "Height of Section"
+      },
+      {
+        "type": "number",
+        "id": "mobile_height",
+        "default": 300,
+        "label": "Height of Window on Mobile"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap between Columns"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 20,
+        "label": "Spacing between Elements"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set content for the section"
+      },
+      {
+        "type": "select",
+        "id": "text_location",
+        "label": "Text Location",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "right"
+      },
+      {
+        "type": "header",
+        "content": "Container",
+        "info": "Set settings for your container"
+      },
+      {
+        "type": "color_background",
+        "id": "container_background_color",
+        "default": "linear-gradient(164deg, #E5F1FB 0%, #F2FFED 100%)",
+        "label": "Container Background Color"
+      },
+      {
+        "type": "range",
+        "id": "container_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Round Borders on Container",
+        "default": 25
+      },
+      {
+        "type": "checkbox",
+        "id": "container_shadow",
+        "default": true,
+        "label": "Subtle Shadow on Container"
+      },
+      {
+        "type": "header",
+        "content": "Image",
+        "info": "Set settings for your image"
+      },
+      {
+        "type": "select",
+        "id": "media_aspect_ratio",
+        "default": "4 / 3",
+        "label": "Image Aspect Ratio",
+        "options": [
+          {
+            "value": "21 / 9",
+            "label": "21:9"
+          },
+          {
+            "value": "16 / 9",
+            "label": "16:9"
+          },
+          {
+            "value": "4 / 3",
+            "label": "4:3"
+          },
+          {
+            "value": "1 / 1",
+            "label": "1:1"
+          }
+        ],
+        "default": "4 / 3"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "name": "Headline",
+        "type": "headline",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "<strong>This is Rounded Feature.</strong>"
+          }
+        ]
+      },
+      {
+        "name": "Paragraph",
+        "type": "paragraph",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "This is sample content for your hero section. Use it to describe your product or service or to add a customer testimonial."
+          }
+        ]
+      },
+      {
+        "name": "Rich Text",
+        "type": "richtext",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "richtext",
+            "id": "richtext",
+            "label": "Content",
+            "default": "<h4><b>Create Amazing Content</b></h4><p>Use the <b>rich text block</b> to add headlines, paragraphs, lists, and more to your tab.</p>"
+          }
+        ]
+      },
+      {
+        "name": "Button",
+        "type": "button",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "cta",
+            "default": "Shop Now",
+            "label": "Call to Action"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "Call to Action Link"
+          },
+          {
+            "type": "header",
+            "content": "Button Style",
+            "info": "Set the look and feel of the button"
+          },
+          {
+            "type": "color_background",
+            "id": "button_background_color",
+            "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+            "label": "Button Background Color"
+          },
+          {
+            "type": "color",
+            "id": "button_text_color",
+            "default": "#fff",
+            "label": "Button Text Color"
+          },
+          {
+            "type": "range",
+            "id": "button_text_size",
+            "min": 10,
+            "max": 50,
+            "step": 1,
+            "unit": "px",
+            "label": "Text Size",
+            "default": 15
+          },
+          {
+            "type": "number",
+            "id": "button_padding_tb",
+            "default": 10,
+            "label": "Padding Top/Bottom"
+          },
+          {
+            "type": "number",
+            "id": "button_padding_lr",
+            "default": 25,
+            "label": "Padding Left/Right"
+          },
+          {
+            "type": "number",
+            "id": "button_border_radius",
+            "default": 5,
+            "label": "Border Radius"
+          }
+        ]
+      },
+       {
+        "name": "5 Star",
+        "type": "five_star",
+        "settings": [
+          {
+            "type": "text_alignment",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center"
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "default": "#111",
+            "label": "Icon Color"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Rounded Feature",
+        "blocks": [
+          {
+            "type": "five_star"
+          },
+          {
+            "type": "headline"
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

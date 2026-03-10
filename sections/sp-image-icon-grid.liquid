@@ -1,0 +1,295 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-im-icon-{{ section.id }}.sp-im-icon-wrap p,
+  #sp-im-icon-{{ section.id }}.sp-im-icon-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-im-icon-{{ section.id }}.sp-im-icon-wrap h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-im-icon-{{ section.id }}.sp-im-icon-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+
+  #sp-im-icon-{{ section.id }} .sp-im-icon {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-im-icon-{{ section.id }}  .sp-im-icon .sp-im-icon-grid {
+    display: grid;
+    gap: {{ section.settings.grid_gap}}px;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media only screen and (min-width: 801px) {
+    .sp-im-icon .sp-im-icon-grid {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .sp-im-icon .sp-im-icon-grid {
+      display: grid;
+      grid-template-columns: {{ section.settings.mobile_columns }};
+    }
+  }
+
+  .sp-im-icon-col {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .sp-im-icon-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      transition: all 0.5s ease;
+      margin-bottom: 5px;
+    }
+
+  .sp-im-icon-col:hover .sp-im-icon-img {
+    transform: scale(1.05);
+  }
+  
+  .sp-im-icon-content {
+    position: relative;
+    z-index: 3;
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  #sp-im-icon-{{ section.id }} .sp-im-icon h2 {
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    padding: 0;
+    color: {{section.settings.text_color}};
+  }
+
+  .sp-im-icon p {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<div id="sp-im-icon-{{ section.id }}" class="sp-im-icon-wrap">
+
+<div class="sp-im-icon">
+
+  <div id="sp-im-icon-carousel-{{ section.id }}" class="sp-im-icon-grid">
+
+    {% for block in section.blocks %}
+      <div class="sp-im-icon-col">
+        <div class="sp-im-icon-content">
+          {% if block.settings.link %}
+          <a href="{{ block.settings.link }}">
+          {% endif %}
+            <img class="sp-im-icon-img" src="{{ block.settings.image | image_url: width: 2048 }}">
+            <h2>{{ block.settings.headline }}</h2>
+            <p>{{ block.settings.text }}</p>
+          {% if block.settings.link %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- /.sp-im-icon-col -->
+
+      {% endfor %}
+
+  </div>
+  <!-- /.sp-im-icon-grid -->
+  
+</div>
+<!-- /.sp-im-icon -->
+
+</div>
+<!-- /.sp-im-icon-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Image Icon Grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "default": "#111",
+        "label": "Highlight Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "select",
+        "id": "mobile_columns",
+        "label": "Columns on Mobile",
+        "options": [
+          {
+            "value": "1fr",
+            "label": "1 column"
+          },
+          {
+            "value": "1fr 1fr",
+            "label": "2 columns"
+          },
+          {
+            "value": "1fr 1fr 1fr",
+            "label": "3 columns"
+          }
+        ],
+        "default": "1fr 1fr"
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap Between Reviews"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      }
+    ],
+	"blocks": [
+      {
+       "name": "Icon",
+       "type": "icon",
+       "settings": [
+         
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "headline",
+            "label": "Headline",
+            "default": "Headline"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "default": "Some followup text to build on the feature",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link (optional)"
+          }
+       ]
+      }
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Image Icon Grid",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

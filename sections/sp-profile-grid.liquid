@@ -1,0 +1,293 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-profile-{{ section.id }}.sp-profile-wrap p,
+  #sp-profile-{{ section.id }}.sp-profile-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-profile-{{ section.id }}.sp-profile-wrap h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+  
+  #sp-profile-{{ section.id }}.sp-profile-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+  
+  #sp-profile-{{ section.id }} .sp-profile {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile .sp-profile-grid {
+    display: grid;
+    gap: {{ section.settings.grid_gap }}px;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    align-content: start;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-profile-{{ section.id }} .sp-profile .sp-profile-grid {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-profile-{{ section.id }} .sp-profile .sp-profile-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      
+    }
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile-col {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile-img {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile-content {
+    position: relative;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile h2 {
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    text-align: center;
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile p {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  #sp-profile-{{ section.id }} .sp-profile p:last-child {
+    margin: 0;
+  }
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-profile-{{ section.id }}" class="sp-profile-wrap" sp-wrap>
+
+<div class="sp-profile" sp-container>
+
+  <div class="sp-profile-grid">
+
+    {% for block in section.blocks %}
+      <div class="sp-profile-col" sp-column>
+        <div class="sp-profile-content">
+          <img class="sp-profile-img" src="{{ block.settings.image | image_url: width: 500 }}">
+          <h2 class="sp-profile-name">{{ block.settings.name }}</h2>
+          <p class="sp-profile-role">{{ block.settings.role }}</p>
+          <p class="sp-profile-background">{{ block.settings.background }}</p>
+        </div>
+      </div>
+      <!-- /.sp-profile-col -->
+
+      {% endfor %}
+
+  </div>
+  <!-- /.sp-profile-grid -->
+  
+</div>
+<!-- /.sp-profile -->
+
+</div>
+<!-- /.sp-profile-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Profile Grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111",
+        "label": "Text Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap Between Profiles"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 15,
+        "label": "Element Spacing"
+      }
+    ],
+    
+	"blocks": [
+      {
+       "name": "Profile",
+       "type": "profile",
+       "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "name",
+            "label": "Name",
+            "default": "Sample Name"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "role",
+            "label": "Role",
+            "default": "Lead Product Designer"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "background",
+            "label": "Background",
+            "default": "Been at the company for 10 years. Experience in all things e-commerce and digital."
+          }
+       ]
+      }
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Profile Grid",
+        "blocks": [
+          {
+            "type": "profile"
+          },
+          {
+            "type": "profile"
+          },
+          {
+            "type": "profile"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,498 @@
+ {% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  color: {{section.settings.text_color}};
+  background-color: {{section.settings.background_color}};
+  {% if section.settings.section_height == true %}
+    min-height: 100vh;
+  {% endif %}
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-section-inner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  text-align: {{section.settings.text_align}};
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 50px;
+  line-height: 1.2;
+  text-align: {{section.settings.text_align}};
+}
+
+.pw-section__{{sec_id}} .pw-feature {
+  padding-left: 100px;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.pw-section__{{sec_id}} .img-wrapper {
+  width: 77px;
+  height: 77px;
+  overflow: hidden;
+  position: absolute;
+  top: -15px;
+  left: 0;
+}
+
+
+{% if section.settings.disable_icon_bg != true %}
+.pw-section__{{sec_id}} .img-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: {{section.settings.icon_color}};
+  opacity: 0.2;
+}
+{% endif %}
+
+.pw-section__{{sec_id}} .img-wrapper img,
+.pw-section__{{sec_id}} .img-wrapper svg {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 23px;
+  left: 23px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.pw-section__{{sec_id}} .img-wrapper path {
+  fill: {{section.settings.icon_color}};
+}
+
+.pw-section__{{sec_id}} .pw-feature.featured-img {
+  padding-left: 100px;
+}
+
+.pw-section__{{sec_id}} .pw-feature.featured-img::before {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-feature-title {
+  color: {{section.settings.text_color}};
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+}
+
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} .pw-feature-title  {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-section-inner p {
+    font-size: 24px;
+    margin-top: 0;
+  }
+{% endif %}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    min-height: auto;
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} .pw-feature-title  {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} .pw-section-inner p {
+      font-size: 20px;
+    }
+  {% endif %}
+  
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+    margin-bottom: 30px;
+  }
+  .pw-section__{{sec_id}} .pw-feature {
+    padding-left: 35px;
+  }
+  .pw-section__{{sec_id}} .pw-feature::before {
+    content: '';
+    width: 18px;
+    height: 10px;
+    top: 16px;
+  }
+  .pw-section__{{sec_id}} .img-wrapper {
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: -15px;
+  }
+  .pw-section__{{sec_id}} .img-wrapper img,
+  .pw-section__{{sec_id}} .img-wrapper svg {
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    left: 10px;
+  }
+  .pw-section__{{sec_id}} .pw-feature.featured-img {
+    padding-left: 65px;
+  }
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="pw-container">
+    <div class="pw-section-inner">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'heading' %}
+          {% if block.settings.heading_text != blank %}
+            <{{ block.settings.heading_tag }} class="pw-section-title" {{ block.shopify_attributes }}>
+            {{ block.settings.heading_text | escape }}
+            </{{ block.settings.heading_tag }}>
+          {% endif %}
+          {% when 'feature' %}
+          <div class="pw-feature {% if block.settings.feature_image != blank %} featured-img {% endif %}" {{ block.shopify_attributes }}>
+            {% if block.settings.feature_image == blank  %}
+                <div class="img-wrapper">
+                  {{ block.settings.feature_svg }}
+                </div>
+              {% else %}
+                <div class="img-wrapper">
+                  <img src="{{ block.settings.feature_image | img_url: '150x' }}"
+                    alt="{{ block.settings.feature_image.alt | escape }}"
+                    width="100%"
+                    height="100%"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+            {% if block.settings.feature_title != blank %}
+              <h3 class="pw-feature-title">{{ block.settings.feature_title | escape }}</h3>
+            {% endif %}
+            {% if block.settings.feature_text != blank %}
+              <p>{{ block.settings.feature_text | escape }}</p>
+            {% endif %}
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Features-Claire-01",
+  "tag": "section",
+  "class": "kava-feature kava-feature-claire-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Check icon color",
+      "default": "#0535F5"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_icon_bg",
+      "default": false,
+      "label": "Disable icon background"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Title alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "section_height",
+      "default": false,
+      "label": "Full screen height"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Heading text"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            }, {
+              "value": "h2",
+              "label": "H2"
+            }, {
+              "value": "h3",
+              "label": "H3"
+            }
+          ],
+          "default": "h2"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "type": "feature",
+      "limit": 12,
+      "settings": [
+    {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature title",
+          "default": "Feature title"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_text",
+          "label": "Feature text",
+          "default": "Feature text"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_svg",
+          "label": "Feature SVG code. e.g. https://icons.getbootstrap.com",
+          "default": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-lg' viewBox='0 0 16 16'><path d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z'/></svg>"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature_image",
+          "label": "Or upload icon in PNG format"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Features-Claire-01",
+      "settings": {
+        "disable_icon_bg": true
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Be Relevant"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+              "feature_title": "Understand your audience",
+              "feature_text": "Audience research helps you understand your target audience’s pain points and aspirations."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+              "feature_title": "Do keyword research",
+              "feature_text": "Keyword research helps you know what kind of content your readers are looking for. It also helps you create SEO-optimized content."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+              "feature_title": "Use expert writers",
+              "feature_text": "Use expert writers that can create content that easily conveys your message and moves readers to action."
+          }
+        }
+      ]
+    }
+  ]
+  
+}
+
+{% endschema %}

@@ -1,0 +1,890 @@
+{% comment %}
+---------------------------------------------------------
+Copyright © 2023 Section Store. All rights reserved.
+Unauthorized copying, modification, distribution, or use
+of this code or any portion of it, is strictly prohibited.
+Violators will be prosecuted to the fullest extent of the law.
+For inquiries or permissions, contact daniel@section.store
+---------------------------------------------------------
+{% endcomment %}
+
+{%- liquid 
+  assign padding_horizontal = section.settings.padding_horizontal
+  assign padding_horizontal_mobile = section.settings.padding_horizontal_mobile
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign border_color = section.settings.border_color
+  assign border_thickness = section.settings.border_thickness
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+  assign background_color = section.settings.background_color
+  assign background_gradient = section.settings.background_gradient
+  assign full_width = section.settings.full_width
+  assign content_width = section.settings.content_width
+
+  assign heading = section.settings.heading
+  assign heading_size = section.settings.heading_size
+  assign heading_size_mobile = section.settings.heading_size_mobile
+  assign heading_color = section.settings.heading_color
+  assign heading_custom = section.settings.heading_custom
+  assign heading_font = section.settings.heading_font
+  assign heading_height = section.settings.heading_height
+  assign heading_align = section.settings.heading_align
+  assign heading_align_mobile = section.settings.heading_align_mobile
+
+  assign title_size = section.settings.title_size
+  assign title_size_mobile = section.settings.title_size_mobile
+  assign title_color = section.settings.title_color
+  assign title_custom = section.settings.title_custom
+  assign title_font = section.settings.title_font
+  assign title_height = section.settings.title_height
+  assign title_mt = section.settings.title_mt
+
+  assign percent_size = section.settings.percent_size
+  assign percent_size_mobile = section.settings.percent_size_mobile
+  assign percent_color = section.settings.percent_color
+  assign percent_custom = section.settings.percent_custom
+  assign percent_font = section.settings.percent_font
+  assign percent_height = section.settings.percent_height
+
+  assign progress_mt = section.settings.progress_mt
+  assign progress_gap = section.settings.progress_gap
+  assign progress_gap_mobile = section.settings.progress_gap_mobile
+  assign progress_circle_color = section.settings.progress_circle_color
+  assign progress_size = section.settings.progress_size
+  assign progress_size_mobile = section.settings.progress_size_mobile
+  assign progress_row_mobile = section.settings.progress_row_mobile
+  assign progress_row = section.settings.progress_row
+  assign progress_stroke_mobile = section.settings.progress_stroke_mobile
+  assign progress_stroke = section.settings.progress_stroke
+  assign progress_circle_bg_color = section.settings.progress_circle_bg_color
+
+  assign scroll_animate = section.settings.scroll_animate
+  assign animate_duration = section.settings.animate_duration
+
+-%}
+
+{%- style -%}
+
+  {{  heading_font | font_face: font_display: 'swap' }}
+  {{  title_font | font_face: font_display: 'swap' }}
+  {{  percent_font | font_face: font_display: 'swap' }}
+  
+  .section-{{ section.id }} {
+    border-top: solid {{ border_color }} {{ border_thickness }}px;
+    border-bottom: solid {{ border_color }} {{ border_thickness }}px;
+    margin-top: {{ margin_top | times: 0.75 | round: 0 }}px;
+    margin-bottom: {{ margin_bottom | times: 0.75 | round: 0 }}px;
+  }
+  
+  .section-{{ section.id }}-settings {
+    margin: 0 auto;
+    padding-top: {{ padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-left: {{ padding_horizontal_mobile }}rem;
+    padding-right: {{ padding_horizontal_mobile }}rem;
+  }
+
+  .progress-heading-{{ section.id }} {
+    text-align: {{ heading_align_mobile }};
+  }
+
+  .progress-heading-{{ section.id }} * {
+    margin: 0;
+    font-size: {{ heading_size_mobile }}px;
+    color: {{ heading_color }};
+    line-height: {{ heading_height }}%;
+    text-transform: unset;
+  }
+
+  .progress-title-{{ section.id }} {
+    margin: 0;
+    margin-top: {{ title_mt | times: 0.75 | round: 0 }}px;
+    font-size: {{ title_size_mobile }}px;
+    color: {{ title_color }};
+    line-height: {{ title_height }}%;
+    text-transform: unset;
+  }
+
+  .progress-percent-{{ section.id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: {{ percent_size_mobile }}px;
+    color: {{ percent_color }};
+    line-height: {{ percent_height }}%;
+    text-transform: unset;
+    z-index: 2;
+  }
+
+  .progress-items-{{ section.id }} {
+    margin-top: {{ progress_mt | times: 0.75 | round: 0 }}px;
+    display: grid;
+    grid-template-columns: repeat({{ progress_row_mobile }}, 1fr);
+    gap: {{ progress_gap_mobile }}px;
+  }
+
+  .progress-item-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .progress-bar-{{ section.id }} {
+    position: relative;
+  }
+
+  @media(min-width: 768px) {
+    .progress-items-{{ section.id }} {
+      grid-template-columns: repeat({{ progress_row | times: 0.5 | round: 0 }}, 1fr);
+    }
+  }
+  
+  @media(min-width: 1024px) {
+
+    .section-{{ section.id }} {
+      margin-top: {{ margin_top }}px;
+      margin-bottom: {{ margin_bottom }}px;
+    }
+    
+    .section-{{ section.id }}-settings {
+      padding: 0 5rem;
+      padding-top: {{ padding_top }}px;
+      padding-bottom: {{ padding_bottom }}px;
+      padding-left: {{ padding_horizontal }}rem;
+      padding-right: {{ padding_horizontal }}rem;
+    }
+
+    .progress-heading-{{ section.id }} {
+      text-align: {{ heading_align }};
+     }
+
+    .progress-heading-{{ section.id }} * {
+      font-size: {{ heading_size }}px;
+    }
+
+    .progress-title-{{ section.id }} {
+      margin-top: {{ title_mt }}px;
+      font-size: {{ title_size }}px;
+    }
+
+    .progress-percent-{{ section.id }} {
+      font-size: {{ percent_size }}px;
+    }
+
+    .progress-items-{{ section.id }} {
+      margin-top: {{ progress_mt }}px;
+      gap: {{ progress_gap }}px;
+      grid-template-columns: repeat({{ progress_row }}, 1fr);
+    }
+  }
+  
+{%- endstyle -%}
+
+{% unless full_width %}
+  <style>
+    .section-{{ section.id }}-settings {
+      max-width: {{ content_width }}rem;
+    }
+  </style>
+{% endunless %}
+
+{% if heading_custom %}
+  <style>
+    .progress-heading-{{ section.id }} * {
+      font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      font-weight: {{ heading_font.weight }};
+      font-style: {{ heading_font.style }};
+    }
+  </style>
+{% endif %}
+
+{% if title_custom %}
+  <style>
+    .progress-title-{{ section.id }} {
+      font-family: {{ title_font.family }}, {{ title_font.fallback_families }};
+      font-weight: {{ title_font.weight }};
+      font-style: {{ title_font.style }};
+    }
+  </style>
+{% endif %}
+
+{% if percent_custom %}
+  <style>
+    .progress-percent-{{ section.id }} {
+      font-family: {{ percent_font.family }}, {{ percent_font.fallback_families }};
+      font-weight: {{ percent_font.weight }};
+      font-style: {{ percent_font.style }};
+    }
+  </style>
+{% endif %}
+
+{% for block in section.blocks %}
+  <style>
+    .progress-circle-{{ block.id }} {
+      display: block !important;
+      position: relative;
+      z-index: 1;
+      --bg-color: {{ progress_circle_bg_color }};
+      --highlight-color: {{ progress_circle_color }};
+      --percentage: {{ block.settings.progress }}%;
+      --circle-d: {{ progress_size_mobile }}px;
+      --wheel-thickness: {{ progress_stroke_mobile }}px;
+      --circle-r: calc(var(--circle-d) / 2);
+      --inner-circle-d: max(
+        min(var(--circle-d), calc(var(--circle-d) - (var(--wheel-thickness) * 2))),
+        0px
+      );
+      --inner-circle-r: calc(var(--inner-circle-d) / 2);
+    
+      background: conic-gradient(
+        var(--highlight-color) 0%,
+        var(--bg-color) 0%
+      );
+    
+      width: var(--circle-d);
+      height: var(--circle-d);
+      border-radius: 50%;
+      -webkit-mask: radial-gradient(
+        circle var(--inner-circle-r),
+        #0000 calc(100% - 1px),
+        #fff
+      );
+      mask: radial-gradient(
+        circle var(--inner-circle-r),
+        #0000 calc(100% - 1px),
+        #fff
+      );
+    }
+    @media(min-width: 1024px) {
+      .progress-circle-{{ block.id }} {
+        --circle-d: {{ progress_size }}px;
+        --wheel-thickness: {{ progress_stroke }}px;
+      }
+    }
+  </style>
+
+  {% if scroll_animate %}
+  <style>
+    .progress-item-{{ section.id }}.in-view .progress-circle-{{ block.id }} {
+      --animation-duration: {{ animate_duration }}s;
+      --animation-timing-function: ease-out;
+      --animation-delay: 0s;
+
+      background: conic-gradient(
+        var(--highlight-color) 0%,
+        var(--bg-color) 0%
+      );
+      
+      animation: fillAnimation{{ block.id }} var(--animation-duration) var(--animation-timing-function) var(--animation-delay) forwards;
+    }
+    
+   @keyframes fillAnimation{{ block.id }} {
+      {% for i in (1..100) %}
+        {{ 1 | times: i }}% {
+          background: conic-gradient(
+            var(--highlight-color) {{ block.settings.progress | times: i | divided_by: 100 }}%,
+            var(--bg-color) {{ block.settings.progress | times: i | divided_by: 100 }}%
+          );
+        }
+      {% endfor %}
+    }
+  </style>
+{% endif %}
+{% endfor %}
+
+<div class="section-{{ section.id }} progress-{{ section.id }}" style="background-color:{{ background_color }}; background-image: {{ background_gradient }};">
+    <div class="section-{{ section.id }}-settings">
+      {% if heading != blank %}
+        <div class="progress-heading-{{ section.id }}">{{ heading }}</div>
+      {% endif %}
+      <div class="progress-items-{{ section.id }}">
+        {% for block in section.blocks %}
+          {% assign offset = 100 | minus: block.settings.progress %}
+          {% assign offset = offset | times: 329 %}
+          {% assign offset = offset | divided_by: 75 %}
+          <div class="progress-item-{{ section.id }} progress-item-uniq">
+            <div class="progress-bar-{{ section.id }}">
+              <div class="progress-circle-{{ block.id }}"></div>
+              {% unless block.settings.hide_percent %}
+                <p class="progress-percent-{{ section.id }}">{{ block.settings.progress }}%</p>
+              {% endunless %}
+              </div>
+            {% if block.settings.title != blank %}
+              <p class="progress-title-{{ section.id }}">{{ block.settings.title }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      animateOnLoad();
+      window.addEventListener("scroll", animateOnScroll);
+    });
+
+    function animateOnLoad() {
+      document.querySelectorAll(".progress-item-uniq").forEach(element => {
+        if (isElementInViewport(element)) {
+          element.classList.add("in-view");
+        }
+      })
+    }
+
+    function animateOnScroll() {
+      document.querySelectorAll(".progress-item-uniq").forEach(function(element) {
+        if (isElementInViewport(element) && !element.classList.contains("in-view")) {
+          element.classList.add("in-view");
+        }
+      });
+    }
+
+    function isElementInViewport(el) {
+      var rect = el.getBoundingClientRect();
+    
+      return (
+        rect.top <= window.innerHeight &&
+        rect.left >= 0 &&
+        rect.bottom >= 0 &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+  </script>
+
+{% schema %}
+  {
+    "name": "SS - Progress Circles",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "<h2>My Progress</h2>"
+      },
+      {
+        "type": "checkbox",
+        "id": "heading_custom",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading Font Family",
+        "default": "josefin_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_size",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Heading Size",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "heading_size_mobile",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Heading Size - Mobile",
+        "default": 28
+      },
+      {
+        "type": "range",
+        "id": "heading_height",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "unit": "%",
+        "label": "Heading Line Height",
+        "default": 150
+      },
+      {
+        "type": "select",
+        "id": "heading_align",
+        "label": "Heading Text Align",
+        "default": "left",
+        "options": [
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Center",
+            "value": "center"
+          },
+          {
+            "label": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "heading_align_mobile",
+        "label": "Heading Text Align - Mobile",
+        "default": "center",
+        "options": [
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Center",
+            "value": "center"
+          },
+          {
+            "label": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Progress Circles Settings"
+      },
+      {
+        "type": "range",
+        "id": "progress_row",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "label": "Progress Circle per Row",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "progress_row_mobile",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "label": "Progress Circle per Row - Mobile",
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "progress_gap",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circles Gap",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "progress_gap_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circles Gap - Mobile",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "progress_mt",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circles Margin top",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Progress Circle Settings"
+      },
+      {
+        "type": "range",
+        "id": "progress_size",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Progress Circle Size",
+        "default": 150
+      },
+      {
+        "type": "range",
+        "id": "progress_size_mobile",
+        "min": 30,
+        "max": 200,
+        "step": 5,
+        "unit": "px",
+        "label": "Progress Circle Size - Mobile",
+        "default": 150
+      },
+      {
+        "type": "range",
+        "id": "progress_stroke",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Progress Circle Stroke Width",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "progress_stroke_mobile",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Progress Circle Stroke Width - Mobile",
+        "default": 12
+      },
+      {
+        "type": "checkbox",
+        "id": "scroll_animate",
+        "label": "Animate circle's progress",
+        "info":"The circle's progress animation will activate upon being viewed",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "animate_duration",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1,
+        "unit": "s",
+        "label": "Animate Duration",
+        "default": 0.8
+      },
+      {
+        "type": "header",
+        "content": "Progress Circle Title Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "title_custom",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "title_font",
+        "label": "Progress Circle Title Font Family",
+        "default": "josefin_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circle Title Size",
+        "default": 18
+      },
+      {
+        "type": "range",
+        "id": "title_size_mobile",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circle Title Size - Mobile",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "title_height",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "unit": "%",
+        "label": "Progress Circle Title Line Height",
+        "default": 150
+      },
+      {
+        "type": "range",
+        "id": "title_mt",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circle Title Margin top",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Progress Circle Percentage Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "percent_custom",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "percent_font",
+        "label": "Progress Circle Percentage Font Family",
+        "default": "josefin_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "percent_size",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circle Percentage Size",
+        "default": 18
+      },
+      {
+        "type": "range",
+        "id": "percent_size_mobile",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Progress Circle Percentage Size - Mobile",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "percent_height",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "unit": "%",
+        "label": "Progress Circle Percentage Line Height",
+        "default": 150
+      },
+      {
+        "type": "header",
+        "content": "Progress Circle Colors"
+      },
+      {
+        "type": "color",
+        "label": "Progress Circle Title Color",
+        "id": "title_color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "label": "Progress Circle Percentage Color",
+        "id": "percent_color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "label": "Progress Circle Background Color",
+        "id": "progress_circle_bg_color",
+        "default": "#ffebcd"
+      },
+      {
+        "type": "color",
+        "label": "Progress Circle Color",
+        "id": "progress_circle_color",
+        "default": "#121212"
+      },
+      {
+        "type": "header",
+        "content": "Section Colors"
+      },
+      {
+        "type": "color",
+        "label": "Heading Color",
+        "id": "heading_color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "label": "Section background",
+        "id": "background_color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Section background gradient"
+      },
+      {
+        "type": "color",
+        "label": "Border",
+        "id": "border_color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Section margin (outside)"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Section padding (inside)"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+         "type": "range",
+         "id": "padding_bottom",
+         "min": 0,
+         "max": 100,
+         "step": 4,
+         "unit": "px",
+         "label": "Padding bottom",
+         "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_horizontal",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "rem",
+        "label": "Padding sides",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "padding_horizontal_mobile",
+        "min": 0,
+        "max": 15,
+        "step": 0.5,
+        "unit": "rem",
+        "label": "Padding sides mobile",
+        "default": 1.5
+      },
+      {
+        "type": "header",
+        "content": "Section Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full Width",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "content_width",
+        "min": 0,
+        "max": 400,
+        "step": 10,
+        "unit": "rem",
+        "label": "Section content width",
+        "default": 120
+      },
+      {
+        "type": "range",
+        "id": "border_thickness",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Border thickness",
+        "default": 0
+      }
+    ],
+    "blocks": [
+      {
+        "type": "progress_circle",
+        "name": "Progress Circle",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Title"
+          },
+          {
+            "type": "range",
+            "id": "progress",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Progress Percentage",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "hide_percent",
+            "label": "Hide Progress Percentage",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "SS - Progress Circles",
+        "blocks": [
+          {
+            "type": "progress_circle",
+            "settings": {
+              "title": "Design",
+              "progress": 85
+            }
+          },
+          {
+            "type": "progress_circle",
+            "settings": {
+              "title": "Content",
+              "progress": 60
+            }
+          },
+          {
+            "type": "progress_circle",
+            "settings": {
+              "title": "Marketing",
+              "progress": 70
+            }
+          },
+          {
+            "type": "progress_circle",
+            "settings": {
+              "title": "Social Media",
+              "progress": 45
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

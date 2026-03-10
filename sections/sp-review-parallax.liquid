@@ -1,0 +1,778 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% if section.settings.override_fonts %}
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+  {{ section.settings.citation_font | font_face }}
+  {% endif %}
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap p,
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap p {
+    color: {{section.settings.text_color}};
+    {% if section.settings.text_shadow %}text-shadow: 0 2px 4px rgba(0,0,0,0.25);{% endif %}
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap p.sp-citation {
+    color: {{section.settings.citation_color}};
+    {% if section.settings.text_shadow %}text-shadow: 0 2px 4px rgba(0,0,0,0.25);{% endif %}
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap p.sp-citation,
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap p.sp-citation a {
+    font-size: {{ section.settings.citation_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.citation_font.family }}, {{ section.settings.citation_font.fallback_families }};
+    font-weight: {{ section.settings.citation_font.weight }};
+    {% endif %}
+    {% if section.settings.citation_line_height != 'inherit' %}line-height: {{ section.settings.citation_line_height }};{% endif %}
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h1,
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h2,
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h3,
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h4,
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h5 {
+    font-size: {{ section.settings.headline_size }}px;
+    {% if section.settings.override_fonts %}
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    {% endif %}
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    color: {{section.settings.headline_color}};
+    {% if section.settings.text_shadow %}text-shadow: 0 2px 4px rgba(0,0,0,0.25);{% endif %}
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+  
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus:5 }}px;
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus:10 }}px;
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus:15 }}px;
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus:20 }}px;
+  }
+
+  #sp-testimonial-{{ section.id }}.sp-testimonial-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+  
+  #sp-testimonial-{{ section.id }} .sp-testimonial {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    clip-path: border-box;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    #sp-testimonial-{{ section.id }} .sp-testimonial {
+      background-attachment: scroll;
+    }
+  }
+
+  #sp-testimonial-{{ section.id }} .sp-testimonial>.sp-testimonial-container {
+    display: flex;
+    align-items: center;
+    justify-content: {{ section.settings.box_alignment }};
+    position: relative;
+    max-width: 1220px;
+    margin: 0 auto;
+    height: {{ section.settings.height }}px;
+    z-index: 2;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-testimonial-{{ section.id }} .sp-testimonial>.sp-testimonial-container {
+      height: auto;
+    }
+  }
+
+  #sp-testimonial-{{ section.id }} .sp-testimonial-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  #sp-testimonial-{{ section.id }} .sp-testimonial>.sp-testimonial-cover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: {{section.settings.cover_background}};
+    opacity: {{section.settings.cover_opacity}}%;
+  }
+
+  #sp-testimonial-{{ section.id }} .sp-testimonial-content {
+    padding: 0 25px 0 25px;
+    max-width: 60%;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-testimonial-{{ section.id }} .sp-testimonial-content {
+      padding: 0 10px 0 10px;
+      max-width: calc(100% - 20px);
+    }
+  }
+
+  #sp-testimonial-{{ section.id }} .sp-testimonial p:last-child {
+    margin-bottom: 0;
+  }
+
+  #sp-testimonial-{{ section.id }} .sp-testimonial a.sp-testimonial-cta:hover {
+    transform: translateY(-2px);
+  }
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-testimonial-{{ section.id }}" class="sp-testimonial-wrap" sp-wrap>
+<div class="sp-testimonial" sp-container>
+  {% if section.settings.image %}
+    <img class="sp-testimonial-image" 
+      src="{{ section.settings.image | image_url: width: 600 }}"
+      srcset="{{ section.settings.image| image_url: width: 600 }} 600w,
+        {{ section.settings.image | image_url: width: 800 }} 800w,
+        {{ section.settings.image | image_url: width: 1000 }} 1000w,
+        {{ section.settings.image | image_url: width: 1100 }} 1100w">
+  {% endif %}
+<div class="sp-testimonial-cover"></div>
+  <div class="sp-testimonial-container">
+  <div class="sp-testimonial-content" sp-column>
+    {% for block in section.blocks %}
+
+      {% if block.type == 'five_star' %}
+
+        <style>
+          #sp-testimonial-star-{{ forloop.index }} {
+            text-align: {{ block.settings.alignment }};
+          }
+          
+          #sp-testimonial-star-{{ forloop.index }} svg,
+          #sp-testimonial-star-{{ forloop.index }} svg * {
+            fill: {{ block.settings.color }};
+          }
+        </style>
+
+        <p id="sp-testimonial-star-{{ forloop.index }}">
+          <svg width="101px" height="20px" viewBox="0 0 101 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>5 Stars</title>
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="Group-5">
+                      <polygon points="10 15 4.12214748 18.0901699 5.24471742 11.545085 0.489434837 6.90983006 7.06107374 5.95491503 10 0 12.9389263 5.95491503 19.5105652 6.90983006 14.7552826 11.545085 15.8778525 18.0901699"></polygon>
+                      <polygon points="30.5 15 24.6221475 18.0901699 25.7447174 11.545085 20.9894348 6.90983006 27.5610737 5.95491503 30.5 0 33.4389263 5.95491503 40.0105652 6.90983006 35.2552826 11.545085 36.3778525 18.0901699"></polygon>
+                      <polygon points="50 15 44.1221475 18.0901699 45.2447174 11.545085 40.4894348 6.90983006 47.0610737 5.95491503 50 0 52.9389263 5.95491503 59.5105652 6.90983006 54.7552826 11.545085 55.8778525 18.0901699"></polygon>
+                      <polygon points="70.5 15 64.6221475 18.0901699 65.7447174 11.545085 60.9894348 6.90983006 67.5610737 5.95491503 70.5 0 73.4389263 5.95491503 80.0105652 6.90983006 75.2552826 11.545085 76.3778525 18.0901699"></polygon>
+                      <polygon points="90.5 15 84.6221475 18.0901699 85.7447174 11.545085 80.9894348 6.90983006 87.5610737 5.95491503 90.5 0 93.4389263 5.95491503 100.010565 6.90983006 95.2552826 11.545085 96.3778525 18.0901699"></polygon>
+                  </g>
+              </g>
+          </svg></p>
+      {% endif %}
+
+      {% if block.type == '@app' %}
+        <div class="sp-testimonialp-app-block">
+          {% render block %}
+        </div>
+      {% endif %}
+
+      {% if block.type == 'headline' %}
+
+        <style>
+        #sp-testimonial-{{ section.id }} #sp-headline-{{ forloop.index }} {
+          text-align: {{ block.settings.alignment }};
+        }
+        </style>
+        
+         <h1 id="sp-headline-{{ forloop.index }}">{{ block.settings.content }}</h1>
+      {% endif %}
+
+      {% if block.type == 'paragraph' %}
+
+        <style>
+        #sp-testimonial-{{ section.id }} #sp-paragraph-{{ forloop.index }} {
+          text-align: {{ block.settings.alignment }};
+        }
+        </style>
+        
+         <p id="sp-paragraph-{{ forloop.index }}">{{ block.settings.content }}</p>
+      {% endif %}
+
+      {% if block.type == 'citation' %}
+
+        <style>
+        #sp-testimonial-{{ section.id }} #sp-citation-{{ forloop.index }}.sp-citation {
+          text-align: {{ block.settings.alignment }};
+        }
+
+        #sp-testimonial-{{ section.id }} #sp-citation-{{ forloop.index }}.sp-citation cite{
+          font-style: normal;
+        }
+        </style>
+        
+         <p id="sp-citation-{{ forloop.index }}" class="sp-citation"><cite>{{ block.settings.content }}</cite></p>
+      {% endif %}
+
+      {% if block.type == 'content' %}
+
+        <style>
+        #sp-testimonial-{{ section.id }} #sp-content-{{ forloop.index }} {
+          text-align: {{ block.settings.alignment }};
+        }
+        </style>
+        
+         <{{ block.settings.tag }} id="sp-content-{{ forloop.index }}">{{ block.settings.content }}</{{ block.settings.tag }}>
+      {% endif %}
+
+      {% if block.type == 'richtext' %}
+        <style>
+        #sp-testimonial-{{ section.id }} #sp-content-{{ forloop.index }}, #sp-testimonial-{{ section.id }} #sp-content-{{ forloop.index }} * {
+          text-align: {{ block.settings.alignment }};
+        }
+        </style>
+        <div id="sp-content-{{ forloop.index }}">
+        {{ block.settings.richtext }}
+        </div>
+      {% endif %}
+
+      {% if block.type == 'button' %}
+        <style>
+          #sp-testimonial-button-{{ forloop.index }} .sp-testimonial-button {
+            display: inline-block;
+            padding: {{ block.settings.button_padding_tb }}px {{ block.settings.button_padding_lr }}px;
+            background-image: {{ block.settings.button_background_color }};
+            border-radius: {{ block.settings.button_border_radius }}px;
+            color: {{ block.settings.button_text_color }};
+            font-size: {{ block.settings.button_text_size }}px;
+            text-decoration: none;
+            cursor: pointer;
+            text-shadow: none;
+            transition: .25s all;
+          }
+
+          #sp-testimonial-button-{{ forloop.index }} .sp-testimonial-button * {
+            color: {{ block.settings.button_text_color }};
+          }
+        </style>
+
+        <p id="sp-testimonial-button-{{ forloop.index }}" style="text-align: {{ block.settings.alignment }};"><a class="sp-testimonial-button" href="{{ block.settings.cta_link }}">{{ block.settings.cta }}</a></p>
+      {% endif %}
+
+    {% endfor %}
+  </div>
+  </div>
+</div>
+</div>
+
+{% schema %}
+  {
+    "name": "🚀SP - Review Parallax",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font",
+        "info": "Set the fonts for your section"
+      },
+      {
+        "type": "checkbox",
+        "id": "override_fonts",
+        "label": "Override theme fonts",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "citation_font",
+        "label": "Citation Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text for your section"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "default": "1.25",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#ffffff",
+        "label": "Text Color"
+      },
+      {
+        "type": "range",
+        "id": "citation_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Citation Size",
+        "default": 13
+      },
+      {
+        "type": "select",
+        "id": "citation_line_height",
+        "label": "Citation Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "citation_color",
+        "default": "#f0f0f0",
+        "label": "Citation Color"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 50
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "default": "1.15",
+        "options": [
+          {
+            "value": "1.05",
+            "label": "1.05"
+          },
+          {
+            "value": "1.15",
+            "label": "1.15"
+          },
+          {
+            "value": "1.25",
+            "label": "1.25"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.75",
+            "label": "1.75"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#ffffff",
+        "label": "Headline Color"
+      },
+      {
+        "type": "checkbox",
+        "id": "text_shadow",
+        "default": true,
+        "label": "Subtle Shadow on Text"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color_background",
+        "id": "cover_background",
+        "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+        "label": "Cover Background"
+      },
+      {
+        "type": "range",
+        "id": "cover_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Cover Opacity",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Image",
+        "info": "Set the background image."
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Alignment",
+        "info": "Set alignment of the hero text."
+      },
+      {
+          "type": "select",
+          "id": "box_alignment",
+          "default": "center",
+          "label": "Box Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 3000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "height",
+        "default": 500,
+        "label": "Height of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 20,
+        "label": "Spacing between Elmeents"
+      }
+    ],
+	"blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Headline",
+      "type": "headline",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "This is our hero. Now with Parallax."
+        }
+      ]
+    },
+    {
+      "name": "Paragraph",
+      "type": "paragraph",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "This is sample content for your hero section. Use it to describe your product or service or to add a customer testimonial."
+        }
+      ]
+    },
+    {
+      "name": "Citation",
+      "type": "citation",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "- Matt from Sections Pro"
+        }
+      ]
+    },
+    {
+      "name": "Rich Text",
+      "type": "richtext",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Content",
+          "default": "<h4><b>Create Amazing Content</b></h4><p>Use the <b>rich text block</b> to add headlines, paragraphs, lists, and more to your tab.</p>"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "type": "button",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "cta",
+          "default": "Shop Now",
+          "label": "Call to Action"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Call to Action Link"
+        },
+        {
+          "type": "header",
+          "content": "Button Style",
+          "info": "Set the look and feel of the button"
+        },
+        {
+          "type": "color_background",
+          "id": "button_background_color",
+          "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+          "label": "Button Background Color"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "default": "#fff",
+          "label": "Button Text Color"
+        },
+        {
+          "type": "range",
+          "id": "button_text_size",
+          "min": 10,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Text Size",
+          "default": 15
+        },
+        {
+          "type": "number",
+          "id": "button_padding_tb",
+          "default": 10,
+          "label": "Padding Top/Bottom"
+        },
+        {
+          "type": "number",
+          "id": "button_padding_lr",
+          "default": 25,
+          "label": "Padding Left/Right"
+        },
+        {
+          "type": "number",
+          "id": "button_border_radius",
+          "default": 5,
+          "label": "Border Radius"
+        }
+      ]
+    },
+     {
+      "name": "5 Star",
+      "type": "five_star",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "default": "#fff",
+          "label": "Icon Color"
+        }
+      ]
+    }
+  ],
+	"presets": [
+    {
+      "name": "🚀SP - Review Parallax",
+      "blocks": [
+        {
+          "type": "five_star"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "citation"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,330 @@
+ {% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  background-color: {{section.settings.background_color}};
+  color: {{section.settings.text_color}};
+  {% if section.settings.section_height == true %}
+    min-height: 100vh;
+  {% endif %}
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-section-inner {
+  position: relative;
+  text-align: center;
+  max-width: 825px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 2px;
+  left: 50%;
+  margin-left: -90px;
+  background-color: {{section.settings.divider_color}};
+  {% if section.settings.alter_divider == true %}
+  width: 104px;
+  height: 19px;
+  margin-left: -52px;
+  background: transparent url("data:image/svg+xml,%3Csvg width='104' height='19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m2 3 12.155 12.155L26.309 3l12.155 12.155L50.62 3l12.154 12.155L74.928 3l13.536 13.536L102 3' stroke='{{section.settings.divider_color | replace: '#', '%23'}}' stroke-width='3'/%3E%3C/svg%3E") no-repeat center/contain;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before {
+  top: -60px;
+}
+
+.pw-section__{{sec_id}} .pw-section-title::after {
+  bottom: -60px;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} h4.pw-section-title {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .pw-section__{{sec_id}} h5.pw-section-title {
+    font-size: 28px;
+    font-weight: 700;
+  }
+{% endif %}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    min-height: auto;
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  .pw-section__{{sec_id}} .pw-section-title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .pw-section__{{sec_id}} .pw-section-title::before {
+    top: -50px;
+  }
+  .pw-section__{{sec_id}} .pw-section-title::after {
+    bottom: -50px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} h4.pw-section-title {
+      font-size: 24px;
+    }
+    .pw-section__{{sec_id}} h5.pw-section-title {
+      font-size: 22px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="pw-container">
+    <div class="pw-section-inner">
+      {% if section.settings.heading_text != blank %}
+        <{{ section.settings.heading_tag }} class="pw-section-title">
+        {{ section.settings.heading_text | escape }}
+        </{{ section.settings.heading_tag }}>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Promo-Nova-01",
+  "tag": "section",
+  "class": "kava-promo kava-promo-nova-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "textarea",
+      "id": "heading_text",
+      "default": "Heading text",
+      "label": "Heading text"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        }, {
+          "value": "h2",
+          "label": "H2"
+        }, {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Dividers color",
+      "default": "#63C850"
+    },
+    {
+      "type": "checkbox",
+      "id": "alter_divider",
+      "default": false,
+      "label": "Zigzag dividers"
+    }, 
+    {
+      "type": "header",
+      "content": "Desktop"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "section_height",
+      "default": false,
+      "label": "Full screen height"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 150
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Promo-Nova-01",
+      "settings": {
+        "alter_divider": false,
+        "divider_color": "#63C850",
+        "heading_text": "A whopping 93% of people say they’d leave a website if it’s poorly designed, so the cost of a well-designed website design is worth it."
+      }
+    }
+  ]
+  
+}
+
+{% endschema %}

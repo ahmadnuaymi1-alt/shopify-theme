@@ -1,0 +1,393 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-ims-icon-{{ section.id }}.sp-ims-icon-wrap p,
+  #sp-ims-icon-{{ section.id }}.sp-ims-icon-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-ims-icon-{{ section.id }}.sp-ims-icon-wrap h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-ims-icon-{{ section.id }}.sp-ims-icon-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-ims-icon-{{ section.id }}  .sp-ims-icon .sp-ims-icon-grid {
+    display: grid;
+    gap: {{ section.settings.grid_gap}}px;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-ims-icon-{{ section.id }} .sp-ims-icon .sp-ims-icon-grid {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-ims-icon-{{ section.id }} .sp-ims-icon .sp-ims-icon-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      
+    }
+  }
+
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon-col {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      transition: all 0.5s ease;
+      margin-bottom: 5px;
+    }
+
+    #sp-ims-icon-{{ section.id }} .sp-ims-icon-col:hover .sp-ims-icon-img {
+    transform: scale(1.05);
+  }
+  
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon-content {
+    position: relative;
+    z-index: 3;
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon h2 {
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    padding: 0;
+    color: {{section.settings.text_color}};
+  }
+
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon p {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  /* carousel */
+  #sp-ims-icon-{{ section.id }} .sp-ims-icon-carousel-links {
+    padding: 0;
+}
+
+  #sp-ims-icon-carousel-links-{{ section.id }} a {
+      display: inline-block;
+      background-color: {{ section.settings.highlight_color }};
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      text-indent: -9999px;
+      padding: 0;
+      margin: 0 2.5px; 
+      cursor: pointer;
+      opacity: 0.25;
+  }
+
+  #sp-ims-icon-carousel-links-{{ section.id }} a[active] {
+      background-color: {{ section.settings.highlight_color }};
+      opacity: 1;
+  }
+
+  #sp-ims-icon-carousel-links-{{ section.id }} {
+    display: none;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-ims-icon-carousel-links-{{ section.id }} {
+      display: block;
+      text-align: center;
+    }
+  }
+</style>
+
+<div id="sp-ims-icon-{{ section.id }}" class="sp-ims-icon-wrap">
+
+<div class="sp-ims-icon">
+
+  <div id="sp-ims-icon-carousel-{{ section.id }}" class="sp-ims-icon-grid">
+
+    {% for block in section.blocks %}
+      <div class="sp-ims-icon-col">
+        <div class="sp-ims-icon-content">
+          {% if block.settings.link %}
+          <a href="{{ block.settings.link }}">
+          {% endif %}
+            <img class="sp-ims-icon-img" src="{{ block.settings.image | image_url: width: 2048 }}">
+            <h2>{{ block.settings.headline }}</h2>
+            <p>{{ block.settings.text }}</p>
+          {% if block.settings.link %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- /.sp-ims-icon-col -->
+
+      {% endfor %}
+
+  </div>
+  <!-- /.sp-ims-icon-grid -->
+
+  <div id="sp-ims-icon-carousel-links-{{ section.id }}" class="sp-ims-icon-carousel-links">
+    {% for block in section.blocks %}
+      <a data-index="{{ forloop.index | minus: 1 }}"></a>
+    {% endfor %}
+  </div>
+  
+</div>
+<!-- /.sp-ims-icon -->
+
+</div>
+<!-- /.sp-ims-icon-wrap -->
+
+<script>
+  !function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("TouchSlideshow",[],t):"object"==typeof exports?exports.TouchSlideshow=t():e.TouchSlideshow=t()}(this,function(){return r={},s.m=i=[function(e,t,i){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},r=(function(e,t,i){return t&&o(e.prototype,t),i&&o(e,i),e}(n,[{key:"init",value:function(){if(window.addEventListener("resize",this.resizeHandler),this.config.draggable&&(this.pointerDown=!1,this.drag={startX:0,endX:0,startY:0,letItGo:null},this.selector.addEventListener("touchstart",this.touchstartHandler,{passive:!0}),this.selector.addEventListener("touchend",this.touchendHandler),this.selector.addEventListener("touchmove",this.touchmoveHandler,{passive:!0}),this.selector.addEventListener("mousedown",this.mousedownHandler),this.selector.addEventListener("mouseup",this.mouseupHandler),this.selector.addEventListener("mouseleave",this.mouseleaveHandler),this.selector.addEventListener("mousemove",this.mousemoveHandler)),null===this.selector)throw new Error("Something wrong with your selector­");this.resolveSlidesNumber(),this.selector.style.overflow="hidden",this.sliderFrame=document.createElement("div"),this.sliderFrame.style.width=this.selectorWidth/this.perPage*this.innerElements.length+"px",this.sliderFrame.style.webkitTransition="all "+this.config.duration+"ms "+this.config.easing,this.sliderFrame.style.transition="all "+this.config.duration+"ms "+this.config.easing,this.config.draggable&&(this.selector.style.cursor="-webkit-grab");for(var e=document.createDocumentFragment(),t=0;t<this.innerElements.length;t++){var i=document.createElement("div");i.style.cssFloat="left",i.style.float="left",i.style.width=100/this.innerElements.length+"%",i.appendChild(this.innerElements[t]),e.appendChild(i)}this.sliderFrame.appendChild(e),this.selector.innerHTML="",this.selector.appendChild(this.sliderFrame),this.slideToCurrent(),this.config.onInit.call(this)}},{key:"resolveSlidesNumber",value:function(){if("number"==typeof this.config.perPage)this.perPage=this.config.perPage;else if("object"===s(this.config.perPage))for(var e in this.perPage=1,this.config.perPage)window.innerWidth>=e&&(this.perPage=this.config.perPage[e])}},{key:"prev",value:function(){var e,t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:1,i=arguments[1];this.innerElements.length<=this.perPage||(e=this.currentSlide,0===this.currentSlide&&this.config.loop?this.currentSlide=this.innerElements.length-this.perPage:this.currentSlide=Math.max(this.currentSlide-t,0),e!==this.currentSlide&&(this.slideToCurrent(),this.config.onChange.call(this),i&&i.call(this)))}},{key:"next",value:function(){var e,t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:1,i=arguments[1];this.innerElements.length<=this.perPage||(e=this.currentSlide,this.currentSlide===this.innerElements.length-this.perPage&&this.config.loop?this.currentSlide=0:this.currentSlide=Math.min(this.currentSlide+t,this.innerElements.length-this.perPage),e!==this.currentSlide&&(this.slideToCurrent(),this.config.onChange.call(this),i&&i.call(this)))}},{key:"goTo",value:function(e,t){var i;this.innerElements.length<=this.perPage||(i=this.currentSlide,this.currentSlide=Math.min(Math.max(e,0),this.innerElements.length-this.perPage),i!==this.currentSlide&&(this.slideToCurrent(),this.config.onChange.call(this),t&&t.call(this)))}},{key:"slideToCurrent",value:function(){this.sliderFrame.style[this.transformProperty]="translate3d(-"+this.currentSlide*(this.selectorWidth/this.perPage)+"px, 0, 0)"}},{key:"updateAfterDrag",value:function(){var e=this.drag.endX-this.drag.startX,t=Math.abs(e),i=Math.ceil(t/(this.selectorWidth/this.perPage));0<e&&t>this.config.threshold&&this.innerElements.length>this.perPage?this.prev(i):e<0&&t>this.config.threshold&&this.innerElements.length>this.perPage&&this.next(i),this.slideToCurrent()}},{key:"resizeHandler",value:function(){this.resolveSlidesNumber(),this.selectorWidth=this.selector.offsetWidth,this.sliderFrame.style.width=this.selectorWidth/this.perPage*this.innerElements.length+"px",this.slideToCurrent()}},{key:"clearDrag",value:function(){this.drag={startX:0,endX:0,startY:0,letItGo:null}}},{key:"touchstartHandler",value:function(e){e.stopPropagation(),this.pointerDown=!0,this.drag.startX=e.touches[0].pageX,this.drag.startY=e.touches[0].pageY}},{key:"touchendHandler",value:function(e){e.stopPropagation(),this.pointerDown=!1,this.sliderFrame.style.webkitTransition="all "+this.config.duration+"ms "+this.config.easing,this.sliderFrame.style.transition="all "+this.config.duration+"ms "+this.config.easing,this.drag.endX&&this.updateAfterDrag(),this.clearDrag()}},{key:"touchmoveHandler",value:function(e){e.stopPropagation(),null===this.drag.letItGo&&(this.drag.letItGo=Math.abs(this.drag.startY-e.touches[0].pageY)<Math.abs(this.drag.startX-e.touches[0].pageX)),this.pointerDown&&this.drag.letItGo&&(this.drag.endX=e.touches[0].pageX,this.sliderFrame.style.webkitTransition="all 0ms "+this.config.easing,this.sliderFrame.style.transition="all 0ms "+this.config.easing,this.sliderFrame.style[this.transformProperty]="translate3d("+-1*(this.currentSlide*(this.selectorWidth/this.perPage)+(this.drag.startX-this.drag.endX))+"px, 0, 0)")}},{key:"mousedownHandler",value:function(e){e.preventDefault(),e.stopPropagation(),this.pointerDown=!0,this.drag.startX=e.pageX}},{key:"mouseupHandler",value:function(e){e.stopPropagation(),this.pointerDown=!1,this.selector.style.cursor="-webkit-grab",this.sliderFrame.style.webkitTransition="all "+this.config.duration+"ms "+this.config.easing,this.sliderFrame.style.transition="all "+this.config.duration+"ms "+this.config.easing,this.drag.endX&&this.updateAfterDrag(),this.clearDrag()}},{key:"mousemoveHandler",value:function(e){e.preventDefault(),this.pointerDown&&(this.drag.endX=e.pageX,this.selector.style.cursor="-webkit-grabbing",this.sliderFrame.style.webkitTransition="all 0ms "+this.config.easing,this.sliderFrame.style.transition="all 0ms "+this.config.easing,this.sliderFrame.style[this.transformProperty]="translate3d("+-1*(this.currentSlide*(this.selectorWidth/this.perPage)+(this.drag.startX-this.drag.endX))+"px, 0, 0)")}},{key:"mouseleaveHandler",value:function(e){this.pointerDown&&(this.pointerDown=!1,this.selector.style.cursor="-webkit-grab",this.drag.endX=e.pageX,this.sliderFrame.style.webkitTransition="all "+this.config.duration+"ms "+this.config.easing,this.sliderFrame.style.transition="all "+this.config.duration+"ms "+this.config.easing,this.updateAfterDrag(),this.clearDrag())}},{key:"updateFrame",value:function(){this.sliderFrame=document.createElement("div"),this.sliderFrame.style.width=this.selectorWidth/this.perPage*this.innerElements.length+"px",this.sliderFrame.style.webkitTransition="all "+this.config.duration+"ms "+this.config.easing,this.sliderFrame.style.transition="all "+this.config.duration+"ms "+this.config.easing,this.config.draggable&&(this.selector.style.cursor="-webkit-grab");for(var e=document.createDocumentFragment(),t=0;t<this.innerElements.length;t++){var i=document.createElement("div");i.style.cssFloat="left",i.style.float="left",i.style.width=100/this.innerElements.length+"%",i.appendChild(this.innerElements[t]),e.appendChild(i)}this.sliderFrame.appendChild(e),this.selector.innerHTML="",this.selector.appendChild(this.sliderFrame),this.slideToCurrent()}},{key:"remove",value:function(e,t){if(e<0||e>=this.innerElements.length)throw new Error("Item to remove doesn't exist­");this.innerElements.splice(e,1),this.currentSlide=e<=this.currentSlide?this.currentSlide-1:this.currentSlide,this.updateFrame(),t&&t.call(this)}},{key:"insert",value:function(e,t,i){if(t<0||t>this.innerElements.length+1)throw new Error("Unable to inset it at this index­");if(-1!==this.innerElements.indexOf(e))throw new Error("The same item in a carousel? Really? Nope ðŸ˜­");this.innerElements.splice(t,0,e),this.currentSlide=t<=this.currentSlide?this.currentSlide+1:this.currentSlide,this.updateFrame(),i&&i.call(this)}},{key:"prepend",value:function(e,t){this.insert(e,0),t&&t.call(this)}},{key:"append",value:function(e,t){this.insert(e,this.innerElements.length+1),t&&t.call(this)}},{key:"destroy",value:function(){var e=0<arguments.length&&void 0!==arguments[0]&&arguments[0],t=arguments[1];if(window.removeEventListener("resize",this.resizeHandler),this.selector.style.cursor="auto",this.selector.removeEventListener("touchstart",this.touchstartHandler),this.selector.removeEventListener("touchend",this.touchendHandler),this.selector.removeEventListener("touchmove",this.touchmoveHandler),this.selector.removeEventListener("mousedown",this.mousedownHandler),this.selector.removeEventListener("mouseup",this.mouseupHandler),this.selector.removeEventListener("mouseleave",this.mouseleaveHandler),this.selector.removeEventListener("mousemove",this.mousemoveHandler),e){for(var i=document.createDocumentFragment(),s=0;s<this.innerElements.length;s++)i.appendChild(this.innerElements[s]);this.selector.innerHTML="",this.selector.appendChild(i),this.selector.removeAttribute("style")}t&&t.call(this)}}],[{key:"mergeSettings",value:function(e){var t,i={selector:".siema",duration:200,easing:"ease-out",perPage:1,startIndex:0,draggable:!0,threshold:20,loop:!1,onInit:function(){},onChange:function(){}},s=e;for(t in s)i[t]=s[t];return i}},{key:"webkitOrNot",value:function(){return"string"==typeof document.documentElement.style.transform?"transform":"WebkitTransform"}}]),n);function n(e){var t=this;(function(e){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")})(this),this.config=n.mergeSettings(e),this.selector="string"==typeof this.config.selector?document.querySelector(this.config.selector):this.config.selector,this.selectorWidth=this.selector.offsetWidth,this.innerElements=[].slice.call(this.selector.children),this.currentSlide=this.config.startIndex,this.transformProperty=n.webkitOrNot(),["resizeHandler","touchstartHandler","touchendHandler","touchmoveHandler","mousedownHandler","mouseupHandler","mouseleaveHandler","mousemoveHandler"].forEach(function(e){t[e]=t[e].bind(t)}),this.init()}function o(e,t){for(var i=0;i<t.length;i++){var s=t[i];s.enumerable=s.enumerable||!1,s.configurable=!0,"value"in s&&(s.writable=!0),Object.defineProperty(e,s.key,s)}}t.default=r,e.exports=t.default}],s.c=r,s.i=function(e){return e},s.d=function(e,t,i){s.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:i})},s.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return s.d(t,"a",t),t},s.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},s.p="",s(s.s=0);function s(e){if(r[e])return r[e].exports;var t=r[e]={i:e,l:!1,exports:{}};return i[e].call(t.exports,t,t.exports,s),t.l=!0,t.exports}var i,r});
+</script>
+
+<script>
+
+  // mobile only
+  if(screen.width <= 800 ) {
+    var el = document.querySelector(`#sp-ims-icon-carousel-{{ section.id }}`);
+    var menu = document.querySelector(`#sp-ims-icon-carousel-links-{{ section.id }}`);
+    var interval;
+    var autoplay = 5000;
+
+    console.log('el', el);
+    
+    // create the slideshow
+    var s = new TouchSlideshow({
+        selector: el,
+        duration: 200,
+        easing: 'ease-out',
+        perPage: 1,
+        startIndex: 0,
+        draggable: true,
+        threshold: 20,
+        loop: false,
+        onInit: () => {
+        
+            interval = setInterval(function() {
+              s.next();
+            }, autoplay);
+          
+        },
+        onChange: () => {
+          setSlideIndicator(s.currentSlide);
+        }
+      });
+
+    function setSlideIndicator(i) {
+      var els, x;
+      
+      // clear active
+      els = menu.querySelectorAll('a');
+
+      for(x=0; x<els.length; x++) {
+        els[x].removeAttribute('active');
+      }
+
+      // set active
+      els[i].setAttribute('active', '');
+    }
+
+    // default to 0
+    setSlideIndicator(0);
+
+    /**
+    * Goes to specified slide
+    */
+    function gotoSlide(i) {
+      s.goTo(i);
+      setSlideIndicator(i);
+    }
+
+    // setup jump points
+    var links = menu.querySelectorAll('a');
+    
+    for(var x=0; x<links.length; x++) {
+      
+      links[x].addEventListener('click', function(e) {
+        gotoSlide(e.target.getAttribute('data-index'));
+        clearInterval(interval);
+      });
+      
+    }
+  }
+</script>
+
+{% schema %}
+  {
+    "name": "🚀SP - Image Icon Grid t",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "default": "#111",
+        "label": "Highlight Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap Between Reviews"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      }
+    ],
+	"blocks": [
+      {
+       "name": "Icon",
+       "type": "icon",
+       "settings": [
+         
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "headline",
+            "label": "Headline",
+            "default": "Headline"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "default": "Some followup text to build on the feature",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link (optional)"
+          }
+       ]
+      }
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Image Icon Grid t",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

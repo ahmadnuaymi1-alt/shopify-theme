@@ -1,0 +1,320 @@
+{% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  position: relative;
+  line-height: 1.5;
+}
+
+{% if section.settings.is_fullwidth == true %}
+.pw-section__{{sec_id}} .pw-container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+{% endif %}
+
+
+.pw-section__{{sec_id}} .pw-img-wrapper {
+  position: relative;
+  min-height: {{section.settings.img_min_height}}vh;
+}
+
+.pw-section__{{sec_id}} .pw-img-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  object-position: {{section.settings.background_position_x}}% {{section.settings.background_position_y}}%;
+}
+
+.pw-section__{{sec_id}} .pw-img-text {
+  padding: 10px 15px;
+  background-color: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: var(--id-fz);
+  display: inline-block;
+  position: absolute;
+  left: 5%;
+  max-width: 90%;
+  bottom: 50px;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} .pw-img-wrapper {
+    position: relative;
+    min-height: {{section.settings.img_min_height_mobile}}vh;
+  }
+  .pw-section__{{sec_id}} .pw-img-wrapper img {
+    object-position: {{section.settings.background_position_x_mobile}}% {{section.settings.background_position_y_mobile}}%;
+  }
+  .pw-section__{{sec_id}} .pw-img-text {
+    font-size: 18px;
+    bottom: 30px;
+  }
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+{% if section.settings.is_fullwidth == true %}
+  {% assign container = 'pw-container-fluid' %}
+{% else %}
+  {% assign container = 'pw-container' %}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="{{container}}">
+    <div class="pw-img-wrapper">
+      {% if section.settings.background_image == blank %}
+        <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/image-lily-01.jpg" loading="lazy" sizes="100vw"/>
+      {% else %}
+        <img srcset="
+          {%- if section.settings.background_image.width >= 320 -%}{{ section.settings.background_image | img_url: '320x' }} 320w,{%- endif -%}
+          {%- if section.settings.background_image.width >= 750 -%}{{ section.settings.background_image | img_url: '750x' }} 750w,{%- endif -%}
+          {%- if section.settings.background_image.width >= 1500 -%}{{ section.settings.background_image | img_url: '1500x' }} 1500w,{%- endif -%}
+          {%- if section.settings.background_image.width >= 2000 -%}{{ section.settings.background_image | img_url: '2000x' }} 2000w,{%- endif -%}"
+          src="{{ section.settings.background_image | img_url: '1500x' }}"
+          alt="{{ section.settings.background_image.alt | escape }}"
+          sizes="100vw"
+          loading="lazy"
+        >
+      {% endif %}
+      {% if section.settings.image_description != blank %}
+        <div class="pw-img-text" style="--id-fz: {{ section.settings.image_description_fz }}px;">{{ section.settings.image_description }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Image-Lily-01",
+  "tag": "section",
+  "class": "kava-image kava-image-lily-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_fullwidth",
+      "default": true,
+      "label": "Full width section"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Image"
+    },
+    {
+      "type": "textarea",
+      "id": "image_description",
+      "label": "Image description",
+      "default": "Beautiful sunsets for real advanturers"
+    },
+    {
+      "type": "range",
+      "id": "image_description_fz",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "img_min_height",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "vh",
+      "label": "Image min height",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "background_position_x",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image background position X",
+      "default": 50
+    }, 
+    {
+      "type": "range",
+      "id": "background_position_y",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image background position Y",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "img_min_height_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "vh",
+      "label": "Image min height",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "background_position_x_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image background position X mobile",
+      "default": 50
+    }, 
+    {
+      "type": "range",
+      "id": "background_position_y_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image background position Y mobile",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Image-Lily-01",
+      "settings": {
+        "is_fullwidth": true,
+        "section_padding_top": 0,
+        "section_padding_bottom": 0
+      }
+    }
+  ]
+}
+
+{% endschema %}

@@ -1,0 +1,678 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-form-{{ section.id }}.sp-modal {
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 600px;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-modal-close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+
+  #sp-form-{{ section.id }}.sp-form-modal p,
+  #sp-form-{{ section.id }}.sp-form-modal p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-form-{{ section.id }}.sp-form-modal h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-form-{{ section.id }}.sp-form-modal {
+    background-image: {{section.settings.background_color}};
+    width: 100%;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-grid {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-form-{{ section.id }} .sp-form-column {
+      padding: 5px 0;
+    }
+
+    #sp-form-{{ section.id }} .sp-form-column-text {
+      display: none;
+    }
+
+    #sp-form-{{ section.id }} .sp-form-mobile-text {
+      display: block;
+    }
+  }
+
+  #sp-form-{{ section.id }} .sp-form-grid h2, .sp-form-grid p {
+    text-align: left;
+    margin: 0 0 25px 0;
+    padding: 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-form-{{ section.id }} .sp-form-grid h2 {
+    color: {{ section.settings.headline_color }};
+  }
+
+  #sp-form-{{ section.id }} .sp-form-grid p:last-child {
+    margin: 0;
+    padding: 0;
+  }
+
+  #sp-form-{{ section.id }} .sp-contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  #sp-form-{{ section.id }} .sp-contact-form .sp-form-span-cols {
+    grid-column: 1 / 3;
+  }
+
+  #sp-form-{{ section.id }} button {
+    display: inline-block;
+    padding: 15px 25px;
+    background-image: {{section.settings.button_background_color}};
+    border-radius: 4px;
+    color: {{section.settings.button_text_color}};
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: none;
+    transition: .25s all;
+    border: none;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-field label {
+    display: block;
+    font-size: 11pt;
+    padding: 0;
+    margin: 0 0 2.5px 0;
+    color: {{ section.settings.label_color }};
+  }
+
+  #sp-form-{{ section.id }} .sp-form-field input[type=text],
+  #sp-form-{{ section.id }} .sp-form-field input[type=email] {
+    box-sizing: border-box;
+    display: block;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    padding: 5px 5px 10px 0;
+    width: 100%;
+    outline: none;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-field select {
+    box-sizing: border-box;
+    display: block;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    padding: 5px 5px 10px 0;
+    width: 100%;
+    outline: none;
+  }
+
+  .sp-form-check {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-field input:focus,
+  #sp-form-{{ section.id }} .sp-form-field input:focus-visible,
+  #sp-form-{{ section.id }} .sp-form-field select:focus,
+  #sp-form-{{ section.id }} .sp-form-field select:focus-visible {
+    border-bottom: 2px solid {{ section.settings.highlight_color }};
+    outline: none;
+    outline-color: transparent;
+    outline-style: none;
+    box-shadow: none;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-actions {
+    padding-top: 20px;
+  }
+
+  #sp-form-{{ section.id }} .sp-form-success {
+    display: block;
+    padding: 10px;
+    margin: 0 0 10px 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: {{ section.settings.success_background_color }};
+  }
+
+  #sp-form-{{ section.id }} .sp-form-error {
+    display: block;
+    padding: 10px;
+    margin: 0 0 10px 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: {{ section.settings.error_background_color }};
+  }
+
+
+
+</style>
+
+<dialog id="sp-form-{{ section.id }}" class="sp-form-modal sp-modal">
+
+  <a class="sp-form-modal-close"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
+
+  <div class="sp-form-grid sp-form-grid-{{ section.settings.headline_location }}">
+
+    <div class="sp-form-column">
+
+      <h2 class="heading">{{ section.settings.headline }}</h2>
+      <p>{{ section.settings.content }}</p>
+      
+      <!-- form -->
+      {%- form 'contact', id: "sp-cfm-form", class: 'sp-contact-form' -%}
+
+        <!-- success / error messages -->
+        {%- if form.posted_successfully? -%}
+          <p class="sp-form-success sp-form-span-cols">{{ section.settings.success_message }}</p>
+        {%- elsif form.errors -%}
+        <p class="sp-form-error sp-form-span-cols">
+          {{ section.settings.error_message }}
+          {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+        </p>
+        {%- endif -%}
+        <!-- form body -->
+        {% for block in section.blocks %}
+
+          {% if block.type == 'email' %}
+            <div class="sp-form-field {% if block.settings.span_columns %}sp-form-span-cols{% endif %}">
+              <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+              <input
+                autocomplete="email"
+                type="email"
+                id="{{ block.settings.id }}"
+                name="contact[email]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                {% if form.errors contains 'email' %}
+                  aria-invalid="true"
+                  aria-describedby="ContactForm-email-error"
+                {% endif %}
+                placeholder="{{ block.placeholder }}">
+            </div>
+          {% endif %}
+
+          {% if block.type == 'name' %}
+            <div class="sp-form-field {% if block.settings.span_columns %}sp-form-span-cols{% endif %}">
+              <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+              <input
+                type="text"
+                id="name"
+                name="contact[name]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                aria-required="true"
+                placeholder="{{ block.settings.placeholder }}">
+            </div>
+          {% endif %}
+
+          {% if block.type == 'text' %}
+            <div class="sp-form-field {% if block.settings.span_columns %}sp-form-span-cols{% endif %}">
+              <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+              <input
+                type="text"
+                id="{{ block.settings.id }}"
+                name="contact[{{ block.settings.label }}]"
+                spellcheck="false"
+                autocapitalize="off"
+                value=""
+                aria-required="true"
+                placeholder="{{ block.settings.placeholder }}">
+            </div>
+          {% endif %}
+
+          {% if block.type == 'single-select' %}
+            {% assign options = block.settings.options | split: "," %}
+            <div class="sp-form-field {% if block.settings.span_columns %}sp-form-span-cols{% endif %}">
+              <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+              <select
+                id="{{ block.settings.id }}"
+                name="contact[{{ block.settings.label }}]">
+                {% for option in options %}
+                  <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+
+        {% if block.type == 'multiple-select' %}
+            {% assign options = block.settings.options | split: "," %}
+            <div class="sp-form-field {% if block.settings.span_columns %}sp-form-span-cols{% endif %}">
+              <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+              {% for option in options %}
+                <label class="sp-form-check">
+                <input type="checkbox"
+                  id="{{ block.settings.id }}"
+                  name="contact[{{ block.settings.label }}_{{ forloop.index }}]" value="{{ option }}">{{ option }}</label>
+              {% endfor %}
+              
+            </div>
+          {% endif %}
+
+        
+        {% endfor %}
+
+        <div class="sp-form-actions sp-form-span-cols">
+          <button type="submit" class="sp-form-button">
+            {{ section.settings.button_text }}
+          </button>
+        </div>
+      {%- endform -%}
+      <!-- /form -->
+
+    </div>
+    <!-- /col -->
+
+  </div>
+  <!-- /grid -->
+  
+</dialog>
+<!-- /dialog -->
+
+<script>
+  const sai_cf_dialog = document.querySelector(`#sp-form-{{ section.id }}`);
+  const sai_cf_dialog_close = document.querySelector("#sp-form-{{ section.id }} .sp-form-modal-close");
+
+  // show -> handle after load
+  document.addEventListener("DOMContentLoaded", function(){
+    const sai_cf_show = document.querySelectorAll("[href='{{ section.settings.modal_target }}']");
+
+    // show
+    for(var x=0; x<sai_cf_show.length; x++) {
+      sai_cf_show[x].addEventListener("click", () => {
+        sai_cf_dialog.showModal();
+        e.preventDefault();
+      });
+    }
+  });
+
+  // close
+  sai_cf_dialog_close.addEventListener("click", () => {
+    sai_cf_dialog.close();
+    e.preventDefault();
+  });
+
+  // show in design mode
+  if(Shopify) {
+    if(Shopify.designMode) {
+      sai_cf_dialog.showModal();
+    }
+  }
+
+  // show for url
+  if(location.href.indexOf("{{ section.settings.modal_target }}") != -1) {
+      sai_cf_dialog.showModal();
+  }
+  
+</script>
+
+{% schema %}
+  {
+    "name": "🚀SP - Contact Form Moda",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Target",
+        "info": "Add the below string to any URL to launch the modal. Please keep the #."
+      },
+      {
+        "type": "text",
+        "id": "modal_target",
+        "label": "Target",
+        "default": "#contact-form-modal"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "label_color",
+        "default": "#111111",
+        "label": "Form Label Color"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "default": "#fff",
+        "label": "Button Text Color"
+      },
+      {
+        "type": "color",
+        "id": "divider_color",
+        "default": "#888",
+        "label": "Divider Color"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "default": "#0D8BF4",
+        "label": "Highlight Color"
+      },
+      {
+        "type": "color",
+        "id": "success_background_color",
+        "default": "#00D815",
+        "label": "Success Background Color"
+      },
+      {
+        "type": "color",
+        "id": "error_background_color",
+        "default": "#D53005",
+        "label": "Error Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set image and text for section"
+      },
+      {
+        "type": "select",
+        "id": "headline_location",
+        "label": "Headline Location",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "Sample headline"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "Sample content"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "success_message",
+        "label": "Success Message",
+        "default": "Thank you for submitting the form!"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "error_message",
+        "label": "Error Message",
+        "default": "There was an error submitting the form."
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Submit"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Email",
+        "type": "email",
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Email"
+          },
+          {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder"
+          },
+          {
+            "type": "checkbox",
+            "id": "span_columns",
+            "label": "Span Columns",
+            "default": false
+          }
+        ]
+      },
+      {
+        "name": "Name",
+        "type": "name",
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Name"
+          },
+          {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder"
+          },
+          {
+            "type": "checkbox",
+            "id": "span_columns",
+            "label": "Span Columns",
+            "default": false
+          }
+        ]
+      },
+      {
+        "name": "Text",
+        "type": "text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "id",
+            "label": "ID",
+            "default": "new-field"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Label"
+          },
+          {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder"
+          },
+          {
+            "type": "checkbox",
+            "id": "span_columns",
+            "label": "Span Columns",
+            "default": false
+          }
+        ]
+      },
+      {
+        "name": "Single Select",
+        "type": "single-select",
+        "settings": [
+          {
+            "type": "text",
+            "id": "id",
+            "label": "ID",
+            "default": "new-field"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Label"
+          },
+          {
+            "type": "text",
+            "id": "options",
+            "label": "Options (separate by comma)"
+          },
+          {
+            "type": "checkbox",
+            "id": "span_columns",
+            "label": "Span Columns",
+            "default": false
+          }
+        ]
+      },
+      {
+        "name": "Multiple Select",
+        "type": "multiple-select",
+        "settings": [
+          {
+            "type": "text",
+            "id": "id",
+            "label": "ID",
+            "default": "new-field"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Label"
+          },
+          {
+            "type": "text",
+            "id": "options",
+            "label": "Options (separate by comma)"
+          },
+          {
+            "type": "checkbox",
+            "id": "span_columns",
+            "label": "Span Columns",
+            "default": false
+          }
+        ]
+      }
+      
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Contact Form Moda",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

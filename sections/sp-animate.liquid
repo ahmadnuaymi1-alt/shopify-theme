@@ -1,0 +1,284 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+{% assign short_id = section.id | slice: -3, 3 %}
+<style>
+
+  /* Sections Pro entrance animation keyframes */
+  @keyframes spSlideIn {
+    0% {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+  }
+
+  @keyframes spSlideLeft {
+    0% {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+
+  @keyframes spSlideRight {
+    0% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+
+  @keyframes spFadeIn {
+    0% {
+        opacity: 0.01;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+
+  /* Sections Pro entrance animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .sp-slidein-start {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .sp-slidein-animate {
+      animation: spSlideIn {{ section.settings.speed }}s ease;
+    }
+
+    .sp-fadein-start {
+      opacity: 0;
+    }
+
+    .sp-fadein-animate {
+      animation: spFadeIn {{ section.settings.speed }}s ease;
+    }
+
+    .sp-slideleft-start {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    .sp-slideleft-animate {
+      animation: spSlideLeft {{ section.settings.speed }}s ease;
+    }
+
+    .sp-slideright-start {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+
+    .sp-slideright-animate {
+      animation: spSlideRight {{ section.settings.speed }}s ease;
+    }
+  }
+</style>
+
+<span id="sp-animate-{{ section.id }}" style="display:none"></span>
+
+<script>
+  const observer_{{ short_id }} = new IntersectionObserver(entries => {
+    // Loop over the entries
+    entries.forEach(entry => {
+
+      // If the element is visible
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('sp-{{ section.settings.entrance_animation }}-start');
+        entry.target.classList.add('sp-{{ section.settings.entrance_animation }}-animate');
+      }
+    });
+  }, { threshold: 0.25 });
+  
+
+  {% if section.settings.entrance_animation != 'none' %}
+
+  function animate_{{ short_id }}(next) {
+    var type = `{{ section.settings.animate_element }}`;
+
+    // default to the container
+    var el = next;
+
+    console.log('[animate] type', type);
+
+    if(type == 'container') {
+      var grid = el.querySelector("[sp-container]"); // ends with grid
+      if(grid) el = grid;
+    }
+    else if (type == 'column1' || type == 'column2' || type == 'column3') {
+      var cols = el.querySelectorAll("[sp-column]");
+      if(type == 'column1' && cols.length >= 1) el = cols[0];
+      if(type == 'column2' && cols.length >= 2) el = cols[1];
+      if(type == 'column3' && cols.length >= 3) el = cols[1];
+    }
+
+    el.classList.add('sp-{{ section.settings.entrance_animation }}-start');
+    observer_{{ short_id }}.observe(el);
+
+  }
+
+  window.addEventListener('load', (e) => {
+
+    var curr_{{ short_id }} = document.querySelector('#sp-animate-{{ section.id }}').parentNode;
+    var next_{{ short_id }} = curr_{{ short_id }}.nextElementSibling;
+
+    console.log('[animate] curr', curr_{{ short_id }});
+    console.log(`[animate] next_{{ short_id }}`, next_{{ short_id }});
+    if(next_{{ short_id }}) animate_{{ short_id }}(next_{{ short_id }});
+
+    {% if section.settings.overflow_hidden_section %}
+      if(next_{{ short_id }})next_{{ short_id }}.style.overflowX = 'hidden';
+    {% endif %}
+
+    {% if section.settings.overflow_hidden_body %}
+      document.body.style.overflowX = 'hidden';
+    {% endif %}
+
+  });
+
+  {% endif %}
+</script>
+
+{% schema %}
+{
+  "name": "🚀SP - Animate",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Animation",
+      "info": "Set the entrance animation for the SP section directly following the Animate section in the customizer hierarchy."
+    },
+    {
+      "type": "select",
+      "id": "entrance_animation",
+      "label": "Entrance Animation",
+      "options": [
+        {
+          "value": "none",
+          "label": "No animation"
+        },
+        {
+          "value": "slidein",
+          "label": "Slide In"
+        },
+        {
+          "value": "fadein",
+          "label": "Fade In"
+        },
+        {
+          "value": "slideright",
+          "label": "Slide Right"
+        },
+        {
+          "value": "slideleft",
+          "label": "Slide Left"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "animate_element",
+      "label": "Animate Element",
+      "options": [
+        {
+          "value": "section",
+          "label": "Section"
+        },
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "column1",
+          "label": "Column 1"
+        },
+        {
+          "value": "column2",
+          "label": "Column 2"
+        },
+        {
+          "value": "column3",
+          "label": "Column 3"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "speed",
+      "label": "Speed (seconds)",
+      "options": [
+        {
+          "value": ".25",
+          "label": ".25"
+        },
+        {
+          "value": ".5",
+          "label": ".5"
+        },
+        {
+          "value": ".75",
+          "label": ".75"
+        },
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "1.25",
+          "label": "1.25"
+        },
+        {
+          "value": "1.5",
+          "label": "1.5"
+        },
+        {
+          "value": "1.75",
+          "label": "1.75"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": ".75"
+    },
+    {
+      "type": "header",
+      "content": "Advanced",
+      "info": "Set advanced properties for the animation. Setting overflow can fix spacing issues but should be tested before enabled."
+    },
+    {
+      "type": "checkbox",
+      "id": "overflow_hidden_body",
+      "default": false,
+      "label": "Set overflow hidden on body"
+    },
+    {
+      "type": "checkbox",
+      "id": "overflow_hidden_section",
+      "default": false,
+      "label": "Set overflow hidden on section"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Animate"
+    }
+  ]
+}
+{% endschema %}

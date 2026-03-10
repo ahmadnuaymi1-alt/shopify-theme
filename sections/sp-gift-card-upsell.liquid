@@ -1,0 +1,542 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+
+<!-- this should have blocks for text headlines etc -->
+<style>
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-upsell-{{ section.id }}.sp-upsell-wrap p,
+  #sp-upsell-{{ section.id }}.sp-upsell-wrap label,
+  #sp-upsell-{{ section.id }}.sp-upsell-wrap input {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    color: {{ section.settings.text_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 15px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #sp-upsell-{{ section.id }}.sp-upsell-wrap p:last-child {
+    padding: 0;
+  }
+
+  #sp-upsell-{{ section.id }}.sp-upsell-wrap h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    color: {{ section.settings.headline_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 5px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #sp-upsell-{{ section.id }}.sp-upsell-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-upsell-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    gap: {{ section.settings.grid_gap }}px;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-upsell-{{ section.id }} .sp-upsell-grid {
+      display: block;
+    }
+  }
+  
+  
+  #sp-upsell-{{ section.id }} .sp-upsell-grid .sp-upsell-column img {
+    aspect-ratio: {{ section.settings.image_aspect_ratio }};
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    border-radius: 25px;
+    box-shadow:
+        0 1px 1px hsl(0deg 0% 0% / 0.075),
+        0 2px 2px hsl(0deg 0% 0% / 0.075),
+        0 4px 4px hsl(0deg 0% 0% / 0.075),
+        0 8px 8px hsl(0deg 0% 0% / 0.075),
+        0 16px 16px hsl(0deg 0% 0% / 0.075)
+      ;
+    transition: .25s all;
+  }
+  
+  #sp-upsell-{{ section.id }} .sp-upsell-grid .sp-upsell-column img:hover {
+    box-shadow:
+        0 1px 1px hsl(0deg 0% 0% / 0.1),
+        0 2px 2px hsl(0deg 0% 0% / 0.1),
+        0 4px 4px hsl(0deg 0% 0% / 0.1),
+        0 8px 8px hsl(0deg 0% 0% / 0.1),
+        0 20px 20px hsl(0deg 0% 0% / 0.1)
+      ;
+    transform: scale(1.01);
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-upsell-{{ section.id }} .sp-upsell-grid .sp-upsell-column:last-child {
+      padding-top: 20px;
+    }
+  }
+
+  
+  #sp-upsell-{{ section.id }} .sp-radio-button-group {
+    margin-bottom: 10px;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-radio-button-group input[type="radio"] {
+    display: none;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-radio-button-group label {
+    display: inline-block;
+    padding: 10px;
+    margin: 0 5px 0 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 75px;
+    text-align: center;
+  }
+  
+  #sp-upsell-{{ section.id }} .sp-radio-button-group label:has(:checked) {
+    background: {{ section.settings.highlight_color }};
+    border: 1px solid {{ section.settings.highlight_color }};
+    font-weight: bold;
+    color: #fff;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-number-group {
+    margin-bottom: 10px;
+  }
+  
+  #sp-upsell-{{ section.id }} input[type=number] {
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 0 5px 0 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 75px;
+    text-align: center;
+  }
+  
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit] {
+    position: relative;
+    display: inline-block;
+    padding: 15px 25px;
+    margin: 0 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    background-image: {{section.settings.button_background_color}};
+    color: {{section.settings.button_text_color}};
+    cursor: pointer;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit] * {
+    pointer-events: none;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit] svg {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    width: 25px;
+    opacity: 0;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit][sp-loading],
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit][sp-done] {
+    padding-right: 50px;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit][sp-loading] .sp-upsell-loading {
+    opacity: 1;
+  }
+
+  #sp-upsell-{{ section.id }} .sp-button-group button[type=submit][sp-done] .sp-upsell-done {
+    opacity: 1;
+  }
+
+</style>
+
+<!-- ref: https://shopify.dev/docs/themes/architecture/templates/product -->
+<div id="sp-upsell-{{ section.id }}" class="sp-upsell-wrap">
+  <div class="sp-upsell-grid">
+
+    {%- assign product_form_id = 'sp-upsell-product-form-' | append: section.id -%}
+    
+    <div class="sp-upsell-column">
+      {% if section.settings.image != blank %}
+      <img src="{{ section.settings.image | image_url: width: 600 }}"
+        srcset="{{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: width: 1100 }} 1100w">
+      {% else %}
+        <img src="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20width%3D%221024px%22%20height%3D%22768px%22%20viewBox%3D%220%200%201024%20768%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3Ctitle%3EGroup%2028%3C%2Ftitle%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Group-28%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Crect%20id%3D%22Rectangle%22%20fill%3D%22%230D8BF4%22%20x%3D%220%22%20y%3D%220%22%20width%3D%221024%22%20height%3D%22768%22%20rx%3D%226.29940701%22%3E%3C%2Frect%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Group-29%22%20transform%3D%22translate%28367%2C%20281%29%22%20fill%3D%22%23FFFFFF%22%20fill-rule%3D%22nonzero%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20id%3D%22sections.ai%22%20transform%3D%22translate%2830%2C%20168%29%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M15.4296875%2C17.4804688%20L10.8886719%2C19.8974609%20C10.172526%2C18.4326172%209.28548177%2C17.7001953%208.22753906%2C17.7001953%20C7.72298177%2C17.7001953%207.29166667%2C17.8670247%206.93359375%2C18.2006836%20C6.57552083%2C18.5343424%206.39648438%2C18.9615885%206.39648438%2C19.4824219%20C6.39648438%2C20.3938802%207.45442708%2C21.2972005%209.5703125%2C22.1923828%20C12.483724%2C23.445638%2014.444987%2C24.601237%2015.4541016%2C25.6591797%20C16.4632161%2C26.7171224%2016.9677734%2C28.141276%2016.9677734%2C29.9316406%20C16.9677734%2C32.2265625%2016.1214193%2C34.1471354%2014.4287109%2C35.6933594%20C12.7848307%2C37.1582031%2010.7991536%2C37.890625%208.47167969%2C37.890625%20C4.48404948%2C37.890625%201.66015625%2C35.945638%200%2C32.0556641%20L4.6875%2C29.8828125%20C5.33854167%2C31.0221354%205.83496094%2C31.7464193%206.17675781%2C32.0556641%20C6.84407552%2C32.6741536%207.64160156%2C32.9833984%208.56933594%2C32.9833984%20C10.4248047%2C32.9833984%2011.3525391%2C32.1370443%2011.3525391%2C30.4443359%20C11.3525391%2C29.4677734%2010.6363932%2C28.5563151%209.20410156%2C27.7099609%20C8.65071615%2C27.4332682%208.09733073%2C27.1647135%207.54394531%2C26.9042969%20C6.9905599%2C26.6438802%206.42903646%2C26.3753255%205.859375%2C26.0986328%20C4.26432292%2C25.3173828%203.14127604%2C24.5361328%202.49023438%2C23.7548828%20C1.66015625%2C22.7620443%201.24511719%2C21.484375%201.24511719%2C19.921875%20C1.24511719%2C17.8548177%201.953125%2C16.1458333%203.36914062%2C14.7949219%20C4.81770833%2C13.4440104%206.57552083%2C12.7685547%208.64257812%2C12.7685547%20C11.6861979%2C12.7685547%2013.9485677%2C14.3391927%2015.4296875%2C17.4804688%20Z%22%20id%3D%22Path%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M43.5546875%2C26.6113281%20L26.5136719%2C26.6113281%20C26.6601562%2C28.5644531%2027.2949219%2C30.1188151%2028.4179688%2C31.2744141%20C29.5410156%2C32.413737%2030.9814453%2C32.9833984%2032.7392578%2C32.9833984%20C34.1064453%2C32.9833984%2035.2376302%2C32.6578776%2036.1328125%2C32.0068359%20C37.0117188%2C31.3557943%2038.0126953%2C30.1513672%2039.1357422%2C28.3935547%20L43.7744141%2C30.9814453%20C43.0582682%2C32.2021484%2042.3014323%2C33.2478841%2041.5039062%2C34.1186523%20C40.7063802%2C34.9894206%2039.851888%2C35.7055664%2038.9404297%2C36.2670898%20C38.0289714%2C36.8286133%2037.0442708%2C37.2395833%2035.9863281%2C37.5%20C34.9283854%2C37.7604167%2033.7809245%2C37.890625%2032.5439453%2C37.890625%20C28.9957682%2C37.890625%2026.1474609%2C36.7513021%2023.9990234%2C34.4726562%20C21.8505859%2C32.1777344%2020.7763672%2C29.1341146%2020.7763672%2C25.3417969%20C20.7763672%2C21.5820312%2021.8180339%2C18.5384115%2023.9013672%2C16.2109375%20C26.0009766%2C13.9160156%2028.7841797%2C12.7685547%2032.2509766%2C12.7685547%20C35.7503255%2C12.7685547%2038.5172526%2C13.8834635%2040.5517578%2C16.1132812%20C42.569987%2C18.3268229%2043.5791016%2C21.3948568%2043.5791016%2C25.3173828%20L43.5546875%2C26.6113281%20Z%20M37.9150391%2C22.1191406%20C37.1500651%2C19.1894531%2035.3027344%2C17.7246094%2032.3730469%2C17.7246094%20C31.7057292%2C17.7246094%2031.0791016%2C17.8263346%2030.4931641%2C18.0297852%20C29.9072266%2C18.2332357%2029.3741862%2C18.5262044%2028.894043%2C18.9086914%20C28.4138997%2C19.2911784%2028.0029297%2C19.7509766%2027.6611328%2C20.2880859%20C27.3193359%2C20.8251953%2027.0589193%2C21.4355469%2026.8798828%2C22.1191406%20L37.9150391%2C22.1191406%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M68.0664062%2C14.453125%20L68.0664062%2C21.7529297%20C66.813151%2C20.2229818%2065.6901042%2C19.1731771%2064.6972656%2C18.6035156%20C63.7207031%2C18.0175781%2062.5732422%2C17.7246094%2061.2548828%2C17.7246094%20C59.1878255%2C17.7246094%2057.4707031%2C18.4488932%2056.1035156%2C19.8974609%20C54.7363281%2C21.3460286%2054.0527344%2C23.1608073%2054.0527344%2C25.3417969%20C54.0527344%2C27.5716146%2054.7119141%2C29.4026693%2056.0302734%2C30.8349609%20C57.3649089%2C32.2672526%2059.0657552%2C32.9833984%2061.1328125%2C32.9833984%20C62.4511719%2C32.9833984%2063.6149089%2C32.6985677%2064.6240234%2C32.1289062%20C65.6005859%2C31.5755208%2066.7480469%2C30.5013021%2068.0664062%2C28.90625%20L68.0664062%2C36.1572266%20C65.8365885%2C37.3128255%2063.6067708%2C37.890625%2061.3769531%2C37.890625%20C57.6985677%2C37.890625%2054.6223958%2C36.702474%2052.1484375%2C34.3261719%20C49.6744792%2C31.9335938%2048.4375%2C28.9632161%2048.4375%2C25.4150391%20C48.4375%2C21.866862%2049.6907552%2C18.8720703%2052.1972656%2C16.4306641%20C54.703776%2C13.9892578%2057.7799479%2C12.7685547%2061.4257812%2C12.7685547%20C63.7695312%2C12.7685547%2065.9830729%2C13.3300781%2068.0664062%2C14.453125%20Z%22%20id%3D%22Path%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpolygon%20id%3D%22Path%22%20points%3D%2279.0527344%2018.5546875%2079.0527344%2037.2070312%2073.5595703%2037.2070312%2073.5595703%2018.5546875%2071.2158203%2018.5546875%2071.2158203%2013.4277344%2073.5595703%2013.4277344%2073.5595703%204.71191406%2079.0527344%204.71191406%2079.0527344%2013.4277344%2083.3251953%2013.4277344%2083.3251953%2018.5546875%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M92.5537109%2C13.4277344%20L92.5537109%2C37.2070312%20L87.0605469%2C37.2070312%20L87.0605469%2C13.4277344%20L92.5537109%2C13.4277344%20Z%20M86.2304688%2C3.54003906%20C86.2304688%2C2.5797526%2086.5804036%2C1.74967448%2087.2802734%2C1.04980469%20C87.9801432%2C0.349934896%2088.8183594%2C0%2089.7949219%2C0%20C90.7877604%2C0%2091.6341146%2C0.349934896%2092.3339844%2C1.04980469%20C93.0338542%2C1.73339844%2093.3837891%2C2.57161458%2093.3837891%2C3.56445312%20C93.3837891%2C4.55729167%2093.0338542%2C5.40364583%2092.3339844%2C6.10351562%20C91.6503906%2C6.80338542%2090.8121745%2C7.15332031%2089.8193359%2C7.15332031%20C88.8264974%2C7.15332031%2087.9801432%2C6.80338542%2087.2802734%2C6.10351562%20C86.5804036%2C5.40364583%2086.2304688%2C4.54915365%2086.2304688%2C3.54003906%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M98.3886719%2C25.1464844%20C98.3886719%2C21.7122396%2099.617513%2C18.7906901%20102.075195%2C16.3818359%20C104.532878%2C13.9729818%20107.527669%2C12.7685547%20111.05957%2C12.7685547%20C114.607747%2C12.7685547%20117.618815%2C13.9811198%20120.092773%2C16.40625%20C122.53418%2C18.8313802%20123.754883%2C21.8098958%20123.754883%2C25.3417969%20C123.754883%2C28.90625%20122.526042%2C31.8929036%20120.068359%2C34.3017578%20C117.594401%2C36.6943359%20114.558919%2C37.890625%20110.961914%2C37.890625%20C107.397461%2C37.890625%20104.410807%2C36.6699219%20102.001953%2C34.2285156%20C99.593099%2C31.8196615%2098.3886719%2C28.7923177%2098.3886719%2C25.1464844%20Z%20M104.003906%2C25.2441406%20C104.003906%2C27.6204427%20104.638672%2C29.5003255%20105.908203%2C30.8837891%20C107.210286%2C32.2835286%20108.927409%2C32.9833984%20111.05957%2C32.9833984%20C113.208008%2C32.9833984%20114.92513%2C32.2916667%20116.210938%2C30.9082031%20C117.496745%2C29.5247396%20118.139648%2C27.6774089%20118.139648%2C25.3662109%20C118.139648%2C23.055013%20117.496745%2C21.2076823%20116.210938%2C19.8242188%20C114.908854%2C18.4244792%20113.191732%2C17.7246094%20111.05957%2C17.7246094%20C108.959961%2C17.7246094%20107.259115%2C18.4244792%20105.957031%2C19.8242188%20C104.654948%2C21.2239583%20104.003906%2C23.030599%20104.003906%2C25.2441406%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M129.56543%2C13.4277344%20L135.083008%2C13.4277344%20L135.083008%2C15.625%20C137.003581%2C13.7207031%20139.168294%2C12.7685547%20141.577148%2C12.7685547%20C144.344076%2C12.7685547%20146.500651%2C13.6393229%20148.046875%2C15.3808594%20C149.38151%2C16.8619792%20150.048828%2C19.2789714%20150.048828%2C22.6318359%20L150.048828%2C37.2070312%20L144.53125%2C37.2070312%20L144.53125%2C23.9257812%20C144.53125%2C21.5820312%20144.205729%2C19.9625651%20143.554688%2C19.0673828%20C142.919922%2C18.1559245%20141.764323%2C17.7001953%20140.087891%2C17.7001953%20C138.264974%2C17.7001953%20136.971029%2C18.3024089%20136.206055%2C19.5068359%20C135.457357%2C20.694987%20135.083008%2C22.7701823%20135.083008%2C25.7324219%20L135.083008%2C37.2070312%20L129.56543%2C37.2070312%20L129.56543%2C13.4277344%20Z%22%20id%3D%22Path%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M170.800781%2C17.4804688%20L166.259766%2C19.8974609%20C165.54362%2C18.4326172%20164.656576%2C17.7001953%20163.598633%2C17.7001953%20C163.094076%2C17.7001953%20162.66276%2C17.8670247%20162.304688%2C18.2006836%20C161.946615%2C18.5343424%20161.767578%2C18.9615885%20161.767578%2C19.4824219%20C161.767578%2C20.3938802%20162.825521%2C21.2972005%20164.941406%2C22.1923828%20C167.854818%2C23.445638%20169.816081%2C24.601237%20170.825195%2C25.6591797%20C171.83431%2C26.7171224%20172.338867%2C28.141276%20172.338867%2C29.9316406%20C172.338867%2C32.2265625%20171.492513%2C34.1471354%20169.799805%2C35.6933594%20C168.155924%2C37.1582031%20166.170247%2C37.890625%20163.842773%2C37.890625%20C159.855143%2C37.890625%20157.03125%2C35.945638%20155.371094%2C32.0556641%20L160.058594%2C29.8828125%20C160.709635%2C31.0221354%20161.206055%2C31.7464193%20161.547852%2C32.0556641%20C162.215169%2C32.6741536%20163.012695%2C32.9833984%20163.94043%2C32.9833984%20C165.795898%2C32.9833984%20166.723633%2C32.1370443%20166.723633%2C30.4443359%20C166.723633%2C29.4677734%20166.007487%2C28.5563151%20164.575195%2C27.7099609%20C164.02181%2C27.4332682%20163.468424%2C27.1647135%20162.915039%2C26.9042969%20C162.361654%2C26.6438802%20161.80013%2C26.3753255%20161.230469%2C26.0986328%20C159.635417%2C25.3173828%20158.51237%2C24.5361328%20157.861328%2C23.7548828%20C157.03125%2C22.7620443%20156.616211%2C21.484375%20156.616211%2C19.921875%20C156.616211%2C17.8548177%20157.324219%2C16.1458333%20158.740234%2C14.7949219%20C160.188802%2C13.4440104%20161.946615%2C12.7685547%20164.013672%2C12.7685547%20C167.057292%2C12.7685547%20169.319661%2C14.3391927%20170.800781%2C17.4804688%20Z%22%20id%3D%22Path%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M178.125%2C34.4726562%20C178.125%2C33.5611979%20178.458659%2C32.7718099%20179.125977%2C32.1044922%20C179.793294%2C31.4371745%20180.59082%2C31.1035156%20181.518555%2C31.1035156%20C182.446289%2C31.1035156%20183.243815%2C31.4371745%20183.911133%2C32.1044922%20C184.578451%2C32.7718099%20184.912109%2C33.5693359%20184.912109%2C34.4970703%20C184.912109%2C35.4410807%20184.578451%2C36.2467448%20183.911133%2C36.9140625%20C183.260091%2C37.5651042%20182.462565%2C37.890625%20181.518555%2C37.890625%20C180.558268%2C37.890625%20179.752604%2C37.5651042%20179.101562%2C36.9140625%20C178.450521%2C36.2630208%20178.125%2C35.4492188%20178.125%2C34.4726562%20Z%22%20id%3D%22Path%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M210.229492%2C13.4277344%20L215.74707%2C13.4277344%20L215.74707%2C37.2070312%20L210.229492%2C37.2070312%20L210.229492%2C34.7167969%20C207.967122%2C36.8326823%20205.533854%2C37.890625%20202.929688%2C37.890625%20C199.641927%2C37.890625%20196.923828%2C36.702474%20194.775391%2C34.3261719%20C192.643229%2C31.9010417%20191.577148%2C28.8736979%20191.577148%2C25.2441406%20C191.577148%2C21.6796875%20192.643229%2C18.7093099%20194.775391%2C16.3330078%20C196.907552%2C13.9567057%20199.576823%2C12.7685547%20202.783203%2C12.7685547%20C205.55013%2C12.7685547%20208.032227%2C13.9078776%20210.229492%2C16.1865234%20L210.229492%2C13.4277344%20Z%20M197.192383%2C25.2441406%20C197.192383%2C27.5227865%20197.802734%2C29.3782552%20199.023438%2C30.8105469%20C200.276693%2C32.2591146%20201.855469%2C32.9833984%20203.759766%2C32.9833984%20C205.794271%2C32.9833984%20207.438151%2C32.2835286%20208.691406%2C30.8837891%20C209.944661%2C29.4352214%20210.571289%2C27.5960286%20210.571289%2C25.3662109%20C210.571289%2C23.1363932%20209.944661%2C21.2972005%20208.691406%2C19.8486328%20C207.438151%2C18.4326172%20205.810547%2C17.7246094%20203.808594%2C17.7246094%20C201.920573%2C17.7246094%20200.341797%2C18.4407552%20199.072266%2C19.8730469%20C197.81901%2C21.3216146%20197.192383%2C23.1119792%20197.192383%2C25.2441406%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M228.173828%2C13.4277344%20L228.173828%2C37.2070312%20L222.680664%2C37.2070312%20L222.680664%2C13.4277344%20L228.173828%2C13.4277344%20Z%20M221.850586%2C3.54003906%20C221.850586%2C2.5797526%20222.200521%2C1.74967448%20222.900391%2C1.04980469%20C223.60026%2C0.349934896%20224.438477%2C0%20225.415039%2C0%20C226.407878%2C0%20227.254232%2C0.349934896%20227.954102%2C1.04980469%20C228.653971%2C1.73339844%20229.003906%2C2.57161458%20229.003906%2C3.56445312%20C229.003906%2C4.55729167%20228.653971%2C5.40364583%20227.954102%2C6.10351562%20C227.270508%2C6.80338542%20226.432292%2C7.15332031%20225.439453%2C7.15332031%20C224.446615%2C7.15332031%20223.60026%2C6.80338542%20222.900391%2C6.10351562%20C222.200521%2C5.40364583%20221.850586%2C4.54915365%20221.850586%2C3.54003906%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C159%20L79.0909091%2C53%20L143.352273%2C139.125%20L250.454545%2C139.125%20L171.363636%2C33.45625%20L130.170455%2C88.44375%20L117.647727%2C71.88125%20L171.363636%2C0%20L290%2C159%20L0%2C159%20Z%20M39%2C139%20L119%2C139%20L79%2C86%20L39%2C139%20Z%20M39%2C139%20L119%2C139%20L39%2C139%20Z%22%20id%3D%22Shape%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E">
+        {% endif %}
+    </div>
+    
+    <div class="sp-upsell-column">
+      
+      <div class="sp-upsell-box">
+        {% if section.settings.headline %}<h2>{{ section.settings.headline }}</h2>{% endif %}
+        {% if section.settings.text %}<p>{{ section.settings.text }}</p>{% endif %}
+
+        {% if section.settings.product %}
+
+          {%- form 'product',
+            section.settings.product,
+            id: product_form_id,
+            class: 'form sp-upsell-form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+    
+          <div class="sp-radio-button-group">
+            {% for variant in section.settings.product.variants %}
+              {% assign checked = "" %}
+              {% if forloop.index == 1 %}
+                {% assign checked = "checked" %}
+              {% endif %}
+              <label><input type="radio" value="{{ variant.id }}"  name="id" {{ checked }}>{{ variant.title }}</label>
+            {% endfor %}
+          </div>
+          <!-- /sp-radio button-group -->
+  
+          <div class="sp-number-group">
+            <input type="number" name="quantity" min="1" value="1">
+          </div>
+          <!-- /sp-number-group -->
+  
+          <div class="sp-button-group">
+            <button type="submit">
+              <span>Add to Cart</span>
+              <svg
+                class="sp-upsell-loading" viewBox="0 0 38 38"
+                xmlns="http://www.w3.org/2000/svg" stroke="#fff">
+                <g fill="none" fill-rule="evenodd">
+                    <g stroke-width="2" transform="translate(1 1)">
+                        <circle cx="18" cy="18" r="18" stroke-opacity=".5"></circle>
+                        <path d="M36 18c0-9.94-8.06-18-18-18">
+                            <animateTransform attributeName="transform" dur="1s" from="0 18 18"
+                                repeatCount="indefinite" to="360 18 18" type="rotate">
+                            </animateTransform>
+                        </path>
+                    </g>
+                </g>
+              </svg>
+              <svg class="sp-upsell-done" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+              </svg>
+            </button>
+          </div>
+          <!-- /sp-button-group -->
+  
+          {%- endform -%}
+      {% endif %}
+    </div>
+    <!-- /sp-upsell-box -->
+    
+  </div>
+  <!-- /sp-upsell-column -->
+                  
+</div>
+<!-- /sp-upsell-grid -->
+</div>
+<!-- /sp-upsell-wrap -->
+
+{% if section.settings.enable_client_submit %}
+<script>
+  var saiSubmitButton = document.querySelector('.sp-upsell-form button[type=submit]');
+
+  // handle click
+  saiSubmitButton.addEventListener('click', (e) => {
+
+    e.preventDefault();
+
+    var variant = document.querySelector('.sp-upsell-form input[type=radio]:checked').value;
+    var quantity = document.querySelector('.sp-upsell-form input[type=number]').value;
+
+    // get button and variant
+    let button = e.target,
+        data = {
+            items: [{
+                id: variant,
+                quantity: quantity
+            }]
+        };
+
+    // add item to cart (via Ajax api)
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST', "/cart/add", true)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify(data))
+
+    // set loading
+    button.setAttribute('sp-loading', '');
+
+    // add to cart
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 400) {
+
+            // remove loading, set done
+            button.removeAttribute('sp-loading');
+            button.setAttribute('sp-done', '');
+
+            setTimeout(function () { button.removeAttribute('sp-done'); }, 2000);
+
+            // success
+            // console.log('success');
+        }
+        else {
+
+            // remove loading
+            button.removeAttribute('sp-loading');
+
+            // success
+            // console.log('error');
+        }
+    }
+    // end xhr
+  });
+</script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "🚀SP - Gift Card Upsell",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 30,
+        "label": "Grid Spacing"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#888888",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "default": "#fff",
+        "label": "Button Text Color"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "default": "#0D8BF4",
+        "label": "Highlight Color"
+      },
+      {
+        "type": "header",
+        "content": "Alignment",
+        "info": "Set alignment of the text."
+      },
+      {
+          "type": "select",
+          "id": "text_alignment",
+          "default": "left",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Product",
+        "info": "Select the product."
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Customize the text for the product"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "Sample headline"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "text",
+        "label": "Content",
+        "default": "Sample content"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Customize the image"
+      },
+      {
+        "type": "select",
+        "id": "image_aspect_ratio",
+        "label": "Image Aspect Ratio",
+        "options": [
+          {
+            "value": "21 / 9",
+            "label": "21:9"
+          },
+          {
+            "value": "16 / 9",
+            "label": "16:9"
+          },
+          {
+            "value": "4 / 3",
+            "label": "4:3"
+          }
+        ],
+        "default": "16 / 9"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Advanced",
+        "info": "Advanced options for the section"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_client_submit",
+        "label": "Submit on Client (Ajax)",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Gift Card Upsell",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

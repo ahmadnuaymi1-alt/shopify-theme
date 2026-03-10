@@ -1,0 +1,38 @@
+<div id="top1-custom-section">  
+  {%- if section.settings.title != blank -%}
+  <div class="top1-custom-title"><h2>{{section.settings.title}}</h2></div>  
+  {%- endif -%}    
+  <div class="top1-custom-code">{{section.settings.custom_html}}</div>
+</div>
+<style> 
+  #huratips-custom-section{position:relative;}
+  .huratips-custom-title{text-align:center;}
+  .hura-credit{text-align:right;font-size:11px; margin-bottom:20px;font-style:italic;}
+</style>
+ 
+{% schema %}
+  {
+    "name": "🚀SP - HTML",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type":"textarea",
+        "id": "custom_html",
+        "label": "HTML"
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Custom HTML",
+        "category": "top1",
+        "settings": {
+ 
+        }
+      }
+    ]
+  }
+{% endschema %}

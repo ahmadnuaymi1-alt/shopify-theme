@@ -1,0 +1,271 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-modal-{{ section.id }}.sp-modal {
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 400px;
+  }
+
+  #sp-modal-{{ section.id }} .sp-modal-close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+
+  #sp-modal-{{ section.id }}.sp-modal p,
+  #sp-modal-{{ section.id }}.sp-modal p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-modal-{{ section.id }}.sp-modal h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-modal-{{ section.id }}.sp-modal {
+    background-image: {{section.settings.background_color}};
+    width: 100%;
+  }
+
+  #sp-modal-{{ section.id }} .sp-modal-grid {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    #sp-modal-{{ section.id }} .sp-modal-column {
+      padding: 5px 0;
+    }
+
+    #sp-modal-{{ section.id }} .sp-modal-column-text {
+      display: none;
+    }
+
+    #sp-modal-{{ section.id }} .sp-modal-mobile-text {
+      display: block;
+    }
+  }
+
+  #sp-modal-{{ section.id }} .sp-modal-grid h2, .sp-modal-grid p {
+    text-align: left;
+    margin: 0 0 25px 0;
+    padding: 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-modal-{{ section.id }} .sp-modal-grid h2 {
+    color: {{ section.settings.headline_color }};
+  }
+
+  #sp-modal-{{ section.id }} .sp-modal-grid p:last-child {
+    margin: 0;
+    padding: 0;
+  }
+
+</style>
+
+<dialog id="sp-modal-{{ section.id }}" class="sp-modal">
+
+  <a class="sp-modal-close"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
+
+  <div class="sp-modal-grid sp-modal-grid-{{ section.settings.headline_location }}">
+
+    <div class="sp-modal-column">
+
+      <h2 class="heading">{{ section.settings.headline }}</h2>
+
+      <p>{{ section.settings.content }}</p>
+    
+    </div>
+    <!-- /col -->
+
+  </div>
+  <!-- /grid -->
+  
+</dialog>
+<!-- /dialog -->
+
+<script>
+  const sp_dm_dialog_{{ section.index }} = document.querySelector(`#sp-modal-{{ section.id }}`);
+  const sp_dm_dialog_close_{{ section.index }} = document.querySelector("#sp-modal-{{ section.id }} .sp-modal-close");
+
+  // show -> handle after load
+  document.addEventListener("DOMContentLoaded", function(){
+    const sp_dm_show_{{ section.index }} = document.querySelectorAll("[href='{{ section.settings.modal_target }}']");
+
+    // show
+    for(var x=0; x<sp_dm_show_{{ section.index }}.length; x++) {
+      sp_dm_show_{{ section.index }}[x].addEventListener("click", () => {
+        sp_dm_dialog_{{ section.index }}.showModal();
+        e.preventDefault();
+      });
+    }
+  });
+
+  // close
+  sp_dm_dialog_close_{{ section.index }}.addEventListener("click", () => {
+    sp_dm_dialog_{{ section.index }}.close();
+    e.preventDefault();
+  });
+
+  // show in design mode
+  if(Shopify) {
+    if(Shopify.designMode) {
+      sp_dm_dialog_{{ section.index }}.showModal();
+    }
+  }
+
+  // show for url
+  if(location.href.indexOf("{{ section.settings.modal_target }}") != -1) {
+      sp_dm_dialog_{{ section.index }}.showModal();
+  }
+  
+</script>
+
+{% schema %}
+  {
+    "name": "🚀SP - Details Modal",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Target",
+        "info": "Add the below string to any URL to launch the modal. Please keep the #."
+      },
+      {
+        "type": "text",
+        "id": "modal_target",
+        "label": "Target",
+        "default": "#details-modal"
+      },
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111111",
+        "label": "Text Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set image and text for section"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "Sample headline"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "Sample content"
+      }
+    ],
+    "blocks": [],
+    "presets": [
+      {
+        "name": "🚀SP - Details Modal",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

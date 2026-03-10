@@ -1,0 +1,398 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap p,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap li,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap li a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h1,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h2,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h3,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h4 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+  }
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h1,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h2,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h3,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h4,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h5,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap p {
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+    padding: 0;
+  }
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h1:last-child,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h2:last-child,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h3:last-child,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h4:last-child,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h5:last-child,
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap p:last-child {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus: 5 }}px;
+  }
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus: 10 }}px;
+  }
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus: 15 }}px;
+  }
+
+  #sp-tabs-{{ section.id }}.sp-tabs-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus: 20 }}px;
+  }
+
+    /* tabs */
+    @keyframes animateTabs {
+      from {opacity: 0; }
+      to {opacity: 1; }
+    }
+
+    #sp-tabs-{{ section.id }}.sp-tabs-wrap {
+      background-image: {{ section.settings.background_color }};
+    }
+
+    #sp-tabs-{{ section.id }} .sp-tabs {
+      margin: 0 auto;
+      max-width: {{ section.settings.max_width }}px;
+      padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    }
+    
+    /* tab links */
+    #sp-tabs-{{ section.id }} .sp-tabs-links {
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px solid {{ section.settings.tab_border_color }};
+    }
+
+    #sp-tabs-{{ section.id }} .sp-tabs-links ul {
+      margin: 0;
+      padding: 0;
+    }
+    
+    #sp-tabs-{{ section.id }} .sp-tabs-links li {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+    
+    #sp-tabs-{{ section.id }} .sp-tabs-links li a, body .sp-tabs-links li a:hover {
+      font-size: 0.9em;
+      display: inline-block;
+      padding: 10px 25px;
+      color: {{ section.settings.tab_inactive_color }};
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    /* tab body */
+    #sp-tabs-{{ section.id }} .sp-tab {
+        display: none;
+    }
+
+  #sp-tabs-{{ section.id }} .sp-tab * {
+    color: {{ section.settings.text_color }};;
+  }
+
+    #sp-tabs-{{ section.id }} .sp-tab p {
+      padding: 0;
+      margin: 0 0 15px 0;
+    }
+
+    #sp-tabs-{{ section.id }} .sp-tab ul {
+      padding: 0;
+      margin: 0 0 15px 0;
+    }
+
+    #sp-tabs-{{ section.id }} .sp-tab ul:last-child,
+    #sp-tabs-{{ section.id }} .sp-tab p:last-child {
+      padding: 0;
+      margin: 0;
+    }
+    
+    #sp-tabs-{{ section.id }} .sp-tab[active] {
+        display: block;
+        margin 0;
+        padding: 15px 0 0 0;
+        animation: animateTabs 250ms ease-in-out both;
+    }
+    
+    /* Small devices (tablets, 768px and up) */
+    @media (max-width: 768px) {
+        #sp-tabs-{{ section.id }} .sp-tabs-links li a, 
+        #sp-tabs-{{ section.id }} .sp-tabs-links li a:hover {
+          font-size: 0.8em;
+          display: inline-block;
+          padding: 10px 5px;
+        }
+        
+        #sp-tabs-{{ section.id }} .sp-grid.sp-tab[active] {
+            display: block;
+        }
+    }
+
+    #sp-tabs-{{ section.id }} .sp-tabs-links li a {
+      position: relative;
+      text-transform: none;
+    }
+    
+    #sp-tabs-{{ section.id }} .sp-tabs-links li a[active] {
+      color: {{ section.settings.tab_active_color }};
+      border-bottom: none;
+      font-weight: bold;
+    }
+    
+    #sp-tabs-{{ section.id }} .sp-tabs-links li a::after {
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      content: '';
+      background-color: {{ section.settings.tab_active_color }};
+      width: 0;
+      height: 6px;
+      border-radius: 2px;
+      width: 0;
+      visibility: hidden;
+    }
+
+    #sp-tabs-{{ section.id }} .sp-tabs-links li a[active]::after {
+        left: -2px;
+        visibility: visible;
+        width: calc(100% + 4px);
+        transition: .25s all ease;
+    }
+  </style>
+
+<div id="sp-tabs-{{ section.id }}" class="sp-tabs-wrap" sp-wrap>
+
+  <div class="sp-tabs" sp-container>
+
+    <div class="sp-tabs-links"><ul>
+    {% for block in section.blocks %}
+         <li><a data-index="{{ forloop.index }}" {% if forloop.index == 1 %}active{% endif %}>{{block.settings.tab_name}}</a></li>
+    {% endfor %}
+    </ul></div>
+    <!-- /.sp-tabs-links -->
+
+    <div class="sp-tabs-container">
+    {% for block in section.blocks %}
+         <div data-index="{{ forloop.index }}" {% if forloop.index == 1 %}active{% endif %} class="sp-tab">{{block.settings.tab_content}}</div>
+    {% endfor %}
+    </div>
+    <!-- /.sp-tabs -->
+
+  </div>
+  <!-- /.sp-abs -->
+  
+</div>
+<!-- /.sp-slideshow-wrap -->
+
+<script>
+
+        var links = document.querySelectorAll('#sp-tabs-{{ section.id }} .sp-tabs-links a');
+        
+        for(var x=0; x<links.length; x++) {
+
+            links[x].addEventListener('click', function(e) {
+
+                var links = document.querySelectorAll('#sp-tabs-{{ section.id }} .sp-tabs-links a');
+                var tabs = document.querySelectorAll('#sp-tabs-{{ section.id }} .sp-tab');
+            
+                
+                var currentTab = e.target.getAttribute('data-index');
+
+                // remove active
+                for(x=0; x<links.length; x++) {
+                  links[x].removeAttribute('active');
+                }
+                
+                e.target.setAttribute('active', '');
+                
+                // set active tab
+                for(x=0; x<tabs.length; x++) {
+                  tabs[x].removeAttribute('active');
+                }
+                
+                var tab = document.querySelector('#sp-tabs-{{ section.id }} .sp-tab[data-index="' + currentTab + '"]');
+                
+                if(tab)tab.setAttribute('active', '');
+                
+            })
+            
+        }
+</script>
+
+{% schema %}
+  {
+    "name": "🚀SP - Tabs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "transparent",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "tab_active_color",
+        "default": "#111",
+        "label": "Tab Active Color"
+      },{
+        "type": "color",
+        "id": "tab_inactive_color",
+        "default": "#888",
+        "label": "Tab Inactive Color"
+      },{
+        "type": "color",
+        "id": "tab_border_color",
+        "default": "#ddd",
+        "label": "Tab Border Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 15,
+        "label": "Element Spacing"
+      }
+    ],
+    "blocks": [
+      {
+       "name": "Tab",
+       "type": "tab",
+       "settings": [
+          {
+          "type": "text",
+          "id": "tab_name",
+          "label": "Tab Name",
+          "default": "Tab Name"
+          },
+          {
+            "type": "richtext",
+            "id": "tab_content",
+            "label": "Tab Content",
+            "default": "<p>This is sample tab content</p>"
+          }
+       ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Tabs",
+        "blocks": [
+          {
+            "type": "tab"
+          },
+          {
+            "type": "tab"
+          },
+          {
+            "type": "tab"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

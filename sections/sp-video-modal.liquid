@@ -1,0 +1,319 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  #sp-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px ;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 600px;
+    outline: none;
+    border: none;
+  }
+
+  #sp-{{ section.id }}:focus{
+    outline: none;
+    border: none;
+}
+
+  #sp-{{ section.id }} .sp-modal-close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+
+  #sp-{{ section.id }} .sp-modal-close {
+    fill: #fff;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.25));
+  }
+
+  #sp-{{ section.id }}.sp-video-modal {
+    background-image: {{section.settings.background_color}};
+    width: 100%;
+  }
+
+  #sp-{{ section.id }} .sp-video-container {
+    width: 100%;
+  }
+
+  #sp-{{ section.id }} .sp-video-container video {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+</style>
+
+<dialog id="sp-{{ section.id }}" class="sp-video-modal sp-modal">
+
+  <a class="sp-modal-close"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
+
+  <div class="sp-video-container">
+    {{
+      section.settings.video
+      | video_tag:
+        image_size: '600x',
+        playsinline: section.settings.video_inline,
+        autoplay: section.settings.video_autoplay,
+        loop: section.settings.video_loop,
+        controls: section.settings.video_controls,
+        muted: section.settings.video_muted
+    }}
+  </div>
+
+</dialog>
+<!-- /dialog -->
+
+<script>
+  const sp_vm_dialog_{{ section.index }} = document.querySelector(`#sp-{{ section.id }}`);
+  const sp_vm_dialog_close_{{ section.index }} = document.querySelector("#sp-{{ section.id }} .sp-modal-close");
+
+  // show -> handle after load
+  document.addEventListener("DOMContentLoaded", function(){
+    var sp_vm_show_{{ section.index }} = document.querySelectorAll("[href='{{ section.settings.modal_target }}']");
+
+    // show
+    for(var x=0; x<sp_vm_show_{{ section.index }}.length; x++) {
+      sp_vm_show_{{ section.index }}[x].addEventListener("click", () => {
+        sp_vm_dialog_{{ section.index }}.showModal();
+        e.preventDefault();
+      });
+    }
+  });
+
+  // close
+  sp_vm_dialog_close_{{ section.index }}.addEventListener("click", () => {
+    sp_vm_dialog_{{ section.index }}.close();
+    e.preventDefault();
+  });
+
+  // show in design mode
+  if(Shopify) {
+    if(Shopify.designMode) {
+      sp_vm_dialog_{{ section.index }}.showModal();
+    }
+  }
+
+  // show for url
+  if(location.href.indexOf("{{ section.settings.modal_target }}") != -1) {
+      sp_vm_dialog_{{ section.index }}.showModal();
+  }
+  
+</script>
+
+{% if section.settings.big_play_pause_button %}
+  <!-- play/pause js -->
+  <style>
+    #sp-{{ section.id }} .sp-video-container {
+      position: relative;
+      cursor: pointer;
+    }
+  
+    #sp-{{ section.id }} .sp-video-container svg.sections-ai-play-button,
+    #sp-{{ section.id }} .sp-video-container svg.sections-ai-pause-button {
+      position: absolute;
+      top: calc(50% - 45px);
+      left: calc(50% - 45px);
+      transition: all .5s;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.25));
+    }
+  
+    #sp-{{ section.id }} .sp-video-container svg.sections-ai-play-button *,
+    #sp-{{ section.id }} .sp-video-container svg.sections-ai-pause-button * {
+      pointer-events: none;
+    }
+  
+    #sp-{{ section.id }} .sp-video-container[data-state="paused"] svg.sections-ai-play-button {
+      visibility: visible;
+      opacity: 0.8;
+      opacity: .9;
+    }  
+  
+    #sp-{{ section.id }} .sp-video-container[data-state="playing"]:hover svg.sections-ai-pause-button {
+      visibility: visible;
+      opacity: 0.8;
+    }
+  </style>
+  <script>
+  
+    var ai_play_button = `
+    <svg class="sections-ai-play-button" width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="media-grid" transform="translate(-325, -205)" fill="#FFFFFF" fill-rule="nonzero">
+                <g transform="translate(40, 145)">
+                    <g transform="translate(230, 0)">
+                        <path d="M99.5,60 C105.655833,60 111.440833,61.168125 116.855,63.504375 C122.269167,65.840625 126.97875,69.01125 130.98375,73.01625 C134.98875,77.02125 138.159375,81.7308333 140.495625,87.145 C142.831875,92.5591667 144,98.3441667 144,104.5 C144,110.655833 142.831875,116.440833 140.495625,121.855 C138.159375,127.269167 134.98875,131.97875 130.98375,135.98375 C126.97875,139.98875 122.269167,143.159375 116.855,145.495625 C111.440833,147.831875 105.655833,149 99.5,149 C93.3441667,149 87.5591667,147.831875 82.145,145.495625 C76.7308333,143.159375 72.02125,139.98875 68.01625,135.98375 C64.01125,131.97875 60.840625,127.269167 58.504375,121.855 C56.168125,116.440833 55,110.655833 55,104.5 C55,98.3441667 56.168125,92.5591667 58.504375,87.145 C60.840625,81.7308333 64.01125,77.02125 68.01625,73.01625 C72.02125,69.01125 76.7308333,65.840625 82.145,63.504375 C87.5591667,61.168125 93.3441667,60 99.5,60 Z M90,85 L90,125 L121,105 L90,85 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>`;
+  
+    var ai_pause_button = `
+  <svg class="sections-ai-pause-button" width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="media-grid" transform="translate(-402, -205)" fill="#FFFFFF">
+              <g id="Group-21" transform="translate(40, 145)">
+                  <g id="Group-20" transform="translate(230, 0)">
+                      <path d="M176.5,60 C182.655833,60 188.440833,61.168125 193.855,63.504375 C199.269167,65.840625 203.97875,69.01125 207.98375,73.01625 C211.98875,77.02125 215.159375,81.7308333 217.495625,87.145 C219.831875,92.5591667 221,98.3441667 221,104.5 C221,110.655833 219.831875,116.440833 217.495625,121.855 C215.159375,127.269167 211.98875,131.97875 207.98375,135.98375 C203.97875,139.98875 199.269167,143.159375 193.855,145.495625 C188.440833,147.831875 182.655833,149 176.5,149 C170.344167,149 164.559167,147.831875 159.145,145.495625 C153.730833,143.159375 149.02125,139.98875 145.01625,135.98375 C141.01125,131.97875 137.840625,127.269167 135.504375,121.855 C133.168125,116.440833 132,110.655833 132,104.5 C132,98.3441667 133.168125,92.5591667 135.504375,87.145 C137.840625,81.7308333 141.01125,77.02125 145.01625,73.01625 C149.02125,69.01125 153.730833,65.840625 159.145,63.504375 C164.559167,61.168125 170.344167,60 176.5,60 Z M167.073333,88 C164.823693,88 163,89.8236935 163,92.0733333 L163,119.926667 C163,122.176307 164.823693,124 167.073333,124 C169.322973,124 171.146667,122.176307 171.146667,119.926667 L171.146667,92.0733333 C171.146667,89.8236935 169.322973,88 167.073333,88 Z M185.873333,88 C183.623693,88 181.8,89.8236935 181.8,92.0733333 L181.8,119.926667 C181.8,122.176307 183.623693,124 185.873333,124 C188.122973,124 189.946667,122.176307 189.946667,119.926667 L189.946667,92.0733333 C189.946667,89.8236935 188.122973,88 185.873333,88 Z" id="Combined-Shape"></path>
+                  </g>
+              </g>
+          </g>
+      </g>
+  </svg>`;
+  
+    var sp_video_containers = document.querySelectorAll(`#sp-{{ section.id }} .sp-video-container`);
+  
+    for(var x=0; x<sp_video_containers.length; x++) {
+      sp_video_containers[x].innerHTML += ai_play_button;
+      sp_video_containers[x].innerHTML += ai_pause_button;
+    }
+  
+    var sp_videos = document.querySelectorAll(`#sp-{{ section.id }} .sp-video-container video`);
+  
+    for(var x=0; x<sp_videos.length; x++) {
+  
+      sp_videos[x].parentNode.setAttribute('data-state', 'paused'); 
+  
+      if(sp_videos[x].hasAttribute('autoplay')) {
+          sp_videos[x].parentNode.setAttribute('data-state', 'playing');
+      }
+      else {
+          sp_videos[x].parentNode.setAttribute('data-state', 'paused');
+        
+      }
+      
+      sp_videos[x].addEventListener('click', (e) => {
+  
+        if (e.target.paused) {
+          e.target.play();
+          e.target.parentNode.setAttribute('data-state', 'playing');
+        }
+        else { 
+          e.target.pause();
+          e.target.parentNode.setAttribute('data-state', 'paused');    
+        }  
+      });
+      
+    }
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "🚀SP - Video Modal",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Target",
+        "info": "Add the below string to any URL to launch the modal. Please keep the #."
+      },
+      {
+        "type": "text",
+        "id": "modal_target",
+        "label": "Target",
+        "default": "#video-modal"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 0,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 0,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 0,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 0,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Video",
+        "info": "Setup the video"
+      },
+      {
+        "type": "video",
+        "id": "video",
+        "label": "Hero Video"
+      },
+      {
+        "type": "checkbox",
+        "id": "video_inline",
+        "label": "Play Inline",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "video_autoplay",
+        "label": "Autoplay",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "video_loop",
+        "label": "Loop Video",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "video_controls",
+        "label": "Show Video Controls",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "video_muted",
+        "label": "Mute Video",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "big_play_pause_button",
+        "label": "Show Big Play Button",
+        "default": true
+      }
+    ],
+    "blocks": [],
+    "presets": [
+      {
+        "name": "🚀SP - Video Modal",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

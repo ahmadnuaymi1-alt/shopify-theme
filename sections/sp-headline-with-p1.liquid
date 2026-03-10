@@ -1,0 +1,230 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+
+<!-- this should have blocks for text headlines etc -->
+<style>
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-hl-with-pill-{{ section.id }}.sp-hl-with-pill-wrap p {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    color: {{ section.settings.text_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 15px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #sp-hl-with-pill-{{ section.id }}.sp-hl-with-pill-wrap p:last-child {
+    padding: 0;
+  }
+
+  #sp-hl-with-pill-{{ section.id }}.sp-hl-with-pill-wrap h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    color: {{ section.settings.headline_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 5px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #sp-hl-with-pill-{{ section.id }}.sp-hl-with-pill-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-hl-with-pill-{{ section.id }} .sp-hl-with-pill-grid {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-hl-with-pill-{{ section.id }} .sp-hl-with-pill-box span.sp-hl-with-pill-box-pb {
+    width: 75px;
+    height: 5px;
+    background-color: {{ section.settings.pill_color }};
+    border-radius: 3px;
+    content: "";
+    padding: 0;
+    display: inline-block;
+}
+
+</style>
+
+
+<div id="sp-hl-with-pill-{{ section.id }}" class="sp-hl-with-pill-wrap">
+  <div class="sp-hl-with-pill-grid">
+    
+    <div class="sp-hl-with-pill-column">
+      <div class="sp-hl-with-pill-box">
+        {% if section.settings.headline %}<h2>{{ section.settings.headline }}</h2>{% endif %}
+        {% if section.settings.text %}<p>{{ section.settings.text }}</p>{% endif %}
+        <p><span class="sp-hl-with-pill-box-pb"></span></p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "🚀SP - Headline with Pil",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #FFF 0%, #FFF 100%)",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#888888",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "color",
+        "id": "pill_color",
+        "default": "#888",
+        "label": "Pill Color"
+      },
+      {
+        "type": "header",
+        "content": "Alignment",
+        "info": "Set alignment of the hero text."
+      },
+      {
+          "type": "select",
+          "id": "text_alignment",
+          "default": "center",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set image and text for section"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "Sample headline"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "text",
+        "label": "Content",
+        "default": "Sample content"
+      }
+    ],
+    "presets": [
+      {
+        "name": "🚀SP - Headline with Pil",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

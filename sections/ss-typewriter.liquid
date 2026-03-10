@@ -1,0 +1,576 @@
+{%- liquid
+  assign wait = section.settings.typewriter_wait | times: 500
+  assign speed = section.settings.typewriter_speed | times: 20
+  assign background_color = section.settings.background_color
+  assign background_gradient =  section.settings.background_gradient
+  assign heading = section.settings.heading
+  assign typewriter_pre = section.settings.typewriter_pre
+  assign typewriter_underline = section.settings.typewriter_underline
+  assign typewriter_cursor = section.settings.typewriter_cursor
+  assign typewriter_post = section.settings.typewriter_post
+  assign typewriter_multiple_desktop = section.settings.typewriter_multiple_desktop
+  assign typewriter_multiple_mobile = section.settings.typewriter_multiple_mobile
+  assign heading_font = section.settings.heading_font
+  assign typewriter_font = section.settings.typewriter_font
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign border_color = section.settings.border_color
+  assign border_thickness = section.settings.border_thickness
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+
+  if typewriter_multiple_desktop 
+    assign display_desktop = "block" 
+  else 
+    assign display_desktop = "inline" 
+  endif
+
+  if typewriter_multiple_mobile
+    assign display_mobile = "block"
+  else
+    assign display_mobile = "mobile"
+  endif
+  
+  assign text_typewriter = ""
+  
+  for block in section.blocks 
+    if forloop.last 
+      assign text_typewriter = text_typewriter | append: block.settings.text
+    else
+      assign text_typewriter = text_typewriter | append:  block.settings.text | append: ',' 
+    endif
+  endfor  
+-%}
+{%- style -%}
+
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ typewriter_font | font_face: font_display: 'swap' }}
+
+   #shopify-section-{{section.id}} {
+    padding:0;
+    margin:0;
+    padding-left: {{ section.settings.padding_horizontal_mobile }}rem;
+    padding-right: {{ section.settings.padding_horizontal_mobile }}rem;
+  }
+
+  .section-{{ section.id }} {
+    border-top: solid {{ border_color }} {{ border_thickness }}px;
+    border-bottom: solid {{ border_color }} {{ border_thickness }}px;
+    margin-top: {{ margin_top }}px;
+    margin-bottom: {{ margin_bottom }}px;
+  }
+  
+  .section-{{ section.id }}-settings {
+    max-width: {{ section.settings.content_width }}rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    padding-top: {{ padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-left: {{ section.settings.padding_horizontal_mobile }}rem;
+    padding-right: {{ section.settings.padding_horizontal_mobile }}rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{section.id}} {
+      padding-left: {{ section.settings.padding_horizontal }}rem;
+      padding-right: {{ section.settings.padding_horizontal }}rem;
+    }
+  }
+
+  .section-{{ section.id }}-settings #typewriter-section-title {
+    font-family: {{ heading_font.family }};
+    font-weight: {{ heading_font.weight }};
+    font-style: {{ heading_font.style }};
+    font-size: {{ section.settings.heading_size | times: 0.85 }}px;
+    color: {{ section.settings.heading_color }};
+    margin-top: 0;
+    text-transform: unset;
+  }
+
+  .section-{{ section.id }}-settings .no-write {
+    line-height:1.3;
+    font-size: {{ section.settings.text_size_mobile }}px;
+    color: {{ section.settings.text_color }};
+    display: {{ display_mobile }};
+  }
+
+  .section-{{ section.id }}-settings .txt-type {
+    margin-left: 3px;
+    color: {{ section.settings.typewriter_color }};
+    font-size: {{ section.settings.typewriter_size_mobile }}px;
+  }
+
+  .section-{{ section.id }}-settings .cursor {
+    font-size: {{ section.settings.typewriter_size_mobile }}px;
+  }
+
+  .section-{{ section.id }}-settings .cursor {
+    color: {{ section.settings.typewriter_cursor_color }};
+  }
+
+  .section-{{ section.id }}-settings.typewriter-section {
+    text-align: {{ section.settings.text_align }};
+  }
+
+  .section-{{ section.id }}-settings #type {
+    font-family: {{ typewriter_font.family }};
+    font-weight: {{ typewriter_font.weight }};
+    font-style: {{ typewriter_font.style }};
+  }
+
+  .section-{{ section.id }}-settings #type {
+      display: inline;
+      z-index: 2;
+  }
+
+  .section-{{ section.id }}-settings .txt-type.underline {
+    text-decoration:underline;
+  }
+
+  .section-{{ section.id }}-settings .cursor {
+      border-right: .07em solid;
+      animation: caret 1s steps(1) infinite;
+      opacity: 0;
+  }
+
+  .section-{{ section.id }}-settings .cursor.show {
+      opacity: 1;
+  }
+  
+  @keyframes caret {
+      50% {
+          border-color: transparent;
+      }
+  }
+
+  @media(min-width: 768px) {
+
+     .section-{{ section.id }}-settings {
+      padding-left: {{ section.settings.padding_horizontal }}rem;
+      padding-right: {{ section.settings.padding_horizontal }}rem;
+    }
+    
+    .section-{{ section.id }}-settings #typewriter-section-title {
+      font-size: {{ section.settings.heading_size }}px;
+    }
+
+    .section-{{ section.id }}-settings .no-write {
+      font-size: {{ section.settings.text_size }}px;
+    }
+
+    .section-{{ section.id }}-settings .txt-type,
+    .section-{{ section.id }}-settings .cursor {
+      font-size: {{ section.settings.typewriter_size }}px;
+    }
+  }
+  
+  @media(min-width: 1024px) {
+      .section-{{ section.id }}-settings .no-write {
+        display: {{ display_desktop }};
+      }
+    }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}" style="background-color:{{ background_color }}; background-image: {{ background_gradient }};">
+  <div class="page-width section-{{ section.id }}-settings typewriter-section">
+        {% if heading != blank %}
+          <h1 id="typewriter-section-title">{{ heading }}</h1>
+        {% endif %}
+
+        <div id="type">
+          {% if typewriter_pre != blank %}
+            <span class="no-write">{{ typewriter_pre }}</span>
+          {% endif %}
+          
+          <span id="text" class="txt-type txt-type-{{ section.id }} {% if typewriter_underline %}underline{% endif %}" 
+                data-speed="{{ speed }}" 
+                data-wait="{{ wait }}">
+          </span>
+          <span class="cursor {% if typewriter_cursor %}show{% endif %}"></span>
+
+          {% if typewriter_post != blank %}
+            <span class="no-write">{{ typewriter_post }}</span>
+          {% endif %}
+
+        </div>
+  </div>
+</div> 
+
+
+<script>
+  class TypeWriter{{ section.id | replace: '-', '' }} {
+      constructor(txtElement, words, wait = 2000, speed) {
+          this.txtElement = txtElement;
+          this.words = words;
+          this.txt = '';
+          this.wordIndex = 0;
+          this.wait = parseInt(wait, 10);
+          this.type();
+          this.isDeleting = false;
+          this.speed = speed;
+      }
+      type() {
+          const current = this.wordIndex % this.words.length;
+          const fullTxt = this.words[current];
+          if (this.isDeleting) {
+              this.txt = fullTxt.substring(0, this.txt.length - 1);
+          } else {
+              this.txt = fullTxt.substring(0, this.txt.length + 1);
+          }
+          this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+          let typePauseStart = this.pauseStart
+          let typeSpeed = this.speed;
+          if (this.isDeleting) {
+              typeSpeed /= 2;
+          }
+          if (!this.isDeleting && this.txt === fullTxt) {
+              typeSpeed = this.wait;
+              this.isDeleting = true;
+          } else if (this.isDeleting && this.txt === '') {
+              this.isDeleting = false;
+              this.wordIndex++;
+              typeSpeed = this.speed*2;
+          }
+          setTimeout(() => this.type(), typeSpeed);
+      }
+  }
+  document.addEventListener('DOMContentLoaded', init);
+
+  function init() {
+      const txtElements{{ section.id | replace: '-', '' }} = document.querySelectorAll('.txt-type-{{ section.id }}');
+      txtElements{{ section.id | replace: '-', '' }}.forEach(txtElement => {
+        let words = `{{ text_typewriter }}`;
+        words = words.split(',');
+        const wait = txtElement.getAttribute('data-wait');
+        const speed = txtElement.getAttribute('data-speed');
+        new TypeWriter{{ section.id | replace: '-', '' }}(txtElement, words, wait, speed);
+      })
+  }
+  if (Shopify.designMode) {
+     document.addEventListener('shopify:section:unload', init); 
+  }
+</script>
+
+
+{% schema %}
+ {
+   "name": "SS - Typewriter",
+   "class": "section",
+   "tag": "section",
+   "settings": [
+      {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Heading"
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading Font Family",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_size",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Heading Size",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Typewriter Text"
+      },
+      {
+        "type": "text",
+        "id": "typewriter_pre",
+        "label": "Typewriter Pre Text",
+        "default": "Text"
+      },
+      {
+        "type": "text",
+        "id": "typewriter_post",
+        "label": "Typewriter Post Text",
+        "default": "Text"
+      },
+      {
+        "type": "header",
+        "content": "Typewriter Settings"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Text Pre and Post Size",
+       "default": 30
+      },
+     {
+        "type": "range",
+        "id": "text_size_mobile",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Text Pre and Post Size - Mobile",
+       "default": 20
+      },
+      {
+        "type": "range",
+        "id": "typewriter_size",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Typewriter Text Size",
+        "default": 30
+      },
+     {
+        "type": "range",
+        "id": "typewriter_size_mobile",
+        "min": 0,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "label": "Typewriter Text Size - Mobile",
+        "default": 20
+      },
+      {
+        "type": "font_picker",
+        "id": "typewriter_font",
+        "label": "Text Font Family",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "range",
+        "id": "typewriter_speed",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "label": "Typewriter Speed",
+        "info":"The higher the number, the slower the speed",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "typewriter_wait",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "label": "Typewriter Wait",
+        "info": "The higher the number, the slower the speed",
+        "default": 4
+      },
+      {
+        "type": "checkbox",
+        "id": "typewriter_cursor",
+        "label": "Show Cursor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "typewriter_underline",
+        "label": "Show Underline",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "typewriter_multiple_desktop",
+        "label": "Multiple lines on desktop",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "typewriter_multiple_mobile",
+        "label": "Multiple lines on mobile",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section Settings"
+      },
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text Align",
+        "default": "center",
+        "options": [
+         {
+            "label": "Center",
+            "value": "center"
+          },
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "border_thickness",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Border thickness",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info":"Gradient replaces solid colors when set."
+      },
+      {
+        "type": "color",
+        "label": "Heading Color",
+        "id": "heading_color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "label": "Text Pre and Post Color",
+        "id": "text_color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "label": "Typewriter Text Color",
+        "id": "typewriter_color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "label": "Typewriter Cursor Color",
+        "id": "typewriter_cursor_color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "label": "Section background",
+        "id": "background_color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Section background gradient"
+      },
+      {
+        "type": "color",
+        "label": "Border",
+        "id": "border_color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 4
+      },
+      {
+         "type": "range",
+         "id": "padding_bottom",
+         "min": 0,
+         "max": 100,
+         "step": 4,
+         "unit": "px",
+         "label": "Padding bottom",
+         "default": 4
+      },
+      {
+        "type": "range",
+        "id": "padding_horizontal",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "rem",
+        "label": "Padding sides",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "padding_horizontal_mobile",
+        "min": 0,
+        "max": 15,
+        "step": 0.5,
+        "unit": "rem",
+        "label": "Padding sides mobile",
+        "default": 1.5
+      },
+      {
+        "type": "header",
+        "content": "Section margin"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "content_width",
+        "min": 0,
+        "max": 400,
+        "step": 10,
+        "unit": "rem",
+        "label": "Section content width",
+        "default": 120
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block",
+        "name": "Text for writing",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+     {
+       "name": "SS - Typewriter"
+     }
+  ]
+ }
+{% endschema %}

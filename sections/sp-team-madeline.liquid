@@ -1,0 +1,550 @@
+ {% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} .pw-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(var(--pw-gutter-x, 15px) * -1);
+  margin-left: calc(var(--pw-gutter-x, 15px) * -1);
+}
+
+.pw-section__{{sec_id}} .pw-row > * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+@media (min-width: 750px) {
+  .pw-section__{{sec_id}} .pw-col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  .pw-section__{{sec_id}} .pw-col-md-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-section__{{sec_id}} .pw-col-lg-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-section__{{sec_id}} .pw-col-xl-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 15px;
+  color: {{section.settings.text_color}};
+  background-color: {{section.settings.background_color}};
+  {% if section.settings.section_height == true %}
+    min-height: 100vh;
+  {% endif %}
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 30px;
+  position: relative;
+  max-width: 600px;
+  text-align: {{section.settings.text_align}};
+  {% if section.settings.text_align == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-section-subtitle {
+  color: {{section.settings.text_color}};
+  margin-bottom: 30px;
+  max-width: 600px;
+  text-align: {{section.settings.text_align}};
+  {% if section.settings.text_align == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-team-member {
+  max-width: 330px;
+  margin: 0 auto 30px;
+}
+
+.pw-section__{{sec_id}} .pw-img-wrapper {
+  display: block;
+  height: 0;
+  padding-top: 125%;
+  {% if section.settings.is_rounded == true %}
+    padding-top: 100%;
+    border-radius: 50%;
+  {% endif %}
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+  {% if section.settings.is_grayscale == true %}
+  -webkit-filter: grayscale(1);
+      filter: grayscale(1);
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.pw-section__{{sec_id}} .pw-member-name {
+  margin: 0;
+  font-weight: 700;
+  text-align: left;
+  {% if section.settings.is_rounded == true %}
+    text-align: center;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-member-position {
+  opacity: 0.65;
+  text-align: left;
+  {% if section.settings.is_rounded == true %}
+    text-align: center;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(1) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-04.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(2) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-01.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(3) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-02.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(4) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-03.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(5) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-04.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(6) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-01.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(7) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-02.jpg') no-repeat center/cover;
+}
+.pw-section__{{sec_id}} .pw-col-md-6:nth-of-type(8) .pw-team-member .placeholder.pw-img-wrapper {
+  background: url('https://cdn.shopify.com/s/files/1/0560/8249/7605/files/team-madeline-03.jpg') no-repeat center/cover;
+}
+
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} .pw-member-position {
+    font-size: 18px;
+  }
+  .pw-section__{{sec_id}} .pw-member-name {
+    font-size: 28px;
+  }
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-section-text p {
+    font-size: 24px; margin-bottom: 24px;
+  }
+{% endif %}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    min-height: auto;
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} .pw-member-position {
+      font-size: 16px;
+    }
+    .pw-section__{{sec_id}} .pw-member-name {
+      font-size: 24px;
+    }
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} .pw-section-text p {
+      font-size: 20px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="pw-container">
+    <div class="pw-row">
+      {% for block in section.blocks %}
+        {% case block.type %}
+
+          {% when 'heading' %}
+          <div class="pw-col-md-12">
+            {% if block.settings.heading_text != blank %}
+              <{{ block.settings.heading_tag }} class="pw-section-title" {{ block.shopify_attributes }}>
+              {{ block.settings.heading_text | escape }}
+              </{{ block.settings.heading_tag }}>
+            {% endif %}
+            {% if block.settings.sub_heading_text != blank %}
+              <p class="pw-section-subtitle" {{ block.shopify_attributes }}>{{ block.settings.sub_heading_text | escape }}</p>
+            {% endif %}
+          </div>
+
+          {% when 'member' %}
+          <div class="pw-col-lg-3 pw-col-md-6" {{ block.shopify_attributes }}>
+            <div class="pw-team-member">
+              {% if block.settings.member_image == blank %}
+                <div class="pw-img-wrapper placeholder"></div>
+              {% else %}
+                <div class="pw-img-wrapper">
+                  <img srcset="
+                  {%- if block.settings.member_image >= 750 -%}{{ block.settings.member_image | img_url: '750x' }} 750w,{%- endif -%}"
+                    src="{{ block.settings.member_image | img_url: '750x' }}"
+                    alt="{{ block.settings.member_image.alt | escape }}"
+                    sizes="(min-width: 750px) 750px"
+                    width="100%"
+                    height="100%"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+              {% if block.settings.member_name != blank %}
+                <h3 class="pw-member-name">{{ block.settings.member_name | escape }}</h3>
+              {% endif %}
+              {% if block.settings.member_position != blank %}
+                <div class="pw-member-position">{{ block.settings.member_position | escape }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+    "name": "🚀SP - Team-Madeline-01",
+  "tag": "section",
+  "class": "kava-team kava-team-madeline-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Title and subtitle alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_rounded",
+      "label": "Rounded photo",
+      "default": false
+    }, 
+    {
+      "type": "checkbox",
+      "id": "is_grayscale",
+      "label": "Grayscale photo",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "section_height",
+      "default": false,
+      "label": "Full screen height"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            }, {
+              "value": "h2",
+              "label": "H2"
+            }, {
+              "value": "h3",
+              "label": "H3"
+            }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text"
+        },
+        {
+          "type": "textarea",
+          "id": "sub_heading_text",
+          "label": "Sub heading text"
+        }
+      ]
+    },
+    {
+      "name": "Member",
+      "type": "member",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "member_image",
+          "label": "Member photo"
+        },
+        {
+          "type": "text",
+          "id": "member_name",
+          "label": "Member name",
+          "default": "Member name"
+        },
+        {
+          "type": "text",
+          "id": "member_position",
+          "label": "Member position",
+          "default": "Member position"
+        }
+
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Team-Madeline-01",
+      "settings": {
+        "is_rounded": false,
+        "is_grayscale": true
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+              "heading_text":"Introduce your team",
+              "sub_heading_text": "Adding a 'Meet the Team' page or section to your website is an easy and effective way to give your business a relatable face."
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+              "member_name": "Steve Evans",
+              "member_position": "CEO"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+              "member_name": "Padma Patil",
+              "member_position": "Head of HR"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+              "member_name": "Alisia Spinnet",
+              "member_position": "PR Manager"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+              "member_name": "Dean Thomas",
+              "member_position": "Java Developer"
+          }
+        }
+      ]
+    }
+  ]
+  
+}
+
+{% endschema %}

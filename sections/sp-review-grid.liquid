@@ -1,0 +1,431 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+  {% if section.settings.override_fonts %}
+  {{ section.settings.text_font | font_face }}
+  {% endif %}
+
+  #sp-review-{{ section.id }}.sp-review-wrap p,
+  #sp-review-{{ section.id }}.sp-review-wrap p a {
+    font-size: {{ section.settings.text_size }};
+    {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+      font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+  }
+
+  #sp-review-{{ section.id }}.sp-review-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-review-{{ section.id }} .sp-review {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-review-{{ section.id }} .sp-review .sp-review-grid {
+    display: grid;
+    gap: {{ section.settings.grid_gap }}px;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    align-content: start;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-review-{{ section.id }} .sp-review .sp-review-grid {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-review-{{ section.id }} .sp-review .sp-review-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+
+    }
+  }
+
+  #sp-review-{{ section.id }} .sp-review .sp-review-cover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: {{section.settings.cover_background}};
+    opacity: {{section.settings.cover_opacity}}%;
+    transition: all .5s;
+  }
+
+  #sp-review-{{ section.id }} .sp-review-col:hover .sp-review-cover {
+    opacity: {{section.settings.cover_opacity | plus: 15 }}%;
+  }
+
+  #sp-review-{{ section.id }} .sp-review-col {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: {{ section.settings.media_radius }}px;
+    {% if section.settings.media_shadow %}
+      box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
+    {% endif %}
+  }
+
+  #sp-review-{{ section.id }} img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: all .5s;
+  }
+
+  #sp-review-{{ section.id }} .sp-review-col:hover img {
+    transform: scale(1.2);
+  }
+
+  #sp-review-{{ section.id }} .sp-review-content {
+    position: relative;
+    z-index: 3;
+    padding: 20px 10px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    min-height: 300px;
+  }
+
+  #sp-review-{{ section.id }} .sp-review-content svg,
+  #sp-review-{{ section.id }} .sp-review-content svg g {
+      fill: {{ section.settings.highlight_color }};
+  }
+
+  #sp-review-{{ section.id }} .sp-review p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-review-{{ section.id }} .sp-review p:last-child {
+    margin: 0;
+  }
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-review-{{ section.id }}" class="sp-review-wrap" sp-wrap>
+  <div class="sp-review" sp-container>
+    <div class="sp-review-grid">
+      {% for block in section.blocks %}
+        <div class="sp-review-col" sp-column>
+
+          {% if block.settings.background_image %}
+            <img src="{{ block.settings.background_image | image_url: width: 600 }}"
+            loading="lazy"
+            srcset="{{ block.settings.background_image | image_url: width: 600 }} 600w, {{ block.settings.background_image | image_url: width: 1100 }} 1100w">
+          {% else %}
+            <img src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect x='2' y='2' width='496' height='496' fill='%23D8D8D8' stroke='%23D8D8D8' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E">
+          {% endif %}
+
+          <div class="sp-review-cover"></div>
+          <div class="sp-review-content">
+            <p>
+              <svg
+                width="101px"
+                height="20px"
+                viewBox="0 0 101 20"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <title>Group 5</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Group-5">
+                        <polygon points="10 15 4.12214748 18.0901699 5.24471742 11.545085 0.489434837 6.90983006 7.06107374 5.95491503 10 0 12.9389263 5.95491503 19.5105652 6.90983006 14.7552826 11.545085 15.8778525 18.0901699"></polygon>
+                        <polygon points="30.5 15 24.6221475 18.0901699 25.7447174 11.545085 20.9894348 6.90983006 27.5610737 5.95491503 30.5 0 33.4389263 5.95491503 40.0105652 6.90983006 35.2552826 11.545085 36.3778525 18.0901699"></polygon>
+                        <polygon points="50 15 44.1221475 18.0901699 45.2447174 11.545085 40.4894348 6.90983006 47.0610737 5.95491503 50 0 52.9389263 5.95491503 59.5105652 6.90983006 54.7552826 11.545085 55.8778525 18.0901699"></polygon>
+                        <polygon points="70.5 15 64.6221475 18.0901699 65.7447174 11.545085 60.9894348 6.90983006 67.5610737 5.95491503 70.5 0 73.4389263 5.95491503 80.0105652 6.90983006 75.2552826 11.545085 76.3778525 18.0901699"></polygon>
+                        <polygon points="90.5 15 84.6221475 18.0901699 85.7447174 11.545085 80.9894348 6.90983006 87.5610737 5.95491503 90.5 0 93.4389263 5.95491503 100.010565 6.90983006 95.2552826 11.545085 96.3778525 18.0901699"></polygon>
+                    </g>
+                </g>
+              </svg>
+            </p>
+            <p>{{ block.settings.quote }}</p>
+            <p>
+              <small>&mdash;{{ block.settings.cite }}</small>
+            </p>
+          </div>
+        </div>
+        <!-- /.sp-review-col -->
+      {% endfor %}
+    </div>
+    <!-- /.sp-review-grid -->
+  </div>
+  <!-- /.sp-review -->
+</div>
+<!-- /.sp-review-wrap -->
+
+{% schema %}
+{
+  "name": "🚀SP - Review Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Font",
+      "info": "Set the fonts for your section"
+    },
+    {
+      "type": "checkbox",
+      "id": "override_fonts",
+      "label": "Override theme fonts",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "text_font",
+      "label": "Text Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "header",
+      "content": "Text",
+      "info": "Set the text for your section"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "text_line_height",
+      "label": "Text Line Height",
+      "options": [
+        {
+          "value": "0.75",
+          "label": "0.75"
+        },
+        {
+          "value": "1.0",
+          "label": "1.0"
+        },
+        {
+          "value": "1.1",
+          "label": "1.1"
+        },
+        {
+          "value": "1.2",
+          "label": "1.2"
+        },
+        {
+          "value": "1.3",
+          "label": "1.3"
+        },
+        {
+          "value": "1.4",
+          "label": "1.4"
+        },
+        {
+          "value": "1.5",
+          "label": "1.5"
+        },
+        {
+          "value": "1.6",
+          "label": "1.6"
+        },
+        {
+          "value": "1.7",
+          "label": "1.7"
+        },
+        {
+          "value": "1.8",
+          "label": "1.8"
+        },
+        {
+          "value": "1.9",
+          "label": "1.9"
+        },
+        {
+          "value": "2.0",
+          "label": "2.0"
+        },
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#fff",
+      "label": "Text Color"
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Set colors for the section."
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "cover_background",
+      "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+      "label": "Cover Background"
+    },
+    {
+      "type": "range",
+      "id": "cover_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Cover Opacity",
+      "default": 25
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "default": "#FFFFFF",
+      "label": "Highlight Color"
+    },
+    {
+      "type": "header",
+      "content": "Dimensions",
+      "info": "Set the section dimensions in pixels."
+    },
+    {
+      "type": "number",
+      "id": "max_width",
+      "default": 1000,
+      "label": "Max Width of Section"
+    },
+    {
+      "type": "number",
+      "id": "grid_gap",
+      "default": 20,
+      "label": "Gap Between Reviews"
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "default": 25,
+      "label": "Padding Top"
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "default": 25,
+      "label": "Padding Bottom"
+    },
+    {
+      "type": "number",
+      "id": "padding_left",
+      "default": 10,
+      "label": "Padding Left"
+    },
+    {
+      "type": "number",
+      "id": "padding_right",
+      "default": 10,
+      "label": "Padding Right"
+    },
+    {
+      "type": "number",
+      "id": "element_spacing",
+      "default": 15,
+      "label": "Element Spacing"
+    },
+    {
+      "type": "range",
+      "id": "media_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Round Borders on Media",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "media_shadow",
+      "default": true,
+      "label": "Subtle Shadow on Media"
+    }
+  ],
+
+  "blocks": [
+    {
+      "name": "Review",
+      "type": "review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "This is a sample review."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "cite",
+          "label": "Cite",
+          "default": "Sample Reviewer"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Call to Action Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Review Grid",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

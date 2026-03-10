@@ -1,0 +1,31 @@
+<style>
+.section-margin {
+height: 1px;
+margin-top: {{section.settings.margin_top}}rem;
+}
+</style>
+<div class="section-margin" style="display: block;"></div>
+
+{% schema %}
+{
+"name": "SP-Margin-Adjuster",
+"settings":[
+{
+"type": "range",
+"id": "margin_top",
+"label": "Drap Left or Right",
+"info": "Drap Left or Right",
+"max": 30,
+"min": -30,
+"step": 1,
+"default": 0
+}
+],
+"presets":[
+{
+"name": "SP-Margin-Adjuster",
+"category": "Advanced"
+}
+]
+}
+{% endschema %}

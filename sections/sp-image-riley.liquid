@@ -1,0 +1,562 @@
+{% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .two-columns-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(var(--pw-gutter-x, 15px) * -1);
+  margin-left: calc(var(--pw-gutter-x, 15px) * -1);
+}
+
+.pw-section__{{sec_id}} .two-columns-img {
+  flex: 0 0 auto;
+  width: 50%;
+  {% if section.settings.img_position != "right" %};
+    order: -1;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .two-columns-img-inner {
+  height: 100%;
+  position: relative;
+}
+
+.pw-section__{{sec_id}} .two-columns-img-inner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.pw-section__{{sec_id}} .two-columns-text {
+  flex: 0 0 auto;
+  width: 50%;
+  color: {{section.settings.text_color}};
+  text-align: {{section.settings.text_align}};
+  background-color: {{section.settings.text_bg_color}};
+  padding-top: {{section.settings.text_padding_top}}px;
+  padding-bottom: {{section.settings.text_padding_bottom}}px;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+.pw-section__{{sec_id}} .two-columns-text-inner {
+  display: inline-block;
+  max-width: 540px;
+  text-align: {{section.settings.text_align}};
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: {{section.settings.text_align}};
+}
+
+.pw-section__{{sec_id}} .pw-divider {
+  display: inline-block;
+  width: 185px;
+  height: 4px;
+  background-color: var(--divider-color);
+  margin: 0px auto 20px;
+}
+
+.pw-section__{{sec_id}} .pw-section-text p {
+  color: {{section.settings.text_color}};
+  margin-top: 0;
+}
+
+.pw-section__{{sec_id}} .pw-feature {
+  color: {{section.settings.text_color}};
+  margin-top: 0;
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 34px;
+  display: inline-block;
+}
+
+.pw-section__{{sec_id}} .pw-feature::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--check-color);
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+.pw-section__{{sec_id}} .pw-feature::after {
+  content: '';
+  width: 10px;
+  height: 6px;
+  border: 2px solid var(--check-color);
+  border-top: 0;
+  border-right: 0;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 10px;
+  left: 6px;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-section-text p {
+    font-size: 24px; margin-bottom: 24px;
+  }
+  .pw-section__{{sec_id}} .pw-feature {
+    font-size: 18px;
+  }
+{% endif %}
+
+
+@media only screen and (max-width: 1199px) {
+  .pw-section__{{sec_id}} .two-columns-text {
+    padding: 50px 5%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .pw-section__{{sec_id}} .two-columns-text {
+    width: 100%;
+    text-align: center;
+  }
+  .pw-section__{{sec_id}} .two-columns-img {
+    width: 100%;
+  }
+  .pw-section__{{sec_id}} .two-columns-img img {
+    position: relative;
+  }
+  
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+    max-width: none;
+  }
+  .pw-section__{{sec_id}} .pw-section-text p {
+    max-width: none;
+  }
+}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} .two-columns-text {
+    padding: 30px 25px;
+  }
+  .pw-section__{{sec_id}} .pw-divider {
+    width: 120px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} .pw-section-text p {
+      font-size: 20px;
+    }
+    .pw-section__{{sec_id}} .pw-feature {
+      font-size: 16px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+{% if section.settings.is_fullwidth == true %}
+  {% assign container = 'pw-container-fluid' %}
+{% else %}
+  {% assign container = 'pw-container' %}
+{% endif %}
+
+
+<div class="pw-section__{{sec_id}}">
+  <div class="{{container}}">
+    <div class="two-columns-row">
+      <div class="two-columns-text">
+        <div class="two-columns-text-inner">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'heading' %}
+              {% if block.settings.heading_text != blank %}
+                <{{ block.settings.heading_tag }} class="pw-section-title" {{ block.shopify_attributes }}>
+                {{ block.settings.heading_text | escape }}
+                </{{ block.settings.heading_tag }}>
+              {% endif %}
+
+              {% when 'divider' %}
+              <span class="pw-divider" style="--divider-color: {{block.settings.divider_color}}" {{ block.shopify_attributes }}></span>
+
+              {% when 'text' %}
+              {% if block.settings.section_text != blank %}
+                <div class="pw-section-text" {{ block.shopify_attributes }}>
+                  {{ block.settings.section_text }}
+                </div>
+              {% endif %}
+
+              {% when 'feature' %}
+                <div {{ block.shopify_attributes }}>
+                  <p class="pw-feature" {{ block.shopify_attributes }} style="--check-color: {{block.settings.check_color}}">
+                    {{ block.settings.about_list_item }}
+                  </p>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="two-columns-img">
+        <div class="two-columns-img-inner">
+          {% if section.settings.background_image == blank %}
+            <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/about-riley-01.jpg" 
+              sizes="(min-width: 1100px) 1100px, (min-width: 750px) 750px"
+              loading="lazy"
+              width="100%"
+              height="100%"
+            />
+          {% else %}
+            <img srcset="
+            {%- if section.settings.background_image.width >= 750 -%}{{ section.settings.background_image | img_url: '750x' }} 750w,{%- endif -%}
+            {%- if section.settings.background_image.width >= 1100 -%}{{ section.settings.background_image | img_url: '1100x' }} 1100w,{%- endif -%}"
+              src="{{ section.settings.background_image | img_url: '750x' }}"
+              alt="{{ section.settings.background_image.alt | escape }}"
+              sizes="(min-width: 1100px) 1100px, (min-width: 750px) 750px"
+              width="100%"
+              height="100%"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Image Riley",
+  "tag": "section",
+  "class": "image-with-text-background",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "is_fullwidth",
+      "default": false,
+      "label": "Full width section"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "img_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    }, 
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Font color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "text_bg_color",
+      "label": "Content background color",
+      "default": "#fff"
+    },
+    
+    
+    {
+      "type": "header",
+      "content": "Section paddings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 0
+    }, 
+    {
+      "type": "header",
+      "content": "Text paddings"
+    },
+    {
+      "type": "range",
+      "id": "text_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Text padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "text_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Text padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Heading text"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            }, {
+              "value": "h2",
+              "label": "H2"
+            }, {
+              "value": "h3",
+              "label": "H3"
+            }
+          ],
+          "default": "h2"
+        }
+      ]
+    },
+    {
+      "name": "Divider",
+      "type": "divider",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "divider_color",
+          "label": "Divider color",
+          "default": "#ED6F43"
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "type": "text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "section_text",
+          "label": "Section text",
+          "default": "<p>Section text</p>"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "type": "feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "about_list_item",
+          "label": "Feature text",
+          "default": "Feature text"
+        },
+        {
+          "type": "color",
+          "id": "check_color",
+          "label": "Icon color",
+          "default": "#047C4A"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Image Riley",
+      "settings": {
+        "img_position": "left",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "text_padding_top": 120,
+        "text_padding_bottom": 120,
+        "text_bg_color": "#1C2C11",
+        "text_color": "#ffffff"
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "heading_tag": "h3",
+            "heading_text": "Trust and credibility"
+          }
+        },
+        {
+          "type": "divider",
+          "settings": {
+            "divider_color": "#ffffff"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "section_text": "<p>People need to feel they’re giving their personal information to a trustworthy and credible shop. Poor graphic design can send the message that you don’t deserve the user’s trust.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

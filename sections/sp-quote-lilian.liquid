@@ -1,0 +1,401 @@
+ {% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  color: {{section.settings.text_color}};
+  {% if section.settings.section_height == true %}
+    min-height: 100vh;
+  {% endif %}
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-section-inner {
+  text-align: {{section.settings.section_inner_align}};
+  border-radius: 20px;
+  padding: 50px 10%;
+  background-color: {{section.settings.background_color}};
+}
+
+.pw-section__{{sec_id}} blockquote {
+  text-align: {{section.settings.section_inner_align}};
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.pw-section__{{sec_id}} .pw-section-text {
+  color: {{section.settings.text_color}};
+  margin: 0;
+  padding-left: 0;
+  border-left: 0;
+  font-style: normal;
+  position: relative;
+  padding-top: 50px;
+  border: none;
+  width: 100%;
+}
+
+.pw-section__{{sec_id}} .pw-section-text p {
+  margin-top: 0;
+  font-weight: 600;
+  color: {{section.settings.text_color}};
+}
+
+.pw-section__{{sec_id}} .pw-section-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -11px;
+  width: 22px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg width='22' height='18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.804 0 .314 17.65h5.924L9.805 0H5.804Zm11.88 0-4.87 17.65h5.925L21.686 0h-4.002Z' fill='{{section.settings.quote_color | replace: '#', '%23'}}'/%3E%3C/svg%3E") no-repeat center/contain;
+}
+
+.pw-section__{{sec_id}} .pw-quote-author {
+  color: {{section.settings.text_color}};
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-section-text p {
+    font-size: 24px; margin-bottom: 24px;
+  }
+{% endif %}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    min-height: auto;
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  .pw-section__{{sec_id}} .pw-section-inner {
+    padding: 25px 15px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} .pw-section-text p {
+      font-size: 20px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="pw-container">
+    <div class="pw-section-inner">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'heading' %}
+          {% if block.settings.heading_text != blank %}
+            <{{ block.settings.heading_tag }} class="pw-section-title" {{ block.shopify_attributes }}>
+            {{ block.settings.heading_text | escape }}
+            </{{ block.settings.heading_tag }}>
+          {% endif %}
+
+          {% when 'text' %}
+          {% if block.settings.section_text != blank %}
+           <blockquote class="pw-section-text" {{ block.shopify_attributes }}>
+            {{ block.settings.section_text }}
+          </blockquote>
+          {% endif %}
+
+          {% when 'author' %}
+          {% if block.settings.quote_author != blank %}
+           <div class="pw-quote-author" {{ block.shopify_attributes }}>
+            {{ block.settings.quote_author | escape }}
+          </div>
+          {% endif %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "🚀SP - Quote-Lillian-01",
+  "tag": "section",
+  "class": "kava-quote kava-quote-lillian-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quotes color",
+      "default": "#0535F5"
+    },
+    {
+      "type": "select",
+      "id": "section_inner_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    }, 
+    {
+      "type": "header",
+      "content": "Desktop"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "section_height",
+      "default": false,
+      "label": "Full screen height"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 150
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            }, {
+              "value": "h2",
+              "label": "H2"
+            }, {
+              "value": "h3",
+              "label": "H3"
+            }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "What people says"
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "type": "text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "section_text",
+          "label": "Section text",
+          "default": "<p>“Quote text”</p>"
+        }
+      ]
+    },
+    {
+      "name": "Author",
+      "type": "author",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "quote_author",
+          "label": "Quote Author",
+          "default": "Quote Author"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Quote-Lillian-01",
+      "settings": {
+        "background_color": "#F2F4FE"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "section_text": "<p>“Customer service shouldn’t just be a department; it should be the entire company.”</p>"
+          }
+        },
+        {
+          "type": "author",
+          "settings": {
+            "quote_author": " - Tony Hsieh, CEO of Zappos"
+          }
+        }
+      ]
+    }
+  ]
+  
+}
+
+{% endschema %}

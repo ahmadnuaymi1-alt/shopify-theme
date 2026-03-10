@@ -1,0 +1,346 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-rc-{{ section.id }}.sp-rc-wrap p,
+  #sp-rc-{{ section.id }} .sp-rc-col .sp-rc-count,
+  #sp-rc-{{ section.id }}.sp-rc-wrap p a {
+    font-size: {{ section.settings.text_size_1 }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    line-height: 1.15;
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-rc-{{ section.id }}.sp-rc-wrap h2, 
+  #sp-rc-{{ section.id }}.sp-rc-wrap h3 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    line-height: 1.15;
+    color: {{ section.settings.headline_color }};
+  }
+  
+  #sp-rc-{{ section.id }}.sp-rc-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+  
+  #sp-rc-{{ section.id }} .sp-rc {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-grid {
+    display: grid;
+    grid-template-columns: 1.75fr 1fr 1fr;
+    gap: {{ section.settings.grid_gap }}px;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    align-items: start;
+    justify-content: start;
+    align-content: start;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-rc-{{ section.id }} .sp-rc-grid {
+      display: grid;
+      grid-template-columns: 1.75fr 1fr 1fr;
+      
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-rc-{{ section.id }} .sp-rc-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      
+    }
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col {
+    position: relative;
+    z-index: 3;
+    padding: 20px 10px;
+    display: grid;
+    justify-content: start;
+    align-content: start;
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col h4 {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col svg, 
+  #sp-rc-{{ section.id }} .sp-rc-col svg g {
+      fill: {{ section.settings.highlight_color }};
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col .sp-rc-count {
+    font-size: {{ section.settings.text_size_1 }}px;
+    color: {{ section.settings.text_color }};
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col h3 {
+    font-size: {{ section.settings.text_size_2 }}px;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 5px 0;
+    padding: 0;
+  }
+
+  #sp-rc-{{ section.id }} .sp-rc-col p {
+    font-size: {{ section.settings.text_size_3 }}px;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-rc-{{ section.id }}" class="sp-rc-wrap" sp-wrap>
+
+<div class="sp-rc" sp-container>
+
+  <div class="sp-rc-grid">
+
+    <div class="sp-rc-col" sp-column>
+      <h4>
+        <svg width="101px" height="20px" viewBox="0 0 101 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>Group 5</title>
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Group-5">
+                    <polygon points="10 15 4.12214748 18.0901699 5.24471742 11.545085 0.489434837 6.90983006 7.06107374 5.95491503 10 0 12.9389263 5.95491503 19.5105652 6.90983006 14.7552826 11.545085 15.8778525 18.0901699"></polygon>
+                    <polygon points="30.5 15 24.6221475 18.0901699 25.7447174 11.545085 20.9894348 6.90983006 27.5610737 5.95491503 30.5 0 33.4389263 5.95491503 40.0105652 6.90983006 35.2552826 11.545085 36.3778525 18.0901699"></polygon>
+                    <polygon points="50 15 44.1221475 18.0901699 45.2447174 11.545085 40.4894348 6.90983006 47.0610737 5.95491503 50 0 52.9389263 5.95491503 59.5105652 6.90983006 54.7552826 11.545085 55.8778525 18.0901699"></polygon>
+                    <polygon points="70.5 15 64.6221475 18.0901699 65.7447174 11.545085 60.9894348 6.90983006 67.5610737 5.95491503 70.5 0 73.4389263 5.95491503 80.0105652 6.90983006 75.2552826 11.545085 76.3778525 18.0901699"></polygon>
+                    <polygon points="90.5 15 84.6221475 18.0901699 85.7447174 11.545085 80.9894348 6.90983006 87.5610737 5.95491503 90.5 0 93.4389263 5.95491503 100.010565 6.90983006 95.2552826 11.545085 96.3778525 18.0901699"></polygon>
+                </g>
+            </g>
+        </svg>
+        <span class="sp-rc-count">{{ section.settings.review_count }}</span>
+      </h4>
+      <h2>{{ section.settings.headline }}</h2>
+    </div>
+    <!-- /sp-rc-col -->
+
+    <div class="sp-rc-col" sp-column>
+      <h3>{{ section.settings.review_hl_1 }}</h3>
+      <p>{{ section.settings.review_text_1 }}</p>
+    </div>
+    <!-- /sp-rc-col -->
+
+    <div class="sp-rc-col" sp-column>
+      <h3>{{ section.settings.review_hl_2 }}</h3>
+      <p>{{ section.settings.review_text_2 }}</p>
+    </div>
+    <!-- /sp-rc-col -->
+
+  </div>
+  <!-- /.sp-rc-grid -->
+  
+</div>
+<!-- /.sp-rc -->
+
+</div>
+<!-- /.sp-rc-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Review Callout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size_1",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size 1",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "text_size_2",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size 2",
+        "default": 22
+      },
+      {
+        "type": "range",
+        "id": "text_size_3",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size 3",
+        "default": 16
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline size",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#fff",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#fff",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "default": "#0D8BF4",
+        "label": "Highlight Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 20,
+        "label": "Gap Between Reviews"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Set the content for the section."
+      },
+      {
+        "type": "inline_richtext",
+        "id": "review_count",
+        "label": "Review Count",
+        "default": "2,500+ Reviews"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "<b>See what our customers are saying about our product.</b>"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "review_hl_1",
+        "label": "Review Headline 1",
+        "default": "<b>Amazing app!!!</b>"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "review_text_1",
+        "label": "Review Text 1",
+        "default": "This is an amazing app!!! It is really nice to have a lot of options to customize my shop."
+      },
+      {
+        "type": "inline_richtext",
+        "id": "review_hl_2",
+        "label": "Review Headline 2",
+        "default": "<b>Glad I found this app!</b>"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "review_text_2",
+        "label": "Review Text 2",
+        "default": "This is an amazing app!!! It is really nice to have a lot of options to customize my shop."
+      }
+    ],
+  "blocks": [],
+	"presets": [
+      {
+        "name": "🚀SP - Review Callout"
+      }
+    ]
+  }
+{% endschema %}

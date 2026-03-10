@@ -1,0 +1,506 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {% assign short_id = section.id | slice: -3, 3 %}
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap p,
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap p a {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    {% if section.settings.text_line_height != 'inherit' %}line-height: {{ section.settings.text_line_height }};{% endif %}
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap p {
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap p:last-child {
+    padding: 0;
+    margin: 0;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h1,
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h2,
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h3,
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h4 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    {% if section.settings.headline_line_height != 'inherit' %}line-height: {{ section.settings.headline_line_height }};{% endif %}
+    padding: 0;
+    margin: 0 0 {{ section.settings.element_spacing }}px 0;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h2 {
+    font-size: {{ section.settings.headline_size | minus: 5 }}px;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h3 {
+    font-size: {{ section.settings.headline_size | minus: 10 }}px;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h4 {
+    font-size: {{ section.settings.headline_size | minus: 15 }}px;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap h5 {
+    font-size: {{ section.settings.headline_size | minus: 20 }}px;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-reveal-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+    gap: 20px;
+  }
+
+  #sp-reveal-{{ section.id }} .sp-reveal {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-reveal-{{ section.id }}  .sp-reveal .sp-reveal-grid {
+    display: grid;
+    position: relative;
+    z-index: 1;
+    height: {{ section.settings.height }}px;
+    overflow: hidden;
+    gap: 20px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-reveal-{{ section.id }} .sp-reveal .sp-reveal-grid {
+      height: {{ section.settings.mobile_height }}px;
+    }
+  }
+
+  #sp-reveal-{{ section.id }}.sp-active .sp-reveal-grid {
+    height: auto; 
+    padding-bottom: 50px;
+  }
+
+  @media only screen and (min-width: 801px) {
+    #sp-reveal-{{ section.id }} .sp-reveal .sp-reveal-grid {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-reveal-grid-{{ section.id }} .sp-reveal .sp-reveal-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  #sp-reveal-{{ section.id }} .sp-reveal-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: {{ section.settings.button_padding_tb }}px {{ section.settings.button_padding_lr }}px;
+    background: transparent;
+    background-image: {{section.settings.button_background_color}};
+    border-radius: {{ section.settings.button_border_radius }}px;
+    color: {{section.settings.button_text_color}};
+    font-size: {{ section.settings.text_size }}px;
+    border: none;
+    z-index: 2;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  #sp-reveal-{{ section.id }} .sp-reveal-button>div {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+  }
+
+  #sp-reveal-{{ section.id }} button .sp-show-more {
+    display: inline-block;
+  }
+
+  #sp-reveal-{{ section.id }} button .sp-show-less {
+    display: none;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-active button .sp-show-more {
+    display: none;
+  }
+
+  #sp-reveal-{{ section.id }}.sp-active button .sp-show-less {
+    display: inline-block;
+  }
+
+  #sp-reveal-{{ section.id }} button svg {
+    transition: all .25s ease-out;
+    transform: rotate(-180deg);
+  }
+
+  #sp-reveal-{{ section.id }}.sp-active button svg {
+    transform: rotate(0);
+  }
+
+</style>
+
+<div id="sp-reveal-{{ section.id }}" class="sp-reveal-wrap" sp-wrap>
+
+<div class="sp-reveal" sp-container>
+
+  <div class="sp-reveal-grid">
+
+    {% for block in section.blocks %}
+      <div class="sp-reveal-col" sp-column>
+        {{ block.settings.text }}
+      </div>
+      <!-- /.sp-reveal-col -->
+    {% endfor %}
+
+    <button id="sp-reveal-{{ section.id }}-button" class="sp-reveal-button">
+      <div>
+      <span class="sp-show-more">{{ section.settings.show_more }}</span>
+      <span class="sp-show-less">{{ section.settings.show_less }}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m280-400 200-200 200 200H280Z"/></svg>
+      </div>
+    </button>
+  
+
+  </div>
+  <!-- /.sp-reveal-grid -->
+
+
+  <script>
+    var button_{{ short_id }} = document.querySelector('#sp-reveal-{{ section.id }}-button');
+    var div_{{ short_id }} = document.querySelector('#sp-reveal-{{ section.id }}');
+
+    button_{{ short_id }}.addEventListener('click', (e) => {
+      div_{{ short_id }}.classList.toggle('sp-active');
+    });
+  </script>
+
+</div>
+<!-- /.sp-reveal -->
+
+
+</div>
+<!-- /.sp-reveal-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Reveal",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "text_line_height",
+        "label": "Text Line Height",
+        "options": [
+          {
+            "value": "0.75",
+            "label": "0.75"
+          },
+          {
+            "value": "1.0",
+            "label": "1.0"
+          },
+          {
+            "value": "1.1",
+            "label": "1.1"
+          },
+          {
+            "value": "1.2",
+            "label": "1.2"
+          },
+          {
+            "value": "1.3",
+            "label": "1.3"
+          },
+          {
+            "value": "1.4",
+            "label": "1.4"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.6",
+            "label": "1.6"
+          },
+          {
+            "value": "1.7",
+            "label": "1.7"
+          },
+          {
+            "value": "1.8",
+            "label": "1.8"
+          },
+          {
+            "value": "1.9",
+            "label": "1.9"
+          },
+          {
+            "value": "2.0",
+            "label": "2.0"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ],
+        "default": "1.2"
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "headline_line_height",
+        "label": "Headline Line Height",
+        "options": [
+          {
+            "value": "0.75",
+            "label": "0.75"
+          },
+          {
+            "value": "1.0",
+            "label": "1.0"
+          },
+          {
+            "value": "1.1",
+            "label": "1.1"
+          },
+          {
+            "value": "1.2",
+            "label": "1.2"
+          },
+          {
+            "value": "1.3",
+            "label": "1.3"
+          },
+          {
+            "value": "1.4",
+            "label": "1.4"
+          },
+          {
+            "value": "1.5",
+            "label": "1.5"
+          },
+          {
+            "value": "1.6",
+            "label": "1.6"
+          },
+          {
+            "value": "1.7",
+            "label": "1.7"
+          },
+          {
+            "value": "1.8",
+            "label": "1.8"
+          },
+          {
+            "value": "1.9",
+            "label": "1.9"
+          },
+          {
+            "value": "2.0",
+            "label": "2.0"
+          },
+          {
+            "value": "inherit",
+            "label": "Inherit"
+          }
+        ],
+        "default": "1.2"
+      },
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "height",
+        "default": 150,
+        "label": "Height of Section"
+      },
+      {
+        "type": "number",
+        "id": "mobile_height",
+        "default": 150,
+        "label": "Height of Section (mobile)"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 25,
+        "label": "Gap Between Columns"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "element_spacing",
+        "default": 15,
+        "label": "Element Spacing"
+      },
+      {
+        "type": "header",
+        "content": "Button Style",
+        "info": "Set the look and feel of the button"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.75) 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "default": "#111",
+        "label": "Button Text Color"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_tb",
+        "default": 10,
+        "label": "Padding Top/Bottom"
+      },
+      {
+        "type": "number",
+        "id": "button_padding_lr",
+        "default": 25,
+        "label": "Padding Left/Right"
+      },
+      {
+        "type": "number",
+        "id": "button_border_radius",
+        "default": 5,
+        "label": "Border Radius"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "show_more",
+        "label": "Reveal Button Text",
+        "default": "<b>Show More</b>"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "show_less",
+        "label": "Reveal Button Text",
+        "default": "<b>Show Less</b>"
+      }
+    ],
+	"blocks": [
+      {
+       "name": "Text",
+       "type": "text",
+       "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Rich Text",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis dui vel massa efficitur accumsan. Morbi lacus dui, pellentesque sit amet molestie et, vulputate eu lacus. Proin a turpis luctus turpis pulvinar mollis. Sed feugiat accumsan diam, in imperdiet risus suscipit quis. Curabitur eget lorem mauris. Nunc aliquet eu arcu quis efficitur. Maecenas sit amet nulla arcu. Mauris sit amet neque quis dui varius feugiat. Nulla laoreet quam eu nulla efficitur, ut interdum arcu convallis. Curabitur sed imperdiet dui.</p>"
+          }
+       ]
+      }
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Reveal",
+        "blocks": [
+          {
+            "type": "text"
+          },
+          {
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

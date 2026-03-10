@@ -1,0 +1,399 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  {{ section.settings.text_font | font_face }}
+  {{ section.settings.headline_font | font_face }}
+
+  #sp-countdown-{{ section.id }} {
+    background-image: {{ section.settings.background_color }};
+  }
+
+  #sp-countdown-{{ section.id }} .sp-headline p {
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+    font-weight: {{ section.settings.text_font.weight }};
+    color: {{ section.settings.text_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 25px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #sp-countdown-{{ section.id }} .sp-headline h2 {
+    font-size: {{ section.settings.headline_size }}px;
+    font-family: {{ section.settings.headline_font.family }}, {{ section.settings.headline_font.fallback_families }};
+    font-weight: {{ section.settings.headline_font.weight }};
+    color: {{ section.settings.headline_color }};
+    line-height: 1.15;
+    margin: 0;
+    padding: 0 0 5px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #sp-countdown-{{ section.id }} .sp-wrapper {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    align-items: center;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-grid-item {
+    background-image: {{ section.settings.countdown_background_color }};
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-timer {
+    font-size: {{ section.settings.timer_size }}px;
+    font-weight: bold;
+    color: {{ section.settings.timer_color }};
+  }
+
+  #sp-countdown-{{ section.id }} .sp-label {
+    font-size: {{ section.settings.text_size }}px;
+    font-weight: bold;
+    color: {{ section.settings.timer_color }};
+    display: block;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section {
+    position: relative;
+    padding: 10px;
+    margin: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section * {
+    box-sizing: border-box;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin: 0 0 25px 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin: 0 0 25px 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-grid {
+    display: grid;
+    margin: 0 auto;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    gap: 20px;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section h1 {
+    font-weight: 900;
+    font-size: 25pt;
+    margin: 0 0 25px 0;
+    padding: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section h2 {
+    font-weight: bold;
+    font-size: 22pt;
+    margin: 0 0 25px 0;
+    padding: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section h3 {
+    font-weight: bold;
+    font-size: 20pt;
+    margin: 0 0 25px 0;
+    padding: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section h4 {
+    font-weight: bold;
+    font-size: 18pt;
+    margin: 0 0 25px 0;
+    padding: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section h5 {
+    font-weight: bold;
+    font-size: 15pt;
+    margin: 0 0 25px 0;
+    padding: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-section p {
+    font-weight: normal;
+    font-size: 13pt;
+    margin: 0 0 25px 0;
+    padding: 0;
+  }
+
+  #sp-countdown-{{ section.id }} .sp-image,
+  #sp-countdown-{{ section.id }} .sp-section img {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+  }
+</style>
+
+<!-- start content -->
+<section id="sp-countdown-{{ section.id }}" class="sp-section">
+
+    <section class="sp-wrapper">
+
+      <div class="sp-headline">
+        {% if section.settings.headline %}<h2>{{ section.settings.headline }}</h2>{% endif %}
+        {% if section.settings.text %}<p>{{ section.settings.text }}</p>{% endif %}
+      </div>
+
+      <div class="sp-grid">
+        <div class="sp-grid-item">
+          <div class="sp-countdown">
+            <span id="hours" class="sp-timer">{{ section.settings.start_hours }}</span>
+            <span class="sp-label">hours</span>
+          </div>
+        </div>
+        <div class="sp-grid-item">
+          <div class="sp-countdown">
+            <span id="minutes" class="sp-timer">00</span>
+            <span class="sp-label">minutes</span>
+          </div>
+        </div>
+        <div class="sp-grid-item">
+          <div class="sp-countdown">
+            <span id="seconds" class="sp-timer">00</span>
+            <span class="sp-label">seconds</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  </section>
+  <!-- end Sections.AI content -->
+
+  <script>
+    function startCountdown() {
+      var hoursElement = document.getElementById('hours');
+      var minutesElement = document.getElementById('minutes');
+      var secondsElement = document.getElementById('seconds');
+
+      var countdownInterval = setInterval(function () {
+        var hours = parseInt(hoursElement.innerText);
+        var minutes = parseInt(minutesElement.innerText);
+        var seconds = parseInt(secondsElement.innerText);
+
+        if (hours === 0 && minutes === 0 && seconds === 0) {
+          clearInterval(countdownInterval);
+          return;
+        }
+
+        if (seconds === 0) {
+          seconds = 59;
+
+          if (minutes === 0) {
+            minutes = 59;
+            hours--;
+          } else {
+            minutes--;
+          }
+        } else {
+          seconds--;
+        }
+
+        hoursElement.innerText = hours.toString().padStart(2, '0');
+        minutesElement.innerText = minutes.toString().padStart(2, '0');
+        secondsElement.innerText = seconds.toString().padStart(2, '0');
+      }, 1000);
+    }
+
+    startCountdown();
+  </script>
+  <!-- end snippet code -->
+
+  <!-- start schema -->
+  {% schema %}
+  {
+    "name": "24 Hour Countdown Timer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text",
+        "info": "Set the text size for your widget"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Text Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "text_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Text Size",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "timer_size",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Timer Size",
+        "default": 60
+      },
+      {
+        "type": "font_picker",
+        "id": "headline_font",
+        "label": "Headline Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "headline_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Headline Size",
+        "default": 25
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "color_background",
+        "id": "countdown_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #555 100%)",
+        "label": "Countdown Background Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#111",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "headline_color",
+        "default": "#111",
+        "label": "Headline Color"
+      },
+      {
+        "type": "color",
+        "id": "timer_color",
+        "default": "#FFF",
+        "label": "Timer Color"
+      },
+      {
+        "type": "header",
+        "content": "Alignment",
+        "info": "Set alignment of the text."
+      },
+      {
+          "type": "select",
+          "id": "text_alignment",
+          "default": "center",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Customize the text for the product"
+      },
+      {
+        "type": "number",
+        "id": "start_hours",
+        "label": "Start Hours Left",
+        "default": 14
+      },
+      {
+        "type": "inline_richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "<b>Sample headline</b>"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "text",
+        "label": "Content",
+        "default": "Sample content"
+      }
+    ],
+    "blocks": [],
+    "presets": [
+      {
+        "name": "🚀SP - 24 Hour Count Dow",
+        "category": "Custom"
+      }
+    ]
+  }
+  {% endschema %}
+  <!-- end schema -->
+  

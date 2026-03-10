@@ -1,0 +1,352 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+
+  
+  #sp-media-masonry-{{ section.id }}.sp-media-masonry-wrap {
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+
+  #sp-media-masonry-{{ section.id }}  .sp-media-masonry .sp-media-masonry-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    {% if section.settings.columns == "1" %}
+    grid-template-columns: 1fr;
+    {% endif %}
+    {% if section.settings.columns == "2" %}
+    grid-template-columns: 1fr 1fr;
+    {% endif %}
+    {% if section.settings.columns == "3" %}
+    grid-template-columns: 1fr 1fr 1fr;
+    {% endif %}
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #sp-media-masonry-{{ section.id }}  .sp-media-masonry .sp-media-masonry-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry-grid-col {
+    margin: 0;
+    padding: 0;
+  }
+
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry-grid-item {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 0 {{ section.settings.grid_gap }}px 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    transition: .25s all ease;
+    border-radius: {{ section.settings.media_radius }}px;
+    {% if section.settings.media_shadow %}
+      box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
+    {% endif %}
+    
+  }
+
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry-grid-item:last-child {
+    margin: 0;
+  }
+
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry-grid-item img,
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry-grid-item video {
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+
+  #sp-media-masonry-{{ section.id }} .sp-media-masonry-grid-item:hover {
+    z-index: 3;
+    {% if section.settings.enable_zoom %}transform: scale(1.01);{% endif %}
+  }
+  
+  @media only screen and (max-width: 800px) {
+
+  }
+</style>
+
+<div id="sp-media-masonry-{{ section.id }}" class="sp-media-masonry-wrap" sp-wrap>
+
+<div class="sp-media-masonry" sp-container>
+
+  <div class="sp-media-masonry-grid">
+
+    {% for block in section.blocks %}
+
+      {% assign break = forloop.length | divided_by: section.settings.columns | plus: 1 %}
+      {% assign break_2 = forloop.length | divided_by: section.settings.columns | times: 2 | plus: 1 %}
+
+      {% if forloop.index == 1 %}
+        <div class="sp-media-masonry-grid-col" sp-column>
+      {% endif %}
+
+      {% if forloop.index == break %}
+        </div><div class="sp-media-masonry-grid-col" sp-column>
+      {% endif %}
+
+      {% if forloop.index == break_2 %}
+        </div><div class="sp-media-masonry-grid-col" sp-column>
+      {% endif %}
+
+      <div class="sp-media-masonry-grid-item">
+        {% if block.type == 'video' %}
+          
+          {% if block.settings.link %}<a href="{{ block.settings.link }}">{% endif %}
+              {{
+                block.settings.video
+                | video_tag:
+                  image_size: '600x',
+                  playsinline: block.settings.video_inline,
+                  autoplay: block.settings.video_autoplay,
+                  loop: block.settings.video_loop,
+                  controls: block.settings.video_controls,
+                  muted: block.settings.video_muted
+              }}
+          {% if block.settings.link %}</a>{% endif %}
+          
+        
+        {% endif %}
+        {% if block.type == 'image' %}
+
+          {% if block.settings.link %}<a href="{{ block.settings.link }}">{% endif %}
+
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | image_url: width: 600 }}"
+                loading="lazy"
+                srcset="{{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 1100 }} 1100w">
+            {% else %}
+              <img src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect x='2' y='2' width='496' height='496' fill='%23D8D8D8' stroke='%23D8D8D8' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E">
+            {% endif %}
+
+          {% if block.settings.link %}</a>{% endif %}
+        {% endif %}
+      </div>
+      <!-- /.sp-media-masonry-grid-item -->
+
+
+      {% if forloop.length == forloop.index %}
+        </div>
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+  <!-- /.sp-media-masonry-grid -->
+  
+</div>
+<!-- /.sp-media-masonry -->
+
+</div>
+<!-- /.sp-media-masonry-wrap -->
+
+{% schema %}
+  {
+    "name": "🚀SP - Masonry",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Colors",
+        "info": "Set colors for the section."
+      },
+      {
+        "type": "color_background",
+        "id": "background_color",
+        "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+        "label": "Background"
+      },
+      {
+        "type": "color_background",
+        "id": "button_background_color",
+        "default": "linear-gradient(164deg, #111 0%, #333 100%)",
+        "label": "Button Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Dimensions",
+        "info": "Set the section dimensions in pixels."
+      },
+      {
+        "type": "number",
+        "id": "max_width",
+        "default": 1000,
+        "label": "Max Width of Section"
+      },
+      {
+        "type": "select",
+        "id": "columns",
+        "label": "Columns",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "number",
+        "id": "grid_gap",
+        "default": 10,
+        "label": "Gap Between Images"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "default": 25,
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "default": 25,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "default": 10,
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "default": 10,
+        "label": "Padding Right"
+      },
+      {
+        "type": "header",
+        "content": "Advanced",
+        "info": "Set the advanced features for the section"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_zoom",
+        "label": "Zoom on Hover",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "media_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Round Borders on Media",
+        "default": 5
+      },
+      {
+        "type": "checkbox",
+        "id": "media_shadow",
+        "default": true,
+        "label": "Subtle Shadow on Media"
+      }
+    ],
+	"blocks": [
+      {
+       "name": "Image",
+       "type": "image",
+       "settings": [
+         
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Optional Link"
+          }
+       ]
+      },
+      {
+        "name": "Video",
+        "type": "video",
+        "settings": [
+           {
+             "type": "video",
+             "id": "video",
+             "label": "Hero Video"
+           },
+           {
+             "type": "url",
+             "id": "link",
+             "label": "Optional Link"
+           },
+           {
+             "type": "checkbox",
+             "id": "video_inline",
+             "label": "Play Inline",
+             "default": true
+           },
+           {
+             "type": "checkbox",
+             "id": "video_autoplay",
+             "label": "Autoplay",
+             "default": true
+           },
+           {
+             "type": "checkbox",
+             "id": "video_loop",
+             "label": "Loop Video",
+             "default": true
+           },
+           {
+             "type": "checkbox",
+             "id": "video_controls",
+             "label": "Show Video Controls",
+             "default": false
+           },
+           {
+             "type": "checkbox",
+             "id": "video_muted",
+             "label": "Mute Video",
+             "default": true
+           }
+        ]
+       }
+    ],
+	"presets": [
+      {
+        "name": "🚀SP - Masonry",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

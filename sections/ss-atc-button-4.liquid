@@ -1,0 +1,129 @@
+<style>
+
+  .ss-atc-button-style {
+      border: none;
+      background-color: {{ section.settings.first_color }};
+      border-radius: 6px;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-block;
+      text-transform: uppercase;
+      padding: {{section.settings.ss-button_padding}}rem;
+      font-weight: 600;
+      font-size: 1em;
+      outline: none;
+      font-size: {{section.settings.ss-font-size}}px;
+      margin-bottom:15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .ss-atc-button-style:before {    
+        -webkit-transform: translateY(7px);
+        transform: translateY(7px);
+        background-color: inherit;
+        border-radius: 8px;
+        z-index: -1;
+        border-bottom: #b5b4b4 2px solid;
+        box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .ss-atc-button-style:hover {
+      background-color: {{section.settings.button_hover_color}};
+    }
+
+    .ss-atc-button-style:active {
+      background-color: {{section.settings.button_hover_color}};
+    }
+   
+   .ss-atc-button-style:after {
+      --border-opacity:none!important;
+   }
+
+  svg.ss-atc-button-style {
+    background-color:red;
+  }
+  
+  
+</style>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const productATC = document.querySelector('.product-form__submit, .add-to-cart, .product-form__cart-submit, .button--addToCart, .product-buy-buttons--cta, .product__submit__add')
+
+        if (!productATC) {
+            return
+        }
+
+      productATC.insertAdjacentHTML('afterbegin','<svg style="margin-right: 10px;margin-bottom: 3px;" xmlns="http://www.w3.org/2000/svg" width="{{section.settings.ss-font-size}}" height="{{section.settings.ss-font-size}}" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/></svg>');
+      productATC.classList.add("ss-atc-button-style");
+    });
+</script>
+
+
+{% schema %}
+  {
+    "name": "SS - ATC Button #4",
+	"class": "section",
+	"tag": "section",
+    "settings": [
+        {
+            "type": "paragraph",
+            "content": "Att: Save settings to view updates"
+        },
+		{
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+		  "type": "color",
+		  "label": "Button color",
+		  "id": "first_color",
+		  "default": "#3FBE44"
+		},
+        {
+		  "type": "color",
+		  "label": "Button hover color",
+		  "id": "button_hover_color",
+		  "default": "#51c556"
+		},
+        {
+          "type": "header",
+          "content": "Font size"
+        },
+        {
+            "type": "range",
+            "id": "ss-font-size",
+            "label": "Font-size",
+            "min": 10,
+            "max": 30,
+            "step": 2,
+            "default": 18
+        },
+        {
+          "type": "header",
+          "content": "Button size"
+        },
+        {
+            "type": "range",
+            "id": "ss-button_padding",
+            "label": "Button size",
+            "min": 0,
+            "max": 3,
+            "step": 0.1,
+            "default": 1.7
+        }
+	],
+ 	"presets": [
+      {
+        "name": "SS - ATC Button #4"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

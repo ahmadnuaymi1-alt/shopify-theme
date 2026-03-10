@@ -1,0 +1,457 @@
+ {% assign sec_id = section.id | slice: -8, 8  | replace: "-", "_" %}
+
+{%- style -%}
+
+.pw-container,
+.pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .pw-container {
+    max-width: 1320px;
+  }
+}
+
+.pw-container,
+.pw-container-fluid {
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+.pw-section__{{sec_id}} .pw-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(var(--pw-gutter-x, 15px) * -1);
+  margin-left: calc(var(--pw-gutter-x, 15px) * -1);
+}
+
+.pw-section__{{sec_id}} .pw-row > * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+}
+
+@media (min-width: 750px) {
+  .pw-section__{{sec_id}} .pw-col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  .pw-section__{{sec_id}} .pw-col-md-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-section__{{sec_id}} .pw-col-lg-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pw-section__{{sec_id}} .pw-col-xl-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 25px;
+  color: {{section.settings.text_color}};
+  background-color: {{section.settings.background_color}};
+  {% if section.settings.section_height == true %}
+    min-height: 100vh;
+  {% endif %}
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-content p {
+  color: {{section.settings.text_color}};
+}
+
+.pw-section__{{sec_id}} .pw-section-title::before,
+.pw-section__{{sec_id}} .pw-section-title::after {
+  display: none;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  text-align: {{section.settings.text_align}};
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 30px;
+  word-wrap: break-word;
+}
+
+.pw-section__{{sec_id}} .pw-section-subtitle {
+  color: {{section.settings.text_color}};
+  text-align: {{section.settings.text_align}};
+  margin-bottom: 30px;
+}
+
+.pw-section__{{sec_id}} .pw-content {
+  text-align: {{section.settings.content_align}};
+  margin-bottom: 30px;
+}
+
+.pw-section__{{sec_id}} .pw-content-title {
+  color: {{section.settings.text_color}};
+  padding: 15px 0;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 700;
+  opacity: 0.8;
+  border-bottom: 5px solid {{section.settings.title_border_color}};
+  text-align: {{section.settings.content_align}};
+}
+
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} .pw-content-title {
+    font-size: 28px;
+  }
+  .pw-section__{{sec_id}} h1.pw-section-title {
+    font-size: 72px;
+  }
+  .pw-section__{{sec_id}} h2.pw-section-title {
+    font-size: 56px;
+  }
+  .pw-section__{{sec_id}} h3.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} p {
+    font-size: 24px;
+    margin-top: 0;
+  }
+{% endif %}
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    min-height: auto;
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} .pw-content-title {
+      font-size: 24px;
+    }
+    .pw-section__{{sec_id}} h1.pw-section-title {
+      font-size: 50px;
+    }
+    .pw-section__{{sec_id}} h2.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} h3.pw-section-title {
+      font-size: 26px;
+    }
+    .pw-section__{{sec_id}} p {
+      font-size: 20px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+<div class="pw-section__{{sec_id}}">
+  <div class="pw-container">
+    <div class="pw-row">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'heading' %}
+          <div class="pw-col-md-12" {{ block.shopify_attributes }}>
+            {% if block.settings.heading_text != blank %}
+              <{{ block.settings.heading_tag }} class="pw-section-title">
+              {{ block.settings.heading_text | escape }}
+              </{{ block.settings.heading_tag }}>
+            {% endif %}
+            {% if block.settings.sub_heading_text != blank %}
+              <p class="pw-section-subtitle">{{ block.settings.sub_heading_text | escape }}</p>
+            {% endif %}
+          </div>
+          {% when 'content' %}
+          <div class="pw-col-xl-3 pw-col-lg-6 pw-col-md-6" {{ block.shopify_attributes }}>
+            <div class="pw-content">
+              {% if block.settings.content_title != blank %}
+                <h3 class="pw-content-title">{{ block.settings.content_title | escape }}</h3>
+              {% endif %}
+              {% if block.settings.content_text != blank %}
+                <p>{{ block.settings.content_text }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+    "name": "🚀SP - Text-Quinn-01",
+  "tag": "section",
+  "class": "kava-text kava-text-quinn-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    }, 
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Heading and subheading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "title_border_color",
+      "label": "Title border color",
+      "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "section_height",
+      "default": false,
+      "label": "Full screen height"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    }, {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Heading text"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            }, {
+              "value": "h2",
+              "label": "H2"
+            }, {
+              "value": "h3",
+              "label": "H3"
+            }
+          ],
+          "default": "h2"
+        },
+        
+        {
+          "type": "textarea",
+          "id": "sub_heading_text",
+          "label": "Sub heading text",  
+          "default": "Sub heading text"
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "type": "content",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "content_title",
+          "label": "Content title",
+          "default": "Content title"
+        },
+        {
+          "type": "textarea",
+          "id": "content_text",
+          "label": "Text",
+          "default": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀SP - Text-Quinn-01",
+      "blocks": [
+        {
+          "type": "content",
+          "settings": {
+            "content_title": "Demonstrate Site Security",
+            "content_text": "Customers think Mr. Robot is just waiting to grab their personal information at every moment. And it can happen. According to Baymard, 17% of consumers abandon their cart due to a lack of trust."
+          }
+        },
+        {
+          "type": "content",
+          "settings": {
+            "content_title": "Feature Your Best Products",
+            "content_text": "Recommending products throughout your homepage gives customers an idea of what to buy. It makes sense to feature the very best of what you have to offer."
+          }
+        },
+        {
+          "type": "content",
+          "settings": {
+            "content_title": "Further Information",
+            "content_text": "It’s common practice to have your important information and links in the footer. You know you always put your keys in that dish by the door? You expect to find them there. The footer is that dish for your contact info, etc."
+          }
+        },
+        {
+          "type": "content",
+          "settings": {
+            "content_title": "Design for Mobile First",
+            "content_text": "Nowadays, your e-commerce site should be designed primarily with mobile in mind. Why? Mobile commerce is expected to account for 72.9% of e-commerce sales by 2022."
+          }
+        }
+      ]
+    }
+  ]
+  
+}
+
+{% endschema %}

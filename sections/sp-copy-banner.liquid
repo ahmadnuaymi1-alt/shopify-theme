@@ -1,0 +1,359 @@
+{% comment %}
+  © Sections Pro. You are free to use this section in your store. You may not redistribute this section in another Shopify app.
+{% endcomment %}
+<style>
+  {% if section.settings.override_fonts %}
+    {{ section.settings.text_font | font_face }}
+  {% endif %}
+
+  #sp-{{ section.id }} p {
+    font-size: {{ section.settings.text_size }}px;
+    {% if section.settings.override_fonts %}
+      font-family: {{ section.settings.text_font.family }}, {{ section.settings.text_font.fallback_families }};
+      font-weight: {{ section.settings.text_font.weight }};
+    {% endif %}
+    line-height: 1.15;
+  }
+
+  @media (max-width: 800px) {
+    #sp-{{ section.id }} p {
+      font-size: {{ section.settings.mobile_text_size }}px;
+    }
+  }
+
+  #sp-{{ section.id }} p {
+    color: {{ section.settings.text_color }};
+    text-align: {{ section.settings.text_alignment }}
+  }
+
+  @media (max-width: 800px) {
+    #sp-{{ section.id }} p {
+      text-align: {{ section.settings.mobile_text_alignment }}
+    }
+  }
+
+  #sp-{{ section.id }} {
+    position: relative;
+    background-image: {{ section.settings.background_color }};
+    width: 100%;
+  }
+
+  #sp-{{ section.id }} .sp-container {
+    position: relative;
+    margin: 0 auto;
+    max-width: {{ section.settings.max_width }}px;
+    padding: {{ section.settings.container_padding_top_bottom }}px {{ section.settings.container_padding_left_right }}px;
+  }
+
+  @media (max-width: 800px) {
+    #sp-{{ section.id }} .sp-container {
+      padding: {{ section.settings.mobile_container_padding_top_bottom }}px {{ section.settings.mobile_container_padding_left_right }}px;
+    }
+  }
+
+  /* link */
+  #sp-{{ section.id }} p {
+    margin: 0;
+    padding: 0 0 3px 0;
+  }
+
+  #sp-{{ section.id }} p a {
+    color: {{ section.settings.link_color }};
+    cursor: pointer;
+  }
+
+  #sp-{{ section.id }} p a * {
+    color: {{ section.settings.link_color }};
+  }
+
+  #sp-{{ section.id }} p a * {
+    pointer-events: none;
+  }
+
+  #sp-{{ section.id }} p a svg,
+  #sp-{{ section.id }} p a svg {
+    width: 20px;
+    height: 20px;
+    fill: {{ section.settings.link_color }};
+    transform: translateY(3px);
+    margin: 0 0 0 2px;
+  }
+
+  #sp-{{ section.id }} .sp-toast {
+    position: absolute;
+    display: inline-block;
+    background-image: {{ section.settings.check_background_color }};
+    color: #111;
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 5px;
+    border-radius: 50%;
+    font-size: 13px;
+    transform: translateY(3px);
+    visibility: hidden;
+    transition: .15s all;
+    opacity: 0;
+  }
+
+  #sp-{{ section.id }} .sp-toast svg {
+    fill: {{ section.settings.check_color }};
+    width: 15px;
+    height: 15px;
+    transform: translateY(3px);
+  }
+
+  #sp-{{ section.id }} .sp-toast[active] {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  #sp-{{ section.id }} a {
+    position: relative;
+    display: inline-block;
+  }
+
+  #sp-{{ section.id }} a[title]:hover:after {
+    content: attr(title);
+    position: absolute;
+    top: 30px;
+    left: 0;
+    padding: 5px 10px;
+    background: #111;
+    color: #fff;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: 12px;
+    transform: translateX(-25%);
+  }
+</style>
+
+<div id="sp-{{ section.id }}" class="sp-section" sp-section>
+  <div class="sp-container" sp-container>
+    <p>
+      {{ section.settings.text }}
+      <a
+        id="sp-{{ section.id }}-link"
+        data-to-copy="{{ section.settings.copy_text }}"
+        title="{{ section.settings.instructions }}"
+      >
+        {{ section.settings.copy_text }}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+          <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/>
+        </svg>
+      </a>
+      <span id="sp-{{ section.id }}-toast" class="sp-toast">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+          <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+        </svg>
+      </span>
+    </p>
+  </div>
+  <!-- /.sp-container -->
+</div>
+<!-- /.sp-section -->
+
+<script>
+  // Copies a string to the clipboard.
+  function copyToClipboard(text) {
+    if (window.clipboardData && window.clipboardData.setData) {
+      // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+      return window.clipboardData.setData('Text', text);
+    } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+      var textarea = document.createElement('textarea');
+      textarea.textContent = text;
+      textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in Microsoft Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        return document.execCommand('copy'); // Security exception may be thrown by some browsers.
+      } catch (ex) {
+        console.warn('Copy to clipboard failed.', ex);
+        return prompt('Copy to clipboard: Ctrl+C, Enter', text);
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+  }
+
+  var sp_link = document.querySelector('#sp-{{ section.id }}-link');
+  var sp_toast = document.querySelector('#sp-{{ section.id }}-toast');
+
+  sp_link.addEventListener('click', (e) => {
+    var code = e.target.getAttribute('data-to-copy');
+
+    copyToClipboard(code);
+
+    sp_toast.setAttribute('active', '');
+
+    setTimeout(() => {
+      sp_toast.removeAttribute('active');
+    }, '2000');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "🚀SP - Copy Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Font",
+      "info": "Set the fonts for your section"
+    },
+    {
+      "type": "checkbox",
+      "id": "override_fonts",
+      "label": "Override theme fonts",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "text_font",
+      "label": "Text Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "header",
+      "content": "Text",
+      "info": "Set the text for your section"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_size",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Text Size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#fff",
+      "label": "Text Color"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "default": "#0d8bf4",
+      "label": "Link Color"
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Set colors for the section."
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "default": "linear-gradient(164deg, #111 0%, #333 0%)",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "check_background_color",
+      "default": "linear-gradient(164deg, #fff 0%, #fff 0%)",
+      "label": "Check Background Color"
+    },
+    {
+      "type": "color",
+      "id": "check_color",
+      "default": "#111",
+      "label": "Check Color"
+    },
+    {
+      "type": "header",
+      "content": "Dimensions",
+      "info": "Set the section dimensions"
+    },
+    {
+      "type": "number",
+      "id": "max_width",
+      "default": 1000,
+      "label": "Max Width of Section"
+    },
+    {
+      "type": "number",
+      "id": "grid_gap",
+      "default": 20,
+      "label": "Gap Between Reviews"
+    },
+    {
+      "type": "number",
+      "id": "container_padding_top_bottom",
+      "default": 10,
+      "label": "Padding Top/Bottom"
+  },
+  {
+      "type": "number",
+      "id": "mobile_container_padding_top_bottom",
+      "default": 10,
+      "label": "Mobile Padding Top/Bottom"
+  },
+  {
+      "type": "number",
+      "id": "container_padding_left_right",
+      "default": 10,
+      "label": "Padding Left/Right"
+  },
+  {
+      "type": "number",
+      "id": "mobile_container_padding_left_right",
+      "default": 10,
+      "label": "Mobile Padding Left/Right"
+  },
+    {
+      "type": "header",
+      "content": "Content",
+      "info": "Set the content for the section."
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "default": "center"
+    },
+    {
+      "type": "text_alignment",
+      "id": "mobile_text_alignment",
+      "label": "Mobile Text Alignment",
+      "default": "center"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "Get this item for 20% off with the following discount code:"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "copy_text",
+      "label": "Text to Copy",
+      "default": "ABC1234"
+    },
+    {
+      "type": "text",
+      "id": "instructions",
+      "label": "Instructions",
+      "default": "Click to Copy to Clipboard"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "🚀SP - Copy Banner"
+    }
+  ]
+}
+{% endschema %}
