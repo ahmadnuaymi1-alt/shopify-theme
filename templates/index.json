@@ -164,6 +164,22 @@
         "custom_cards_colors_text": "#2e2a39"
       }
     },
+    "section_divider_4cxR9H": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "curved_2",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "custom",
+        "custom_shape_color": "#89c4e1",
+        "background_color": "background-1",
+        "custom_background_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "comparison": {
       "type": "comparison-table",
       "blocks": {
@@ -468,6 +484,7 @@
   "order": [
     "hero",
     "trust-bar",
+    "section_divider_4cxR9H",
     "comparison",
     "section_divider_8DwUcN",
     "best-sellers",
