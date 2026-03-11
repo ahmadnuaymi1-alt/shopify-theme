@@ -26,6 +26,8 @@
     "colors_background_2": "#F5F7FA",
     "gradient_background_2": "",
     "type_header_font": "playfair_display_n7",
+    "heading_font_preset": "bogue_bold",
+    "custom_header_font_link": "https://cdn.shopify.com/s/files/1/0806/7013/0415/files/boguebold.woff2?v=1773219257",
     "heading_scale": 130,
     "heading_letter_spacing": 0.6,
     "type_body_font": "poppins_n4",
