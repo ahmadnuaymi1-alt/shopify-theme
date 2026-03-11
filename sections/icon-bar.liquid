@@ -1,7 +1,4 @@
 {%- style -%}
-  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
-  {{ section.settings.body_font | font_face: font_display: 'swap' }}
-
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -24,7 +21,6 @@
     {% endif %}
     --color-foreground: {{ section.settings.custom_colors_text.red }}, {{ section.settings.custom_colors_text.green }}, {{ section.settings.custom_colors_text.blue }};
   }
-
   {% if section.settings.custom_mobile_image_background != blank %}
     @media screen and (max-width: 740px) {
       .color-scheme-{{ section.id }}.color-custom {
@@ -40,51 +36,9 @@
     --gradient-background: {% if section.settings.custom_cards_gradient_background != blank %}{{ section.settings.custom_cards_gradient_background }}{% else %}{{ section.settings.custom_cards_colors_background }}{% endif %};
     --color-foreground: {{ section.settings.custom_cards_colors_text.red }}, {{ section.settings.custom_cards_colors_text.green }}, {{ section.settings.custom_cards_colors_text.blue }};
   }
-
-  /* Typography controls */
-  .icon-bar-{{ section.id }} .title,
-  .icon-bar-{{ section.id }} .multicolumn-card__info h3 {
-    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
-    font-style: {{ section.settings.heading_font.style }};
-    font-weight: {{ section.settings.heading_font.weight }};
-  }
-
-  .icon-bar-{{ section.id }} .multicolumn-text,
-  .icon-bar-{{ section.id }} .multicolumn-text p,
-  .icon-bar-{{ section.id }} .multicolumn-card__info,
-  .icon-bar-{{ section.id }} .multicolumn-card__info .rte,
-  .icon-bar-{{ section.id }} .multicolumn-card__info .rte p {
-    font-family: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
-    font-style: {{ section.settings.body_font.style }};
-    font-weight: {{ section.settings.body_font.weight }};
-  }
-
-  /* Static card sizing */
-  .icon-bar-{{ section.id }} .icon-bar-card {
-    width: 100%;
-    max-width: {{ section.settings.card_width }}px;
-    min-height: {{ section.settings.card_min_height }}px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-  }
-
-  .icon-bar-{{ section.id }} .splide__slide__container {
-    height: 100%;
-  }
-
-  .icon-bar-{{ section.id }} .icon-bar-card .multicolumn-card__info {
-    width: 100%;
-  }
-
-  @media screen and (max-width: 749px) {
-    .icon-bar-{{ section.id }} .icon-bar-card {
-      max-width: 100%;
-    }
-  }
 {%- endstyle -%}
 
-<div class="icon-bar icon-bar-{{ section.id }} multicolumn animate-section animate--hidden color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping {{ section.settings.visibility }}" data-mobile-columns="{{ section.settings.columns_mobile }}">
+<div class="icon-bar multicolumn animate-section animate--hidden color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping {{ section.settings.visibility }}" data-mobile-columns="{{ section.settings.columns_mobile }}">
   {% if section.settings.display_id %}
     <copy-button class='section-id-btn button' data-content="#shopify-section-{{ section.id }}" data-success="false">
       <span class="copy-text">Click to copy section ID</span>
@@ -291,46 +245,6 @@
       "type": "richtext",
       "id": "text",
       "label": "Text"
-    },
-    {
-      "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "font_picker",
-      "id": "heading_font",
-      "label": "Heading font",
-      "default": "assistant_n4"
-    },
-    {
-      "type": "font_picker",
-      "id": "body_font",
-      "label": "Body font",
-      "default": "assistant_n4"
-    },
-    {
-      "type": "header",
-      "content": "Box size"
-    },
-    {
-      "type": "range",
-      "id": "card_width",
-      "min": 180,
-      "max": 500,
-      "step": 10,
-      "unit": "px",
-      "label": "Box width",
-      "default": 280
-    },
-    {
-      "type": "range",
-      "id": "card_min_height",
-      "min": 120,
-      "max": 500,
-      "step": 10,
-      "unit": "px",
-      "label": "Box minimum height",
-      "default": 220
     },
     {
       "type": "select",
@@ -866,7 +780,7 @@
         {
           "type": "richtext",
           "id": "text",
-          "default": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>",
+          "default": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post<p>",
           "label": "Text"
         }
       ]
