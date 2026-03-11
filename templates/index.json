@@ -9,67 +9,47 @@
  */
 {
   "sections": {
-    "hero": {
-      "type": "image-with-text",
+    "image_banner_ybFhHw": {
+      "type": "image-banner",
       "blocks": {
-        "hero-heading": {
+        "heading_UqXrAz": {
           "type": "heading",
           "settings": {
-            "title": "Everything Your Little Ones Deserve",
-            "title_highlight_color": "#f4845f",
-            "heading_size": "h1"
+            "title": "Welcome to Kind Clouds",
+            "title_highlight_color": "#6D388B",
+            "heading_size": "h0"
           }
         },
-        "hero-text": {
+        "text_nJdLmn": {
           "type": "text",
           "settings": {
-            "text": "<p>Thoughtfully chosen products for pets, kids, and babies. Safe, gentle, and designed to bring joy to your whole family.</p>",
-            "text_style": "body"
-          }
-        },
-        "hero-button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop Best Sellers",
-            "button_link": "/collections/all"
+            "text": "Discover thoughtfully chosen products designed to bring comfort, joy, and ease into everyday life for you and the ones you love.",
+            "text_style": "subtitle"
           }
         }
       },
       "block_order": [
-        "hero-heading",
-        "hero-text",
-        "hero-button"
+        "heading_UqXrAz",
+        "text_nJdLmn"
       ],
+      "name": "t:sections.image-banner.presets.name",
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "video_autoplay": true,
-        "video_loop": true,
-        "height": "medium",
-        "color_scheme": "custom",
-        "section_color_scheme": "custom",
-        "full_desktop_width": false,
-        "content_layout": "no-overlap",
-        "desktop_media_width": 50,
-        "layout": "image_first",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_full_media_width": false,
-        "mobile_direction": "normal",
-        "mobile_image_quanlity": "2",
+        "image": "shopify://shop_images/Gemini_Generated_Image_tbrytotbrytotbry_1_1.png",
+        "image_1_visibility": "always-display",
+        "image_2_visibility": "always-display",
+        "image_overlay_opacity": 10,
+        "image_height": "medium",
+        "url": "",
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "transparent_container_color": "white",
         "mobile_content_alignment": "center",
-        "mobile_padding_top": 0,
-        "mobile_padding_bottom": 16,
-        "desktop_padding_top": 48,
-        "desktop_padding_bottom": 36,
-        "custom_colors_background": "#89c4e1",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#ffffff",
-        "custom_colors_solid_button_background": "#f4845f",
-        "custom_colors_solid_button_text": "#ffffff",
-        "custom_colors_outline_button": "#ffffff",
-        "custom_section_colors_background": "#89c4e1",
-        "custom_section_gradient_background": ""
+        "stack_images_on_mobile": true,
+        "show_text_below": true
       }
     },
     "trust-bar": {
@@ -244,7 +224,7 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "title": "Why Families Choose KindClouds",
+        "title": "Why Families Choose Kind Clouds",
         "title_highlight_color": "#f4845f",
         "heading_size": "h1",
         "text": "<p>Thoughtfully chosen essentials for everyday comfort, made to bring more ease, softness, and joy into your home.</p>",
@@ -482,7 +462,7 @@
     }
   },
   "order": [
-    "hero",
+    "image_banner_ybFhHw",
     "trust-bar",
     "section_divider_4cxR9H",
     "comparison",
