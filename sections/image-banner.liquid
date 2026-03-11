@@ -29,6 +29,9 @@
   #Banner-{{ section.id }}::after {
     opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
   }
+  #Banner-{{ section.id }} .banner__text--small { font-size: 0.8em; }
+  #Banner-{{ section.id }} .banner__text--medium { font-size: 1.2em; }
+  #Banner-{{ section.id }} .banner__text--large { font-size: 1.5em; }
 {%- endstyle -%}
 
 {% if section.settings.display_id %}
@@ -115,7 +118,7 @@
             {% when 'trustpilot_stars' %}
               {% render 'trustpilot-stars-block', block: block, margins: false, block_attributes: true %}
             {%- when 'text' -%}
-              <div class="banner__text {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+              <div class="banner__text {{ block.settings.text_style }}{% if block.settings.text_size != 'default' %} banner__text--{{ block.settings.text_size }}{% endif %}" style="{% if block.settings.text_color != blank and block.settings.text_color != 'rgba(0,0,0,0)' %}color: {{ block.settings.text_color }};{% endif %}" {{ block.shopify_attributes }}>
                 <span>{{ block.settings.text | escape }}</span>
               </div>
             {%- when 'buttons' -%}
@@ -662,6 +665,36 @@
           ],
           "default": "body",
           "label": "t:sections.image-banner.blocks.text.settings.text_style.label"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "info": "Leave empty to use the default color from the color scheme."
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "default",
+              "label": "Default"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "default",
+          "label": "Text size"
         }
       ]
     },
