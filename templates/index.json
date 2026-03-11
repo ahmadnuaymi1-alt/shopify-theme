@@ -62,13 +62,13 @@
         "mobile_padding_bottom": 16,
         "desktop_padding_top": 36,
         "desktop_padding_bottom": 36,
-        "custom_colors_background": "#a8d8f0",
+        "custom_colors_background": "#89c4e1",
         "custom_gradient_background": "",
         "custom_colors_text": "#ffffff",
         "custom_colors_solid_button_background": "#f4845f",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#ffffff",
-        "custom_section_colors_background": "#a8d8f0",
+        "custom_section_colors_background": "#89c4e1",
         "custom_section_gradient_background": ""
       }
     },
@@ -156,10 +156,10 @@
         "mobile_arrows_position": "under",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#89c4e1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
-        "custom_cards_colors_background": "#f3f3f3",
+        "custom_cards_colors_background": "#89c4e1",
         "custom_cards_gradient_background": "",
         "custom_cards_colors_text": "#2e2a39"
       }
@@ -336,7 +336,7 @@
         "minimalistic_border_opacity": 16,
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#a8d8f0",
+        "custom_colors_background": "#89c4e1",
         "custom_gradient_background": "",
         "custom_colors_text": "#ffffff",
         "custom_colors_solid_button_background": "#f4845f",
