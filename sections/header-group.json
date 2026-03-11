@@ -17,13 +17,13 @@
         "sections--18060430639399__2c2ec774-3430-481f-b927-e9c035b9d24e-1679250655d32e639c-0": {
           "type": "text",
           "settings": {
-            "title": "FREE SHIPPING ON ORDERS $50+"
+            "title": "FREE SHIPPING ON ALL PRODUCTS"
           }
         },
         "sections--18060430639399__2c2ec774-3430-481f-b927-e9c035b9d24e-1679250655d32e639c-1": {
           "type": "text",
           "settings": {
-            "title": "30-DAY HAPPINESS GUARANTEE"
+            "title": "30-DAY EASY RETURNS"
           }
         },
         "sections--18060430639399__2c2ec774-3430-481f-b927-e9c035b9d24e-1679250655d32e639c-2": {
@@ -47,8 +47,8 @@
         "desktop_spacing": 100,
         "color_scheme": "custom",
         "mobile_text_size": 16,
-        "desktop_text_size": 12,
-        "italic_text": false,
+        "desktop_text_size": 31,
+        "italic_text": true,
         "uppercase_text": true,
         "bold_text": true,
         "mobile_image_height": 26,
