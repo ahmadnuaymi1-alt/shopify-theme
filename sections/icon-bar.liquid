@@ -36,6 +36,33 @@
     --gradient-background: {% if section.settings.custom_cards_gradient_background != blank %}{{ section.settings.custom_cards_gradient_background }}{% else %}{{ section.settings.custom_cards_colors_background }}{% endif %};
     --color-foreground: {{ section.settings.custom_cards_colors_text.red }}, {{ section.settings.custom_cards_colors_text.green }}, {{ section.settings.custom_cards_colors_text.blue }};
   }
+
+  {% if section.settings.equal_card_heights %}
+    #shopify-section-{{ section.id }} .splide__list {
+      align-items: stretch;
+    }
+    #shopify-section-{{ section.id }} .splide__slide {
+      display: flex;
+    }
+    #shopify-section-{{ section.id }} .splide__slide__container {
+      display: flex;
+      width: 100%;
+    }
+    #shopify-section-{{ section.id }} .icon-bar-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+    #shopify-section-{{ section.id }} .multicolumn-card__info {
+      flex: 1;
+    }
+  {% endif %}
+  {% if section.settings.card_min_height > 0 %}
+    #shopify-section-{{ section.id }} .icon-bar-card {
+      min-height: {{ section.settings.card_min_height }}px;
+    }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="icon-bar multicolumn animate-section animate--hidden color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping {{ section.settings.visibility }}" data-mobile-columns="{{ section.settings.columns_mobile }}">
@@ -383,6 +410,28 @@
       "default": "background-1",
       "label": "Cards color scheme",
       "info": "Custom color scheme is edited at the bottom of section settings."
+    },
+    {
+      "type": "header",
+      "content": "Card sizing"
+    },
+    {
+      "type": "checkbox",
+      "id": "equal_card_heights",
+      "label": "Equal card heights",
+      "default": true,
+      "info": "Makes all cards the same height as the tallest card."
+    },
+    {
+      "type": "range",
+      "id": "card_min_height",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum card height",
+      "default": 0,
+      "info": "Set to 0 for automatic height."
     },
     {
       "type": "header",
