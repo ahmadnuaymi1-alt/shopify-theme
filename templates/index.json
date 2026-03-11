@@ -9,86 +9,6 @@
  */
 {
   "sections": {
-    "sp_icon_grid_DYBbX4": {
-      "type": "sp-icon-grid",
-      "blocks": {
-        "icon_yL9kpY": {
-          "type": "icon",
-          "settings": {
-            "icon": "tag",
-            "headline": "<b>Headline</b>",
-            "text": "Some followup text to build on the feature",
-            "link": ""
-          }
-        },
-        "icon_hMh9zC": {
-          "type": "icon",
-          "settings": {
-            "icon": "tag",
-            "headline": "<b>Headline</b>",
-            "text": "Some followup text to build on the feature",
-            "link": ""
-          }
-        },
-        "icon_L3yfAj": {
-          "type": "icon",
-          "settings": {
-            "icon": "tag",
-            "headline": "<b>Headline</b>",
-            "text": "Some followup text to build on the feature",
-            "link": ""
-          }
-        },
-        "icon_hVFXi3": {
-          "type": "icon",
-          "settings": {
-            "icon": "tag",
-            "headline": "<strong>Headline</strong>",
-            "text": "Some followup text to build on the feature",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_yL9kpY",
-        "icon_hMh9zC",
-        "icon_L3yfAj",
-        "icon_hVFXi3"
-      ],
-      "name": "🚀SP - Icon Grid",
-      "settings": {
-        "override_fonts": false,
-        "text_font": "system_ui_n4",
-        "headline_font": "system_ui_n4",
-        "text_size": 15,
-        "text_line_height": "inherit",
-        "headline_size": 25,
-        "headline_line_height": "inherit",
-        "icon_shape": "circle",
-        "icon_padding": 25,
-        "icon_size": 40,
-        "icon_background_color": "linear-gradient(164deg, rgba(13, 139, 244, 1), rgba(13, 139, 244, 1))",
-        "icon_color": "#fff",
-        "media_fit": "cover",
-        "background_color": "linear-gradient(164deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1))",
-        "text_color": "#111",
-        "headline_color": "#111",
-        "max_width": 1000,
-        "grid_gap": 20,
-        "element_spacing": 15,
-        "padding_top": 25,
-        "padding_bottom": 25,
-        "padding_left": 10,
-        "padding_right": 10,
-        "mobile_display": "slideshow",
-        "mobile_columns": "1fr",
-        "progress_background_color": "linear-gradient(177deg, rgba(17, 17, 17, .25) 3%, rgba(17, 17, 17, 0.25) 100%)",
-        "progress_foreground_color": "linear-gradient(177deg, rgba(17, 17, 17, 1) 3%, rgba(17, 17, 17, 1) 100%)",
-        "indicator_color": "#111",
-        "enable_autoplay": true,
-        "autoplay_time": "5000"
-      }
-    },
     "hero": {
       "type": "image-with-text",
       "blocks": {
@@ -593,14 +513,13 @@
         "mobile_padding_bottom": 12,
         "desktop_padding_top": 16,
         "desktop_padding_bottom": 16,
-        "custom_colors_background": "#FFFFFF",
+        "custom_colors_background": "#ffffff",
         "custom_gradient_background": "",
-        "custom_colors_text": "#2E2A39"
+        "custom_colors_text": "#2e2a39"
       }
     }
   },
   "order": [
-    "sp_icon_grid_DYBbX4",
     "hero",
     "trust-bar",
     "best-sellers",
