@@ -204,6 +204,17 @@
         "content": "Or"
       },
       {
+        "type": "select",
+        "id": "heading_font_preset",
+        "label": "Heading font preset",
+        "options": [
+          { "value": "none", "label": "None (use font picker above)" },
+          { "value": "bogue_bold", "label": "Bogue Bold" }
+        ],
+        "default": "none",
+        "info": "Select a preset font. For Bogue Bold, upload bogue-bold.ttf to Content > Files and paste the URL below."
+      },
+      {
         "type": "text",
         "id": "custom_header_font_link",
         "label": "Custom font link",
