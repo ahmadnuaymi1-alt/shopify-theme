@@ -431,7 +431,7 @@
         "layout": "section",
         "color_scheme": "background-2",
         "container_color_scheme": "background-2",
-        "open_first_collapsible_row": true,
+        "open_first_collapsible_row": false,
         "video_muted_autoplay": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_second",
