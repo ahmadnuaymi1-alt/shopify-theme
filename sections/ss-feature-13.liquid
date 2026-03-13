@@ -544,7 +544,7 @@ For inquiries or permissions, contact daniel@section.store
                 {% endif %}
 
                 {% if block.settings.text != blank %}
-                  <div class="feature-text-{{ section.id }}">{{ block.settings.text }}</div>
+                  <div class="feature-text-{{ section.id }}">{{ block.settings.text | newline_to_br }}</div>
                 {% endif %}
               </div>
           {% endfor %}
@@ -644,7 +644,7 @@ For inquiries or permissions, contact daniel@section.store
                 {% endif %}
 
                 {% if block.settings.text != blank %}
-                  <div class="feature-text-{{ section.id }}">{{ block.settings.text }}</div>
+                  <div class="feature-text-{{ section.id }}">{{ block.settings.text | newline_to_br }}</div>
                 {% endif %}
               </div>
             {% endif %}
@@ -741,7 +741,7 @@ For inquiries or permissions, contact daniel@section.store
                 {% endif %}
 
                 {% if block.settings.text != blank %}
-                  <div class="feature-text-{{ section.id }}">{{ block.settings.text }}</div>
+                  <div class="feature-text-{{ section.id }}">{{ block.settings.text | newline_to_br }}</div>
                 {% endif %}
               </div>
             {% endif %}
@@ -1571,10 +1571,10 @@ For inquiries or permissions, contact daniel@section.store
             "default": "Title"
           },
           {
-            "type": "richtext",
+            "type": "text",
             "id": "text",
             "label": "Text",
-            "default": "<p>Text</p>"
+            "default": "Text"
           }
         ]
       }
