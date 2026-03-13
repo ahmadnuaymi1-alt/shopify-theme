@@ -171,6 +171,16 @@
     "comparison": {
       "type": "comparison-table",
       "blocks": {
+        "row_yGUJBr": {
+          "type": "row",
+          "settings": {
+            "benefit": "<strong>Benefit</strong>",
+            "us": true,
+            "others": false,
+            "others_2": false,
+            "others_3": false
+          }
+        },
         "comparison-row-1": {
           "type": "row",
           "settings": {
@@ -223,6 +233,7 @@
         }
       },
       "block_order": [
+        "row_yGUJBr",
         "comparison-row-1",
         "comparison-row-2",
         "comparison-row-3",
