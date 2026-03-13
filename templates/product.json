@@ -412,6 +412,22 @@
         "padding_bottom": 24
       }
     },
+    "section_divider_fKnNkL": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "curved_3",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "custom",
+        "custom_shape_color": "#89c4e1",
+        "background_color": "background-1",
+        "custom_background_color": "#89c4e1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "image_with_text_FCF9iP": {
       "type": "image-with-text",
       "blocks": {
@@ -447,11 +463,11 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "video_autoplay": true,
+        "video_autoplay": false,
         "video_loop": true,
         "height": "adapt",
-        "color_scheme": "background-1",
-        "section_color_scheme": "background-1",
+        "color_scheme": "custom",
+        "section_color_scheme": "custom",
         "full_desktop_width": false,
         "content_layout": "no-overlap",
         "desktop_media_width": 50,
@@ -463,17 +479,39 @@
         "mobile_image_quanlity": "2",
         "mobile_content_alignment": "left",
         "mobile_padding_top": 0,
-        "mobile_padding_bottom": 16,
-        "desktop_padding_top": 36,
+        "mobile_padding_bottom": 0,
+        "desktop_padding_top": 0,
         "desktop_padding_bottom": 36,
-        "custom_colors_background": "#2E2A39",
+        "custom_colors_background": "#89c4e1",
         "custom_gradient_background": "",
         "custom_colors_text": "#FFFFFF",
         "custom_colors_solid_button_background": "#dd1d1d",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d",
-        "custom_section_colors_background": "#FFFFFF",
+        "custom_section_colors_background": "#89c4e1",
         "custom_section_gradient_background": ""
+      }
+    },
+    "ss_waves_CYDdb6": {
+      "type": "ss-waves",
+      "name": "SS - Wave",
+      "settings": {
+        "wave_height": 310,
+        "wave_curvature": 330,
+        "wave_style": "less",
+        "wave_side": "180",
+        "animation": false,
+        "animation_duration": 5,
+        "background_color": "#FFFFFF",
+        "wave_color": "#89c4e1",
+        "margin_top": 0,
+        "margin_bottom": -128,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 260
       }
     },
     "ss_feature_13_xUxt4T": {
@@ -495,28 +533,28 @@
             "text": "Reduces glare from sunlight and artificial lighting, improving visibility in bright conditions."
           }
         },
-        "item_EiNkTK": {
+        "item_ThGMLL": {
           "type": "item",
           "settings": {
-            "icon": "bi-ecology",
-            "title": "Touch Sensivity",
-            "text": "Maintains the original touch responsiveness of your device, ensuring a seamless user experience."
+            "icon": "plant",
+            "title": "Title",
+            "text": "Text"
           }
         },
-        "item_xyGaMW": {
+        "item_wCD8JY": {
           "type": "item",
           "settings": {
-            "icon": "mobile",
-            "title": "Easy Installation",
-            "text": "Designed for a bubble-free application, making it simple to apply without professional assistance."
+            "icon": "plant",
+            "title": "Title",
+            "text": "Text"
           }
         }
       },
       "block_order": [
         "item_UBtwQt",
         "item_RFNnJ3",
-        "item_EiNkTK",
-        "item_xyGaMW"
+        "item_ThGMLL",
+        "item_wCD8JY"
       ],
       "name": "SS - Feature #13",
       "settings": {
@@ -533,11 +571,12 @@
         "items_gap_mobile": 30,
         "items_mt": 24,
         "items_mt_mobile": 22,
+        "image": "shopify://shop_images/pThe_BenQ_AK700ST_is_the_ultimate_4K_short-throw_laser_projector_tailor-made_for_golf_simulation_and_home_entertainment._Featuring_4000_lumens_of_brightness_true_4K_UHD_resolution_and_96582e7e-79c5-4263-a3f4-4aa1b9f1067f.png",
         "image_position": "center",
         "image_position_mobile": "first",
         "image_ratio": "portrait",
         "image_ratio_mobile": "portrait",
-        "image_radius": 0,
+        "image_radius": 14,
         "image_border_thickness": 0,
         "content_align": "center",
         "content_align_mobile": "center",
@@ -620,13 +659,35 @@
             "row_content": "",
             "page": ""
           }
+        },
+        "collapsible_row_DYdeek": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_qNkCzj": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "",
+            "page": ""
+          }
         }
       },
       "block_order": [
         "collapsible_row_EXdmEY",
         "collapsible_row_9gKwRR",
         "collapsible_row_dnyVPV",
-        "collapsible_row_BbLNCT"
+        "collapsible_row_BbLNCT",
+        "collapsible_row_DYdeek",
+        "collapsible_row_qNkCzj"
       ],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
@@ -661,7 +722,9 @@
   "order": [
     "main",
     "related-products",
+    "section_divider_fKnNkL",
     "image_with_text_FCF9iP",
+    "ss_waves_CYDdb6",
     "ss_feature_13_xUxt4T",
     "collapsible_content_bdGMNr"
   ]
