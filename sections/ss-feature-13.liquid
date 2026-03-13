@@ -74,7 +74,7 @@ For inquiries or permissions, contact daniel@section.store
   assign text_height = section.settings.text_height
   assign text_mt = section.settings.text_mt
   assign text_mt_mobile = section.settings.text_mt_mobile
-  assign text_hide_mobile = section.settings.text_hide_mobile
+  assign mobile_layout = section.settings.mobile_layout
 
   assign text_align_mobile = ""
   if content_align_mobile == "center"
@@ -336,7 +336,17 @@ For inquiries or permissions, contact daniel@section.store
   </style>
 {% endif %}
 
-{% if text_hide_mobile %}
+{% if mobile_layout == "stacked" %}
+  <style>
+    .feature-items-{{ section.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-item-{{ section.id }} {
+      padding: 16px 0;
+    }
+  </style>
+{% else %}
   <style>
     .feature-text-{{ section.id }} {
       display: none;
@@ -1211,10 +1221,15 @@ For inquiries or permissions, contact daniel@section.store
         "default": 6
       },
       {
-        "type": "checkbox",
-        "id": "text_hide_mobile",
-        "label": "Hide Text on Mobile",
-        "default": true
+        "type": "select",
+        "id": "mobile_layout",
+        "label": "Mobile Layout",
+        "options": [
+          { "value": "grid", "label": "Grid (2 columns, no text)" },
+          { "value": "stacked", "label": "Stacked (full width, with text)" }
+        ],
+        "default": "grid",
+        "info": "Stacked shows body text and displays items full-width on mobile"
       },
       {
         "type": "header",
