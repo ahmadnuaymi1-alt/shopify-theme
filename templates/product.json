@@ -524,8 +524,8 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "heart",
-            "title": "Eye Comfort",
-            "text": "Reduces eye strain by blocking harmful blue light from screens, making digital time more comfortable."
+            "title": "{{ product.metafields.custom.feature_1_header.value }}",
+            "text": ""
           }
         },
         "item_94BAiY": {
@@ -533,7 +533,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "time",
-            "title": "Better Sleep",
+            "title": "{{ product.metafields.custom.feature_2_header.value }}",
             "text": "Improves sleep quality by minimizing blue light exposure, which can interfere with circadian rhythms."
           }
         },
@@ -542,7 +542,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "gift",
-            "title": "Enhanced Protection",
+            "title": "{{ product.metafields.custom.feature_3_header.value }}",
             "text": "Shields your screen from scratches and impacts, extending the lifespan of your device."
           }
         },
@@ -551,7 +551,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "plant",
-            "title": "Anti-Glare",
+            "title": "{{ product.metafields.custom.feature_3_header.value }}",
             "text": "Reduces glare from sunlight and artificial lighting, improving visibility in bright conditions."
           }
         },
@@ -560,7 +560,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "bi-ecology",
-            "title": "Touch Sensivity",
+            "title": "{{ product.metafields.custom.feature_5_header.value }}",
             "text": "Maintains the original touch responsiveness of your device, ensuring a seamless user experience."
           }
         },
@@ -569,7 +569,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "mobile",
-            "title": "Easy Installation",
+            "title": "{{ product.metafields.custom.feature_6_header.value }}",
             "text": "Designed for a bubble-free application, making it simple to apply without professional assistance."
           }
         }
