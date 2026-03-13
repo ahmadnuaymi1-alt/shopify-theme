@@ -156,7 +156,7 @@
         "wave_side": "0",
         "animation": false,
         "animation_duration": 5,
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "wave_color": "#89c4e1",
         "margin_top": -152,
         "margin_bottom": 0,
@@ -392,6 +392,16 @@
             "page": ""
           }
         },
+        "faq-row-3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is your return policy?",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "<p>We offer a simple 30-day return policy. For full eligibility details and step-by-step instructions, please visit our Return Policy page.</p>",
+            "page": ""
+          }
+        },
         "faq-row-1": {
           "type": "collapsible_row",
           "settings": {
@@ -409,16 +419,6 @@
             "icon": "check_box",
             "filled_icon": false,
             "row_content": "<p>We offer free shipping on all orders delivered within the United States. For details, please review our Shipping Policy.</p>",
-            "page": ""
-          }
-        },
-        "faq-row-3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "What is your return policy?",
-            "icon": "check_box",
-            "filled_icon": false,
-            "row_content": "<p>We offer a simple 30-day return policy. For full eligibility details and step-by-step instructions, please visit our Return Policy page.</p>",
             "page": ""
           }
         },
@@ -445,9 +445,9 @@
       },
       "block_order": [
         "collapsible_row_dHLMHn",
+        "faq-row-3",
         "faq-row-1",
         "faq-row-2",
-        "faq-row-3",
         "faq-row-4",
         "faq-row-5"
       ],
