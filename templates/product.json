@@ -451,7 +451,7 @@
         "text_JeUNJj": {
           "type": "text",
           "settings": {
-            "text": "<p>{{ product.metafields.custom.image_with_text_body | metafield_tag }}</p>",
+            "text": "<p>assafsafasfas<br/>asfsaasfsafasfasf</p>",
             "text_style": "body"
           }
         }
@@ -650,44 +650,44 @@
         "collapsible_row_EXdmEY": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "{{ product.metafields.custom.faq_q1.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
-            "row_content": "",
+            "row_content": "<p>{{ product.metafields.custom.faq_a1 | metafield_tag }}</p>",
             "page": ""
           }
         },
         "collapsible_row_9gKwRR": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "{{ product.metafields.custom.faq_q2.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
-            "row_content": "",
+            "row_content": "<p>{{ product.metafields.custom.faq_a2 | metafield_tag }}</p>",
             "page": ""
           }
         },
         "collapsible_row_dnyVPV": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "{{ product.metafields.custom.faq_q3.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
-            "row_content": "",
+            "row_content": "<p>{{ product.metafields.custom.faq_a3 | metafield_tag }}</p>",
             "page": ""
           }
         },
         "collapsible_row_BbLNCT": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "{{ product.metafields.custom.faq_q4.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
-            "row_content": "",
+            "row_content": "<p>{{ product.metafields.custom.faq_a4 | metafield_tag }}</p>",
             "page": ""
           }
         },
