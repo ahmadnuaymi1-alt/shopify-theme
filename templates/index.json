@@ -398,7 +398,7 @@
             "heading": "What is your return policy?",
             "icon": "check_box",
             "filled_icon": false,
-            "row_content": "<p>We offer a simple 30-day return policy. For full eligibility details and step-by-step instructions, please visit our Return Policy page.</p>",
+            "row_content": "<p>We offer a simple 30-day return policy. For full eligibility details and step-by-step instructions, please visit our <a href=\"https://kindclouds.com/policies/refund-policy\" title=\"https://kindclouds.com/policies/refund-policy\">Return Policy page</a>.</p>",
             "page": ""
           }
         },
@@ -418,7 +418,7 @@
             "heading": "What is your shipping policy?",
             "icon": "check_box",
             "filled_icon": false,
-            "row_content": "<p>We offer free shipping on all orders delivered within the United States. For details, please review our Shipping Policy.</p>",
+            "row_content": "<p>We offer free shipping on all orders delivered within the United States. For details, please review our <a href=\"https://kindclouds.com/policies/shipping-policy\" title=\"https://kindclouds.com/policies/shipping-policy\">Shipping Policy</a>.</p>",
             "page": ""
           }
         },
