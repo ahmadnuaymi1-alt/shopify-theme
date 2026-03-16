@@ -370,7 +370,7 @@
         "timeline_color": "accent-1",
         "media_size": "medium",
         "media_position": "left",
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail_slider",
         "desktop_thumbnails_count": 5,
         "constrain_to_viewport": true,
         "media_fit": "contain",
