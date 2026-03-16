@@ -267,17 +267,6 @@
       "cart-drawer": {
         "type": "cart-drawer",
         "blocks": {
-          "6269cf6e-8e24-4068-8e2a-35bb4addad4e": {
-            "type": "countdown_timer",
-            "settings": {
-              "timer_text": "<strong>Cart reserved for [timer]</strong>",
-              "timer_duration": 300,
-              "font_size": "1.4",
-              "color_scheme": "inverse",
-              "margin_top": 0,
-              "margin_bottom": 15
-            }
-          },
           "926ea95f-fd8a-43e7-b215-de4f6cbc19f9": {
             "type": "checkpoints_bar",
             "disabled": true,
@@ -417,7 +406,6 @@
           }
         },
         "block_order": [
-          "6269cf6e-8e24-4068-8e2a-35bb4addad4e",
           "926ea95f-fd8a-43e7-b215-de4f6cbc19f9",
           "058d6d0a-ba0d-48cb-9432-de85da1e5aef",
           "097b7b4f-c0b8-4073-a06b-e6d49a5aad20",
@@ -428,7 +416,7 @@
         ],
         "settings": {
           "test_mode": false,
-          "heading_text": "Cart â€¢ [count] items",
+          "heading_text": "Your Cart",
           "heading_alignment": "flex-start",
           "desktop_width": "normal",
           "mobile_width": "full",
