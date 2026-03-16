@@ -22,21 +22,6 @@
             "margin_bottom": 0
           }
         },
-        "a6eb81db-40e4-43e0-972f-32db010a4a56": {
-          "type": "rating_stars",
-          "settings": {
-            "rating": 4.4,
-            "star_color": "#ffcc00",
-            "bg_stars_style": "full",
-            "bg_star_color": "#ececec",
-            "label": "(xxxx Reviews)",
-            "size": 16,
-            "alignment": "flex-start",
-            "scroll_id": "",
-            "margin_top": 0,
-            "margin_bottom": 9
-          }
-        },
         "price": {
           "type": "price",
           "settings": {
@@ -337,7 +322,6 @@
       },
       "block_order": [
         "title",
-        "a6eb81db-40e4-43e0-972f-32db010a4a56",
         "price",
         "text_H6i4Lk",
         "text_zhfYEk",
