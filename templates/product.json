@@ -468,7 +468,7 @@
         "image_fallback": "0",
         "video_autoplay": false,
         "video_loop": true,
-        "height": "medium",
+        "height": "adapt",
         "color_scheme": "custom",
         "section_color_scheme": "custom",
         "full_desktop_width": false,
