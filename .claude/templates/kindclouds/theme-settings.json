@@ -1,0 +1,162 @@
+{
+  "_comment": "KindClouds.com theme settings — extracted from config/settings_data.json",
+
+  "colors": {
+    "colors_accent_1": "#6aafe6",
+    "colors_accent_2": "#F8A4B8",
+    "colors_text": "#2D3436",
+    "colors_background_1": "#ffffff",
+    "colors_background_2": "#F5F7FA",
+    "colors_solid_button_labels": "#ffffff",
+    "colors_outline_button_labels": "#6AAFE6",
+    "checkout_accent_color": "#6AAFE6",
+    "checkout_button_color": "#6AAFE6"
+  },
+
+  "typography": {
+    "type_header_font": "playfair_display_n7",
+    "heading_font_preset": "bogue_bold",
+    "custom_header_font_link": "https://cdn.shopify.com/s/files/1/0806/7013/0415/files/boguebold.woff2?v=1773219257",
+    "heading_scale": 130,
+    "heading_letter_spacing": 0.6,
+    "type_body_font": "poppins_n4",
+    "body_scale": 100
+  },
+
+  "layout": {
+    "page_width": 1400,
+    "spacing_sections": 0,
+    "spacing_grid_horizontal": 40,
+    "spacing_grid_vertical": 40
+  },
+
+  "buttons": {
+    "buttons_radius": 6,
+    "buttons_border_thickness": 2,
+    "buttons_border_opacity": 100,
+    "buttons_shadow_opacity": 0,
+    "link_btn_hover": "arrow",
+    "action_btn_hover": "center"
+  },
+
+  "cards": {
+    "card_style": "card",
+    "card_image_padding": 0,
+    "card_text_alignment": "center",
+    "card_color_scheme": "background-1",
+    "card_corner_radius": 12,
+    "card_shadow_opacity": 10,
+    "card_shadow_horizontal_offset": 2,
+    "card_shadow_vertical_offset": 6,
+    "card_shadow_blur": 15,
+    "card_border_thickness": 0
+  },
+
+  "badges": {
+    "badge_position": "bottom left",
+    "badge_corner_radius": 6,
+    "sale_badge_color_scheme": "accent-2",
+    "sale_badge_text": "SAVE [percentage]",
+    "sold_out_badge_color_scheme": "inverse",
+    "product_cards_badge_push_sides": true,
+    "product_cards_custom_badges_list": "BEST DEAL, BEST SELLER, [percentage] OFF"
+  },
+
+  "inputs": {
+    "inputs_radius": 6,
+    "inputs_border_thickness": 1,
+    "inputs_border_opacity": 60,
+    "pickers_radius": 8,
+    "pickers_border_thickness": 1,
+    "quantity_radius": 8
+  },
+
+  "media": {
+    "media_radius": 12,
+    "media_border_thickness": 0,
+    "media_shadow_opacity": 0
+  },
+
+  "animations": {
+    "enable_load_animations": true,
+    "repeat_section_animations": false,
+    "section_animation_type": "none"
+  },
+
+  "cart": {
+    "cart_type": "drawer",
+    "cart_icon": "bag_2",
+    "enable_cart_timer": true,
+    "cart_timer_text": "<strong>Cart reserved for [timer] more minutes!</strong>",
+    "enable_cart_progress_bar": true,
+    "cart_progress_message": "Spend [amount] more to get FREE shipping!",
+    "cart_progress_success_message": "You've unlocked FREE shipping! 🎉",
+    "cart_progress_icon": "local_shipping"
+  },
+
+  "header": {
+    "sticky_header_type": "on-scroll-up",
+    "show_line_separator": true,
+    "color_scheme": "background-1",
+    "logo_position": "middle-center",
+    "menu": "main-menu",
+    "menu_type_desktop": "dropdown",
+    "highlight_active_link": true,
+    "display_search": true,
+    "padding_top": 20,
+    "padding_bottom": 20
+  },
+
+  "footer": {
+    "color_scheme": "accent-1",
+    "show_social": true,
+    "enable_language_selector": true,
+    "payment_enable": true,
+    "custom_colors_background": "#2D3436",
+    "custom_colors_text": "#ffffff",
+    "custom_colors_solid_button_background": "#ffffff",
+    "custom_colors_solid_button_text": "#121212",
+    "custom_colors_outline_button": "#ffffff",
+    "padding_top": 32,
+    "padding_bottom": 20,
+    "blocks": {
+      "image": {
+        "type": "image",
+        "settings": { "image_width": 100, "alignment": "center", "width_desktop": 4, "width_mobile": "2" }
+      },
+      "link_list": {
+        "type": "link_list",
+        "settings": { "heading": "Quick links", "menu": "footer", "width_desktop": 4, "width_mobile": "1" }
+      },
+      "email_signup": {
+        "type": "email_signup",
+        "settings": {
+          "heading": "Join the Family",
+          "subtext": "<p>Get exclusive deals, new arrivals, and tips for your little ones and furry friends.</p>",
+          "button_type": "solid",
+          "button_label": "Sign up",
+          "width_desktop": 4,
+          "width_mobile": "2"
+        }
+      }
+    }
+  },
+
+  "popup": {
+    "mode": "disabled",
+    "heading_prefix": "Sign up and",
+    "heading": "GET 10% OFF",
+    "text": "<p>Join our family! Sign up for exclusive deals on the best products for your little ones and furry friends.</p>",
+    "button_label": "Sign up",
+    "discount_code": "EXAMPLE10"
+  },
+
+  "misc": {
+    "scrollbar_style": "default",
+    "predictive_search_enabled": true,
+    "predictive_search_show_price": true,
+    "currency_code_enabled": false,
+    "scroll_to_top": true,
+    "scroll_to_top_color_scheme": "accent-1"
+  }
+}

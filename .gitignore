@@ -4,3 +4,19 @@ __MACOSX/
 node_modules/
 .shopify/
 *.html
+
+# Setup tool
+setup/node_modules/
+setup/dist/
+setup/configs/*.json
+!setup/configs/_template.json
+setup/screenshots/
+setup/*.png
+setup/.playwright-mcp/
+
+# Temporary files
+temp/
+
+# Environment and secrets
+.env
+*.env.local

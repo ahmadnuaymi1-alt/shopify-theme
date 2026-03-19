@@ -1,0 +1,383 @@
+{% doc %}
+  @prompt
+    Create me a sliding image carousel like this. Give me the option to choose the size of my images. Keep the carousel smoothly autoplaying, not autoplaying 1 image at a time. Don't stop autoplaying when hovered over. Let me choose how many images I want to display. Also give me the option to add above and below section spacing, Well done but it isn't auto sliding, Allow me to choose my desktop width for the section, Please allow the carousel to be of full width of the page. There was previously an issue where sometimes an image takes a while to show after scrolling. Please make sure this doesn't happen. The image above shows how sometimes it takes a while to load, allow me better control of the scroll speed., Make the scroll speed between 0 and 1, Allow me to adjust how round the corners are
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-carousel-container-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    padding-top: {{ block.settings.spacing_top }}px;
+    padding-bottom: {{ block.settings.spacing_bottom }}px;
+  }
+
+  .ai-carousel-wrapper-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .ai-carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.image_gap }}px;
+    will-change: transform;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.image_width }}px;
+    height: {{ block.settings.image_height }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-carousel-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-carousel-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-carousel-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-carousel-slide-{{ ai_gen_id }} {
+      width: {{ block.settings.image_width | times: 0.7 }}px;
+      height: {{ block.settings.image_height | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<infinite-carousel-{{ ai_gen_id }}
+  class="ai-carousel-container-{{ ai_gen_id }}"
+  data-speed="{{ block.settings.scroll_speed }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-carousel-wrapper-{{ ai_gen_id }}">
+    <div class="ai-carousel-track-{{ ai_gen_id }}">
+      {% for i in (1..block.settings.image_count) %}
+        {% assign image_key = 'image_' | append: i %}
+        {% assign image = block.settings[image_key] %}
+        
+        <div class="ai-carousel-slide-{{ ai_gen_id }}">
+          {% if image %}
+            <img
+              src="{{ image | image_url: width: 800 }}"
+              alt="{{ image.alt | escape }}"
+              loading="eager"
+              width="{{ block.settings.image_width }}"
+              height="{{ block.settings.image_height }}"
+            >
+          {% else %}
+            <div class="ai-carousel-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</infinite-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class InfiniteCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.track = null;
+        this.slides = [];
+        this.animationId = null;
+        this.currentPosition = 0;
+        this.speed = 1;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-carousel-track-{{ ai_gen_id }}');
+        this.slides = Array.from(this.querySelectorAll('.ai-carousel-slide-{{ ai_gen_id }}'));
+        this.speed = parseFloat(this.getAttribute('data-speed')) || 0.5;
+
+        if (this.slides.length === 0) return;
+
+        this.duplicateSlides();
+        this.startAnimation();
+      }
+
+      duplicateSlides() {
+        const gap = {{ block.settings.image_gap }};
+        const slideWidth = {{ block.settings.image_width }} + gap;
+        const totalWidth = slideWidth * this.slides.length;
+        const viewportWidth = this.track.parentElement.offsetWidth;
+        const duplicatesNeeded = Math.ceil((viewportWidth * 3) / totalWidth);
+
+        for (let i = 0; i < duplicatesNeeded; i++) {
+          this.slides.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            this.track.appendChild(clone);
+          });
+        }
+      }
+
+      startAnimation() {
+        const gap = {{ block.settings.image_gap }};
+        const slideWidth = {{ block.settings.image_width }} + gap;
+        const resetPoint = slideWidth * this.slides.length;
+
+        const animate = () => {
+          this.currentPosition += this.speed;
+
+          if (this.currentPosition >= resetPoint) {
+            this.currentPosition = 0;
+          }
+
+          this.track.style.transform = `translateX(-${this.currentPosition}px)`;
+          this.animationId = requestAnimationFrame(animate);
+        };
+
+        this.animationId = requestAnimationFrame(animate);
+      }
+
+      disconnectedCallback() {
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+        }
+      }
+    }
+
+    customElements.define('infinite-carousel-{{ ai_gen_id }}', InfiniteCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Infinite image carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "range",
+      "id": "image_count",
+      "label": "Number of images",
+      "min": 3,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 100,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "min": 100,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "image_gap",
+      "label": "Gap between images",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_9",
+      "label": "Image 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_10",
+      "label": "Image 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_11",
+      "label": "Image 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_12",
+      "label": "Image 12"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_13",
+      "label": "Image 13"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_14",
+      "label": "Image 14"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_15",
+      "label": "Image 15"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_16",
+      "label": "Image 16"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_17",
+      "label": "Image 17"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_18",
+      "label": "Image 18"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_19",
+      "label": "Image 19"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_20",
+      "label": "Image 20"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infinite image carousel"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,392 @@
+{% doc %}
+  @prompt
+    Create me an FAQ section and allow me to choose the background of the section. Make it a vertical format with simple minimalistic folder sections. Make. I want the way the questions are seperated with just a line., Allow me to make this wider, also let me choose the size of the text for both header and body., Please add a smoother animation when the FAQ is pressed to open, Allow me the option to connect dynamic sources for both the Question and Answer.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-section-{{ ai_gen_id }} {
+    width: 100%;
+    display: block;
+  }
+
+  .ai-faq-container-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-faq-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-faq-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.header_font_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+  }
+
+  .ai-faq-list-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }} {
+    border-bottom: 1px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-faq-question-button-{{ ai_gen_id }} {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.body_font_size }}px;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-faq-question-button-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  .ai-faq-question-text-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.text_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-{{ ai_gen_id }} {
+    grid-template-rows: 1fr;
+  }
+
+  .ai-faq-answer-wrapper-{{ ai_gen_id }} {
+    overflow: hidden;
+  }
+
+  .ai-faq-answer-content-{{ ai_gen_id }} {
+    padding: 0 0 20px 0;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.body_font_size }}px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-content-{{ ai_gen_id }} {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-container-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-faq-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.header_font_size }}px * 0.8);
+    }
+
+    .ai-faq-question-button-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.body_font_size }}px * 0.9);
+    }
+
+    .ai-faq-answer-content-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.body_font_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<faq-section-{{ ai_gen_id }} class="ai-faq-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <div class="ai-faq-header-{{ ai_gen_id }}">
+        <h2 class="ai-faq-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+      </div>
+    {% endif %}
+
+    <ul class="ai-faq-list-{{ ai_gen_id }}">
+      {% for i in (1..6) %}
+        {% liquid
+          assign question_key = 'question_' | append: i
+          assign answer_key = 'answer_' | append: i
+          assign question = block.settings[question_key]
+          assign answer = block.settings[answer_key]
+        %}
+
+        {% if question != blank and answer != blank %}
+          <li class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+            <button
+              class="ai-faq-question-button-{{ ai_gen_id }}"
+              aria-expanded="false"
+              data-faq-button
+            >
+              <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ question }}</span>
+              <span class="ai-faq-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="ai-faq-answer-{{ ai_gen_id }}" data-faq-answer>
+              <div class="ai-faq-answer-wrapper-{{ ai_gen_id }}">
+                <div class="ai-faq-answer-content-{{ ai_gen_id }}">
+                  {{ answer }}
+                </div>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</faq-section-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FaqSection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('[data-faq-item]');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item) => {
+          const button = item.querySelector('[data-faq-button]');
+          const answer = item.querySelector('[data-faq-answer]');
+
+          button.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            if (isActive) {
+              item.classList.remove('active');
+              button.setAttribute('aria-expanded', 'false');
+            } else {
+              item.classList.add('active');
+              button.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('faq-section-{{ ai_gen_id }}', FaqSection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ section",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "label": "Header size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Question 1"
+    },
+    {
+      "type": "richtext",
+      "id": "question_1",
+      "label": "Question",
+      "default": "<p>What is your return policy?</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_1",
+      "label": "Answer",
+      "default": "<p>We offer a 30-day return policy on all items. Products must be in their original condition with tags attached.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 2"
+    },
+    {
+      "type": "richtext",
+      "id": "question_2",
+      "label": "Question",
+      "default": "<p>How long does shipping take?</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_2",
+      "label": "Answer",
+      "default": "<p>Standard shipping typically takes 5-7 business days. Express shipping options are available at checkout.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 3"
+    },
+    {
+      "type": "richtext",
+      "id": "question_3",
+      "label": "Question",
+      "default": "<p>Do you ship internationally?</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_3",
+      "label": "Answer",
+      "default": "<p>Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by location.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 4"
+    },
+    {
+      "type": "richtext",
+      "id": "question_4",
+      "label": "Question",
+      "default": "<p>How can I track my order?</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_4",
+      "label": "Answer",
+      "default": "<p>Once your order ships, you'll receive a tracking number via email. You can use this to track your package.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 5"
+    },
+    {
+      "type": "richtext",
+      "id": "question_5",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_5",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 6"
+    },
+    {
+      "type": "richtext",
+      "id": "question_6",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_6",
+      "label": "Answer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ section"
+    }
+  ]
+}
+{% endschema %}

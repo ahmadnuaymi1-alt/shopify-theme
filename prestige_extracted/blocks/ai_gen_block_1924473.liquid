@@ -1,0 +1,538 @@
+{% doc %}
+  @prompt
+    Create me a features section with the image in the middle. Allow me to choose which product page image I can use. Have the 4 icons and sections. Allow me to use dynamic fields for the features header and features body sections. Also give me the option to move where the features are.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-features-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-product-features__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 40px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-product-features__column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .ai-product-features__column-{{ ai_gen_id }}--left {
+    {% if block.settings.features_position == 'right' %}
+      display: none;
+    {% endif %}
+  }
+
+  .ai-product-features__column-{{ ai_gen_id }}--right {
+    {% if block.settings.features_position == 'left' %}
+      display: none;
+    {% endif %}
+  }
+
+  .ai-product-features__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: {{ block.settings.image_width }}px;
+    max-width: 100%;
+  }
+
+  .ai-product-features__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: block;
+  }
+
+  .ai-product-features__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-product-features__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-product-features__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-product-features__feature-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .ai-product-features__feature-{{ ai_gen_id }}--align-left {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .ai-product-features__feature-{{ ai_gen_id }}--align-right {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .ai-product-features__icon-wrapper-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    background-color: {{ block.settings.icon_background_color }};
+    border-radius: {{ block.settings.icon_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-product-features__icon-{{ ai_gen_id }} {
+    width: calc({{ block.settings.icon_size }}px * 0.6);
+    height: calc({{ block.settings.icon_size }}px * 0.6);
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-product-features__content-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-product-features__heading-{{ ai_gen_id }} {
+    margin: 0 0 8px 0;
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.heading_color }};
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+  }
+
+  .ai-product-features__text-{{ ai_gen_id }} {
+    margin: 0;
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-product-features__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .ai-product-features__column-{{ ai_gen_id }}--left,
+    .ai-product-features__column-{{ ai_gen_id }}--right {
+      display: flex;
+    }
+
+    .ai-product-features__image-wrapper-{{ ai_gen_id }} {
+      margin: 0 auto;
+    }
+
+    .ai-product-features__feature-{{ ai_gen_id }}--align-right {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+{% endstyle %}
+
+<product-features-{{ ai_gen_id }} class="ai-product-features-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-features__container-{{ ai_gen_id }}">
+    <div class="ai-product-features__column-{{ ai_gen_id }} ai-product-features__column-{{ ai_gen_id }}--left">
+      {% if block.settings.feature_1_enabled %}
+        <div class="ai-product-features__feature-{{ ai_gen_id }} ai-product-features__feature-{{ ai_gen_id }}--align-right">
+          <div class="ai-product-features__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="ai-product-features__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="ai-product-features__content-{{ ai_gen_id }}">
+            {% if block.settings.feature_1_heading != blank %}
+              <h3 class="ai-product-features__heading-{{ ai_gen_id }}">{{ block.settings.feature_1_heading }}</h3>
+            {% endif %}
+            {% if block.settings.feature_1_text != blank %}
+              <div class="ai-product-features__text-{{ ai_gen_id }}">{{ block.settings.feature_1_text }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_2_enabled %}
+        <div class="ai-product-features__feature-{{ ai_gen_id }} ai-product-features__feature-{{ ai_gen_id }}--align-right">
+          <div class="ai-product-features__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="ai-product-features__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="ai-product-features__content-{{ ai_gen_id }}">
+            {% if block.settings.feature_2_heading != blank %}
+              <h3 class="ai-product-features__heading-{{ ai_gen_id }}">{{ block.settings.feature_2_heading }}</h3>
+            {% endif %}
+            {% if block.settings.feature_2_text != blank %}
+              <div class="ai-product-features__text-{{ ai_gen_id }}">{{ block.settings.feature_2_text }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-product-features__image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.product_image != blank %}
+        {% assign selected_image = product.images[block.settings.product_image] %}
+        {% if selected_image %}
+          <img
+            src="{{ selected_image | image_url: width: 800 }}"
+            alt="{{ selected_image.alt | escape }}"
+            class="ai-product-features__image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="{{ selected_image.width }}"
+            height="{{ selected_image.height }}"
+          >
+        {% else %}
+          <div class="ai-product-features__image-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+            <div class="ai-product-features__empty-state-{{ ai_gen_id }}">
+              Select a product image
+            </div>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="ai-product-features__image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+          <div class="ai-product-features__empty-state-{{ ai_gen_id }}">
+            Select a product image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-product-features__column-{{ ai_gen_id }} ai-product-features__column-{{ ai_gen_id }}--right">
+      {% if block.settings.feature_3_enabled %}
+        <div class="ai-product-features__feature-{{ ai_gen_id }} ai-product-features__feature-{{ ai_gen_id }}--align-left">
+          <div class="ai-product-features__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="ai-product-features__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div class="ai-product-features__content-{{ ai_gen_id }}">
+            {% if block.settings.feature_3_heading != blank %}
+              <h3 class="ai-product-features__heading-{{ ai_gen_id }}">{{ block.settings.feature_3_heading }}</h3>
+            {% endif %}
+            {% if block.settings.feature_3_text != blank %}
+              <div class="ai-product-features__text-{{ ai_gen_id }}">{{ block.settings.feature_3_text }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_4_enabled %}
+        <div class="ai-product-features__feature-{{ ai_gen_id }} ai-product-features__feature-{{ ai_gen_id }}--align-left">
+          <div class="ai-product-features__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="ai-product-features__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div class="ai-product-features__content-{{ ai_gen_id }}">
+            {% if block.settings.feature_4_heading != blank %}
+              <h3 class="ai-product-features__heading-{{ ai_gen_id }}">{{ block.settings.feature_4_heading }}</h3>
+            {% endif %}
+            {% if block.settings.feature_4_text != blank %}
+              <div class="ai-product-features__text-{{ ai_gen_id }}">{{ block.settings.feature_4_text }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</product-features-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductFeatures{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('product-features-{{ ai_gen_id }}', ProductFeatures{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product features",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "features_position",
+      "label": "Features position",
+      "options": [
+        {
+          "value": "both",
+          "label": "Both sides"
+        },
+        {
+          "value": "left",
+          "label": "Left side only"
+        },
+        {
+          "value": "right",
+          "label": "Right side only"
+        }
+      ],
+      "default": "both"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "range",
+      "id": "product_image",
+      "label": "Product image",
+      "info": "Select which product image to display (1 = first image, 2 = second image, etc.)",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Icon background",
+      "default": "#efefef"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "label": "Icon border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_enabled",
+      "label": "Enable feature 1",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_heading",
+      "label": "Heading",
+      "default": "Premium Quality"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_text",
+      "label": "Text",
+      "default": "Crafted with the finest materials for lasting durability"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_enabled",
+      "label": "Enable feature 2",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_heading",
+      "label": "Heading",
+      "default": "Fast Delivery"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_text",
+      "label": "Text",
+      "default": "Get your order delivered within 2-3 business days"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_enabled",
+      "label": "Enable feature 3",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_heading",
+      "label": "Heading",
+      "default": "Secure Payment"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_text",
+      "label": "Text",
+      "default": "Your payment information is always protected"
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_4_enabled",
+      "label": "Enable feature 4",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_heading",
+      "label": "Heading",
+      "default": "Energy Efficient"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_text",
+      "label": "Text",
+      "default": "Designed to minimize power consumption"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product features"
+    }
+  ]
+}
+{% endschema %}

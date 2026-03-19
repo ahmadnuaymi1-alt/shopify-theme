@@ -1,0 +1,145 @@
+{
+  "_comment": "Standard 23 product metafield definitions for Shrine theme product pages",
+  "namespace": "custom",
+  "owner_type": "PRODUCT",
+  "definitions": [
+    {
+      "key": "image_with_text_header",
+      "name": "Image With Text Header",
+      "type": "single_line_text_field",
+      "description": "Heading text for the Image with Text product section"
+    },
+    {
+      "key": "image_with_text_body",
+      "name": "Image With Text Body",
+      "type": "multi_line_text_field",
+      "description": "Body text for the Image with Text product section"
+    },
+    {
+      "key": "image_for_image_text_section_1",
+      "name": "Image for Image Text Section",
+      "type": "file_reference",
+      "description": "Image for the Image with Text product section"
+    },
+    {
+      "key": "feature_1_header",
+      "name": "Feature 1 Header",
+      "type": "single_line_text_field",
+      "description": "Title for product feature 1"
+    },
+    {
+      "key": "feature_1_body",
+      "name": "Feature 1 Body",
+      "type": "single_line_text_field",
+      "description": "Description for product feature 1"
+    },
+    {
+      "key": "feature_2_header",
+      "name": "Feature 2 Header",
+      "type": "single_line_text_field",
+      "description": "Title for product feature 2"
+    },
+    {
+      "key": "feature_2_body",
+      "name": "Feature 2 Body",
+      "type": "single_line_text_field",
+      "description": "Description for product feature 2"
+    },
+    {
+      "key": "feature_3_header",
+      "name": "Feature 3 Header",
+      "type": "single_line_text_field",
+      "description": "Title for product feature 3"
+    },
+    {
+      "key": "feature_3_body",
+      "name": "Feature 3 Body",
+      "type": "single_line_text_field",
+      "description": "Description for product feature 3"
+    },
+    {
+      "key": "feature_4_header",
+      "name": "Feature 4 Header",
+      "type": "single_line_text_field",
+      "description": "Title for product feature 4"
+    },
+    {
+      "key": "feature_4_body",
+      "name": "Feature 4 Body",
+      "type": "single_line_text_field",
+      "description": "Description for product feature 4"
+    },
+    {
+      "key": "feature_5_header",
+      "name": "Feature 5 Header",
+      "type": "single_line_text_field",
+      "description": "Title for product feature 5"
+    },
+    {
+      "key": "feature_5_body",
+      "name": "Feature 5 Body",
+      "type": "single_line_text_field",
+      "description": "Description for product feature 5"
+    },
+    {
+      "key": "feature_6_header",
+      "name": "Feature 6 Header",
+      "type": "single_line_text_field",
+      "description": "Title for product feature 6"
+    },
+    {
+      "key": "feature_6_body",
+      "name": "Feature 6 Body",
+      "type": "single_line_text_field",
+      "description": "Description for product feature 6"
+    },
+    {
+      "key": "faq_q1",
+      "name": "FAQ Question 1",
+      "type": "single_line_text_field",
+      "description": "Product FAQ question 1"
+    },
+    {
+      "key": "faq_a1",
+      "name": "FAQ Answer 1",
+      "type": "single_line_text_field",
+      "description": "Product FAQ answer 1"
+    },
+    {
+      "key": "faq_q2",
+      "name": "FAQ Question 2",
+      "type": "single_line_text_field",
+      "description": "Product FAQ question 2"
+    },
+    {
+      "key": "faq_a2",
+      "name": "FAQ Answer 2",
+      "type": "single_line_text_field",
+      "description": "Product FAQ answer 2"
+    },
+    {
+      "key": "faq_q3",
+      "name": "FAQ Question 3",
+      "type": "single_line_text_field",
+      "description": "Product FAQ question 3"
+    },
+    {
+      "key": "faq_a3",
+      "name": "FAQ Answer 3",
+      "type": "single_line_text_field",
+      "description": "Product FAQ answer 3"
+    },
+    {
+      "key": "faq_q4",
+      "name": "FAQ Question 4",
+      "type": "single_line_text_field",
+      "description": "Product FAQ question 4"
+    },
+    {
+      "key": "faq_a4",
+      "name": "FAQ Answer 4",
+      "type": "single_line_text_field",
+      "description": "Product FAQ answer 4"
+    }
+  ]
+}

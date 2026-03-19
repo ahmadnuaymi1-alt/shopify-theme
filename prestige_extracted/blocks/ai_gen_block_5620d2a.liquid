@@ -1,0 +1,627 @@
+{% doc %}
+  @prompt
+    Create me a features section with the image in the middle. Allow me to choose which product page image I can use. Have the 4 icons and sections. Allow me to use dynamic fields for the features header and features body sections. Also give me the option to increase or decrases gaps between the features and icons both vericatally and a gap away from the image horizontally., Allow me the option to use dynamic sources for both my Heading and Body. Also give me the option to select a featured product image from my product page (e.g the 2nd image of all prodcut pages). Make the outside shape of the icon circular. Also let me choose an image for the icon, Allow me the option to choose typography, Make the icon on the images side, let me choose the size of the icon inside of the circle. If the featured image I want isn't availabe (e.g if there is no 3rd image) then give me the option to select a backup image., Make the icons on the closer side to the imaeg, Allow me more Vertical gap between features, also make the section in the centre
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% liquid
+  assign product_images = product.media | where: 'media_type', 'image'
+  assign image_index = block.settings.product_image_index | minus: 1
+  assign featured_image = product_images[image_index]
+  
+  if featured_image == blank
+    assign featured_image = block.settings.fallback_image
+  endif
+%}
+
+{% style %}
+  .ai-features-section-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-features-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.horizontal_gap }}px;
+  }
+
+  .ai-features-column-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.vertical_gap }}px;
+  }
+
+  .ai-features-column-{{ ai_gen_id }}--left {
+    align-items: flex-end;
+  }
+
+  .ai-features-column-{{ ai_gen_id }}--right {
+    align-items: flex-start;
+  }
+
+  .ai-features-image-wrapper-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.image_width }}%;
+    max-width: 600px;
+  }
+
+  .ai-features-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: block;
+  }
+
+  .ai-features-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-features-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-features-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-feature-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_text_gap }}px;
+  }
+
+  .ai-feature-item-{{ ai_gen_id }}--left {
+    flex-direction: row-reverse;
+  }
+
+  .ai-feature-icon-circle-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_circle_size }}px;
+    height: {{ block.settings.icon_circle_size }}px;
+    border-radius: 50%;
+    background-color: {{ block.settings.icon_background_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .ai-feature-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}%;
+    height: {{ block.settings.icon_size }}%;
+    object-fit: contain;
+  }
+
+  .ai-feature-icon-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}%;
+    height: {{ block.settings.icon_size }}%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-feature-icon-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    color: {{ block.settings.icon_placeholder_color }};
+  }
+
+  .ai-feature-content-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-feature-content-{{ ai_gen_id }}--left {
+    text-align: right;
+  }
+
+  .ai-feature-heading-{{ ai_gen_id }} {
+    margin: 0 0 {{ block.settings.heading_bottom_margin }}px 0;
+    color: {{ block.settings.heading_color }};
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.heading_font_size }}px;
+    line-height: 1.3;
+  }
+
+  .ai-feature-body-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.body_color }};
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.body_font_size }}px;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-features-container-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.mobile_vertical_gap }}px;
+    }
+
+    .ai-features-image-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+      order: {{ block.settings.mobile_image_position }};
+    }
+
+    .ai-features-column-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-features-column-{{ ai_gen_id }}--left,
+    .ai-features-column-{{ ai_gen_id }}--right {
+      align-items: stretch;
+    }
+
+    .ai-feature-item-{{ ai_gen_id }}--left {
+      flex-direction: row;
+    }
+
+    .ai-feature-content-{{ ai_gen_id }}--left {
+      text-align: left;
+    }
+
+    .ai-feature-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_font_size | times: 0.9 }}px;
+    }
+
+    .ai-feature-body-{{ ai_gen_id }} {
+      font-size: {{ block.settings.body_font_size | times: 0.9 }}px;
+    }
+
+    .ai-feature-icon-circle-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_circle_size | times: 0.85 }}px;
+      height: {{ block.settings.icon_circle_size | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-features-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-features-container-{{ ai_gen_id }}">
+    <div class="ai-features-column-{{ ai_gen_id }} ai-features-column-{{ ai_gen_id }}--left">
+      {% for i in (1..2) %}
+        {% liquid
+          assign heading_key = 'feature_' | append: i | append: '_heading'
+          assign body_key = 'feature_' | append: i | append: '_body'
+          assign icon_key = 'feature_' | append: i | append: '_icon'
+          
+          assign feature_heading = block.settings[heading_key]
+          assign feature_body = block.settings[body_key]
+          assign feature_icon = block.settings[icon_key]
+        %}
+        
+        <div class="ai-feature-item-{{ ai_gen_id }} ai-feature-item-{{ ai_gen_id }}--left">
+          <div class="ai-feature-icon-circle-{{ ai_gen_id }}">
+            {% if feature_icon %}
+              <img
+                src="{{ feature_icon | image_url: width: 200 }}"
+                alt="{{ feature_heading }}"
+                class="ai-feature-icon-{{ ai_gen_id }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
+            {% else %}
+              <div class="ai-feature-icon-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+          
+          <div class="ai-feature-content-{{ ai_gen_id }} ai-feature-content-{{ ai_gen_id }}--left">
+            {% if feature_heading != blank %}
+              <h3 class="ai-feature-heading-{{ ai_gen_id }}">{{ feature_heading }}</h3>
+            {% endif %}
+            {% if feature_body != blank %}
+              <div class="ai-feature-body-{{ ai_gen_id }}">{{ feature_body }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ai-features-image-wrapper-{{ ai_gen_id }}">
+      {% if featured_image %}
+        {% if featured_image.media_type == 'image' %}
+          <img
+            src="{{ featured_image | image_url: width: 1200 }}"
+            alt="{{ featured_image.alt | escape }}"
+            class="ai-features-image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="{{ featured_image.width }}"
+            height="{{ featured_image.height }}"
+          >
+        {% else %}
+          <img
+            src="{{ featured_image | image_url: width: 1200 }}"
+            alt="{{ featured_image.alt | escape }}"
+            class="ai-features-image-{{ ai_gen_id }}"
+            loading="lazy"
+          >
+        {% endif %}
+      {% else %}
+        <div class="ai-features-image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+          <div class="ai-features-empty-state-{{ ai_gen_id }}">
+            Select a product image or add a fallback image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-features-column-{{ ai_gen_id }} ai-features-column-{{ ai_gen_id }}--right">
+      {% for i in (3..4) %}
+        {% liquid
+          assign heading_key = 'feature_' | append: i | append: '_heading'
+          assign body_key = 'feature_' | append: i | append: '_body'
+          assign icon_key = 'feature_' | append: i | append: '_icon'
+          
+          assign feature_heading = block.settings[heading_key]
+          assign feature_body = block.settings[body_key]
+          assign feature_icon = block.settings[icon_key]
+        %}
+        
+        <div class="ai-feature-item-{{ ai_gen_id }}">
+          <div class="ai-feature-icon-circle-{{ ai_gen_id }}">
+            {% if feature_icon %}
+              <img
+                src="{{ feature_icon | image_url: width: 200 }}"
+                alt="{{ feature_heading }}"
+                class="ai-feature-icon-{{ ai_gen_id }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
+            {% else %}
+              <div class="ai-feature-icon-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+          
+          <div class="ai-feature-content-{{ ai_gen_id }}">
+            {% if feature_heading != blank %}
+              <h3 class="ai-feature-heading-{{ ai_gen_id }}">{{ feature_heading }}</h3>
+            {% endif %}
+            {% if feature_body != blank %}
+              <div class="ai-feature-body-{{ ai_gen_id }}">{{ feature_body }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product features",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "range",
+      "id": "product_image_index",
+      "label": "Product image position",
+      "info": "Select which product image to display (1st, 2nd, 3rd, etc.)",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback image",
+      "info": "Used when selected product image is not available"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "horizontal_gap",
+      "label": "Horizontal gap from image",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "vertical_gap",
+      "label": "Vertical gap between features",
+      "min": 10,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "icon_text_gap",
+      "label": "Gap between icon and text",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Mobile image position",
+      "options": [
+        {
+          "value": "-1",
+          "label": "Top"
+        },
+        {
+          "value": "1",
+          "label": "Bottom"
+        }
+      ],
+      "default": "-1"
+    },
+    {
+      "type": "range",
+      "id": "mobile_vertical_gap",
+      "label": "Mobile vertical gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_circle_size",
+      "label": "Circle size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size inside circle",
+      "min": 40,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Circle background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "icon_placeholder_color",
+      "label": "Placeholder icon color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_heading",
+      "label": "Heading",
+      "default": "Premium quality"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_1_body",
+      "label": "Body",
+      "default": "<p>Crafted with the finest materials for lasting durability</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_heading",
+      "label": "Heading",
+      "default": "Fast shipping"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_2_body",
+      "label": "Body",
+      "default": "<p>Free delivery on orders over $50</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_heading",
+      "label": "Heading",
+      "default": "Easy returns"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_3_body",
+      "label": "Body",
+      "default": "<p>30-day hassle-free return policy</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_heading",
+      "label": "Heading",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_4_body",
+      "label": "Body",
+      "default": "<p>Your payment information is always protected</p>"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "inter_n6"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "heading_bottom_margin",
+      "label": "Heading bottom margin",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#666666"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product features"
+    }
+  ]
+}
+{% endschema %}

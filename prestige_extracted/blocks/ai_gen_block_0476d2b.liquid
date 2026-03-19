@@ -1,0 +1,639 @@
+{% doc %}
+  @prompt
+    Create me a features section with the image in the middle. Allow me to choose which product page image I can use. Have the 4 icons and sections. Allow me to use dynamic fields for the features header and features body sections. Also give me the option to increase or decrases gaps between the features and icons both vericatally and a gap away from the image horizontally., Allow me the option to use dynamic sources for both my Heading and Body. Also give me the option to select a featured product image from my product page (e.g the 2nd image of all prodcut pages).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% liquid
+  if block.settings.image_source == 'product'
+    assign image_index = block.settings.product_image_index | minus: 1
+    if product.media[image_index]
+      assign selected_image = product.media[image_index]
+    else
+      assign selected_image = product.featured_media
+    endif
+  else
+    assign selected_image = block.settings.custom_image
+  endif
+%}
+
+{% style %}
+  .ai-features-section-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px 20px;
+  }
+
+  .ai-features-container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: {{ block.settings.horizontal_gap }}px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .ai-features-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.vertical_gap }}px;
+  }
+
+  .ai-features-image-wrapper-{{ ai_gen_id }} {
+    width: {{ block.settings.image_width }}px;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+
+  .ai-features-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: block;
+  }
+
+  .ai-features-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-features-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-features-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-feature-item-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.icon_text_gap }}px;
+    align-items: flex-start;
+  }
+
+  .ai-feature-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_background_color }};
+    border-radius: {{ block.settings.icon_border_radius }}px;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-feature-icon-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.icon_size }}px * 0.6);
+    height: calc({{ block.settings.icon_size }}px * 0.6);
+    stroke-width: 1.5px;
+  }
+
+  .ai-feature-content-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-feature-heading-{{ ai_gen_id }} {
+    margin: 0 0 8px 0;
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.heading_color }};
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-style: {{ block.settings.heading_font.style }};
+  }
+
+  .ai-feature-body-{{ ai_gen_id }} {
+    margin: 0;
+    font-size: {{ block.settings.body_size }}px;
+    line-height: 1.5;
+    color: {{ block.settings.body_color }};
+  }
+
+  .ai-features-column-{{ ai_gen_id }}--left .ai-feature-item-{{ ai_gen_id }} {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-features-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .ai-features-image-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .ai-features-column-{{ ai_gen_id }}--left .ai-feature-item-{{ ai_gen_id }} {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+{% endstyle %}
+
+<product-features-{{ ai_gen_id }} class="ai-features-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-features-container-{{ ai_gen_id }}">
+    <div class="ai-features-column-{{ ai_gen_id }} ai-features-column-{{ ai_gen_id }}--left">
+      {% for i in (1..2) %}
+        {% liquid
+          assign feature_heading_key = 'feature_' | append: i | append: '_heading'
+          assign feature_body_key = 'feature_' | append: i | append: '_body'
+          assign feature_icon_key = 'feature_' | append: i | append: '_icon'
+
+          assign feature_heading = block.settings[feature_heading_key]
+          assign feature_body = block.settings[feature_body_key]
+          assign feature_icon = block.settings[feature_icon_key]
+        %}
+
+        <div class="ai-feature-item-{{ ai_gen_id }}">
+          <div class="ai-feature-icon-{{ ai_gen_id }}">
+            {% case feature_icon %}
+              {% when 'star' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              {% when 'heart' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              {% when 'check' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              {% when 'shield' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              {% when 'truck' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              {% when 'gift' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                  <rect x="2" y="7" width="20" height="5"></rect>
+                  <line x1="12" y1="22" x2="12" y2="7"></line>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+              {% when 'award' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            {% endcase %}
+          </div>
+          <div class="ai-feature-content-{{ ai_gen_id }}">
+            {% if feature_heading != blank %}
+              <h3 class="ai-feature-heading-{{ ai_gen_id }}">{{ feature_heading }}</h3>
+            {% endif %}
+            {% if feature_body != blank %}
+              <p class="ai-feature-body-{{ ai_gen_id }}">{{ feature_body }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ai-features-image-wrapper-{{ ai_gen_id }}">
+      {% if selected_image %}
+        <img
+          src="{{ selected_image | image_url: width: 800 }}"
+          alt="{{ selected_image.alt | escape }}"
+          loading="lazy"
+          width="{{ selected_image.width }}"
+          height="{{ selected_image.height }}"
+          class="ai-features-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-features-image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+          <div class="ai-features-empty-state-{{ ai_gen_id }}">
+            Select an image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-features-column-{{ ai_gen_id }} ai-features-column-{{ ai_gen_id }}--right">
+      {% for i in (3..4) %}
+        {% liquid
+          assign feature_heading_key = 'feature_' | append: i | append: '_heading'
+          assign feature_body_key = 'feature_' | append: i | append: '_body'
+          assign feature_icon_key = 'feature_' | append: i | append: '_icon'
+
+          assign feature_heading = block.settings[feature_heading_key]
+          assign feature_body = block.settings[feature_body_key]
+          assign feature_icon = block.settings[feature_icon_key]
+        %}
+
+        <div class="ai-feature-item-{{ ai_gen_id }}">
+          <div class="ai-feature-icon-{{ ai_gen_id }}">
+            {% case feature_icon %}
+              {% when 'star' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              {% when 'heart' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              {% when 'check' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              {% when 'shield' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              {% when 'truck' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              {% when 'gift' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                  <rect x="2" y="7" width="20" height="5"></rect>
+                  <line x1="12" y1="22" x2="12" y2="7"></line>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+              {% when 'award' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            {% endcase %}
+          </div>
+          <div class="ai-feature-content-{{ ai_gen_id }}">
+            {% if feature_heading != blank %}
+              <h3 class="ai-feature-heading-{{ ai_gen_id }}">{{ feature_heading }}</h3>
+            {% endif %}
+            {% if feature_body != blank %}
+              <p class="ai-feature-body-{{ ai_gen_id }}">{{ feature_body }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</product-features-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductFeatures{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('product-features-{{ ai_gen_id }}', ProductFeatures{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product features",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_source",
+      "label": "Image source",
+      "options": [
+        { "value": "product", "label": "Product page image" },
+        { "value": "custom", "label": "Custom image" }
+      ],
+      "default": "product"
+    },
+    {
+      "type": "range",
+      "id": "product_image_index",
+      "label": "Product image position",
+      "info": "Select which product image to display",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Custom image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "horizontal_gap",
+      "label": "Horizontal gap from image",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "vertical_gap",
+      "label": "Vertical gap between features",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_text_gap",
+      "label": "Gap between icon and text",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "select",
+      "id": "feature_1_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "check", "label": "Check" },
+        { "value": "shield", "label": "Shield" },
+        { "value": "truck", "label": "Truck" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "award", "label": "Award" }
+      ],
+      "default": "star"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_heading",
+      "label": "Heading",
+      "default": "Premium quality"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_1_body",
+      "label": "Body",
+      "default": "<p>Crafted with the finest materials for lasting durability</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "select",
+      "id": "feature_2_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "check", "label": "Check" },
+        { "value": "shield", "label": "Shield" },
+        { "value": "truck", "label": "Truck" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "award", "label": "Award" }
+      ],
+      "default": "shield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_heading",
+      "label": "Heading",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_2_body",
+      "label": "Body",
+      "default": "<p>Your payment information is always protected</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "select",
+      "id": "feature_3_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "check", "label": "Check" },
+        { "value": "shield", "label": "Shield" },
+        { "value": "truck", "label": "Truck" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "award", "label": "Award" }
+      ],
+      "default": "truck"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_heading",
+      "label": "Heading",
+      "default": "Fast shipping"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_3_body",
+      "label": "Body",
+      "default": "<p>Free delivery on orders over $50</p>"
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "select",
+      "id": "feature_4_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "check", "label": "Check" },
+        { "value": "shield", "label": "Shield" },
+        { "value": "truck", "label": "Truck" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "award", "label": "Award" }
+      ],
+      "default": "heart"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_heading",
+      "label": "Heading",
+      "default": "Customer satisfaction"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_4_body",
+      "label": "Body",
+      "default": "<p>30-day money back guarantee on all purchases</p>"
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Background",
+      "default": "#efefef"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "instrument_sans_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#666666"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product features"
+    }
+  ]
+}
+{% endschema %}

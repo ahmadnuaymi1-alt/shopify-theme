@@ -1,0 +1,337 @@
+## Call context
+
+- Stores reviewed: **Vida (home decor)** and **Cute Kiwi (kids-related)**
+- You’re selling in the **US**, operating from the **UK**, using **ISP proxies (Royal IPs)** and an anti-detect browser setup.
+- Proxies were **warmed 2 to 3 weeks** with browsing + socials.
+- One of your other stores had a **misrepresentation**, which you fixed previously.
+- He used:
+    - Manual store review
+    - **GMC Scout** (his tool) to detect compliance issues + hidden 404 pages Shopify generates
+
+---
+
+# 1) Vida store review notes
+
+### A) Layout & spacing (Google pedantic stuff)
+
+**Issue:** Too much spacing / loose layout in places.
+
+**Advice:** “Everything should be condensed so it’s all together.”
+
+Google can flag stores for “weird” design/formatting issues (even if it feels silly).
+
+### B) Customer service section requirement
+
+**Issue:** If you list customer service hours, you must also show **response time**.
+
+**Advice:** Add a line like *“Response time: within X hours”* under customer service info (he pointed out you had this on the other store but needed it here too).
+
+### C) Social media links (IMPORTANT)
+
+**What you did:** Added FB / IG / Pinterest links.
+
+**Advice:** For **new stores**, social links with low activity can be a **negative trust signal**.
+
+- Remove social icons/links from store and from GMC for now.
+- Build socials “behind the scenes” first.
+- He suggested targets before linking:
+    - About **50 posts** on each platform (FB/IG/Pinterest)
+    - Around **100 followers** on each
+- Then add socials later (he suggested around **3 months old** store for longevity/trust).
+
+### D) Font size / readability
+
+**Observation:** Text felt too large (headers + body).
+
+**Advice:** Reduce by “a couple pixels” so it’s easier to read.
+
+### E) Hyperlinks on policy pages
+
+**Issue:** Some references weren’t clickable (emails, “contact us”, tracking, etc.).
+
+**Advice:** Hyperlink everything:
+
+- Make email clickable
+- “Track your order” → actual tracking page
+- “Contact us” → contact page
+- Any internal page references → link them
+    
+    Google likes easy navigation.
+    
+
+### F) Terms/Policies formatting
+
+**Issue:** Some pages felt too wide/left-aligned and hard to read.
+
+**Advice:** Bring text width in / center it (make it easier to read).
+
+### G) Logo pixelation at certain screen widths
+
+**Issue you raised:** Logo looks pixelated when browser is resized (tablet widths).
+
+**Diagnosis:** It’s switching between **mobile logo** and **desktop logo** depending on width.
+
+**Advice:** Replace/fix the **mobile logo asset** (higher quality / correct dimensions).
+
+### H) Product pages / content uniqueness
+
+**Good news:** He said:
+
+- Product images look good
+- Titles + descriptions appear unique
+- Store layout is generally strong aside from font/spacing/social links
+
+### I) Microsoft Clarity
+
+**Advice:** Install **Microsoft Clarity** (Shopify app) ASAP.
+
+- Helps identify if Google manual reviewers visit (often appears as “Google India”)
+- Helps with conversion optimization (drop-off points)
+
+---
+
+# 2) Vida GMC (Merchant Center) review notes
+
+### A) Business address MUST match the store
+
+**Issue found:** GMC business address missing/mismatching.
+
+**Your question:** “Do we put our website address or LLC address?”
+
+**Advice:**
+
+- **GMC address must match the website address exactly**
+- LLC docs don’t need to match the public address
+- If Google asks for verification/ID later, you upload your LLC docs then
+    
+    He also warned: even small differences like “USA” vs “United States” can be risky with AI checks → best to match exactly.
+    
+
+### B) Shipping policy match (you did this right)
+
+He verified:
+
+- Cutoff time (5 PM EST)
+- Handling/processing time (1 to 2 business days)
+- Transit (6 to 8 business days)
+- ETA (7 to 10 business days)
+    
+    ✅ He said it’s formatted correctly and matched well.
+    
+
+### C) Return/refund policy match (you did this right)
+
+He checked:
+
+- 30-day return window
+- Refund process timeline (“within 7 days” type requirement)
+    
+    ✅ He said it looked correct.
+    
+
+---
+
+# 3) Cute Kiwi store review notes
+
+### A) Spacing and “condensing”
+
+Same note as Vida: reduce excessive spacing, tighten layout.
+
+### B) Font size again
+
+He still felt the text was too big (including announcement bar).
+
+### C) Right-click disabled (theme setting)
+
+**Issue:** Theme blocks right-click by default.
+
+**Advice:** Disable right-click protection.
+
+Reason: Google reviewers may try copying text for checks/tools and can get annoyed/frustrated.
+
+> Tip mentioned: Chrome extension “Allow Right Click” can bypass it, but he still recommended turning it off in the theme settings.
+> 
+
+### D) Social links again
+
+Same advice: remove socials until they look established.
+
+### E) Return policy formatting (line breaks)
+
+**Issue:** Too many line breaks / horizontal separators (looks like ChatGPT formatting).
+
+**Advice:** Remove the extra lines/separators and reduce gaps.
+
+### F) Hyperlinking
+
+Same advice: link “contact our support” to contact page, etc.
+
+---
+
+# 4) GMC Scout results (what it found + what to do)
+
+### What GMC Scout does (his explanation)
+
+- Crawls like a link checker, **plus** checks Shopify JSON endpoints for pages Shopify generates “silently”
+- Finds broken pages you wouldn’t know exist
+
+### Vida: issues found
+
+- **2 broken links (404)** from Shopify-generated pages
+    
+    **Fix:** Create Shopify URL redirects for them (sometimes takes up to 24 hours to apply).
+    
+
+You also mentioned:
+
+- You had 404s like **/collection/vendors** and **/collection/types**
+    
+    You redirected to homepage and asked if okay → **he said that’s fine**.
+    
+
+### Cute Kiwi: issues found
+
+- Same type of hidden Shopify pages: **/pages/c-contact** and **/pages/get-in-touch** (404)
+    
+    **Fix:** Redirect them.
+    
+
+### “Shrine” link flagged in Cute Kiwi
+
+- GMC Scout flagged a Shrine-related link in source code.
+- He checked and found it was basically a **copyright/source link** embedded in the theme code.
+    
+    **Advice:** Probably a false positive and unlikely to cause Google issues, but if you want 0 doubt, remove it from the code.
+    
+
+---
+
+# 5) Your questions + his direct answers
+
+### Q1) “Should we space out applying to GMC because both stores are under the same LLC?”
+
+**Answer:** He didn’t say you must delay. No strict “limit” from Google, but he later advised not to stack too many stores under one LLC long term for risk management.
+
+### Q2) “Should we wait 7 days and do shipping one day, returns the next, etc.?”
+
+**Answer:** **No.** He called this “rubbish.”
+
+His reasoning: Google doesn’t really start checking seriously until products are uploaded/processed.
+
+### Q3) “When do we connect Google Ads to GMC?”
+
+**Answer:** Connect once products are approved (green), otherwise the ads side won’t have products to run.
+
+He strongly recommended: **PMAX > Search** for this model.
+
+### Q4) “My Google Ads account got ‘circumventing systems’ before. Could I just make a new Ads account?”
+
+**Answer:** **Yes.**
+
+He said he has many accounts under the same company; a few get flagged but others remain fine.
+
+Key is:
+
+- New payment method (virtual cards like Revolut/Airwallex/Mercury)
+- Clean proxy + clean anti-detect environment
+
+### Q5) “Do proxies/anti-detect ever stop working?”
+
+**Answer:** He thinks it’s unlikely short term because detection and evasion both evolve, but Google keeps tightening checks.
+
+### Q6) “What can we do / not do while using proxies?”
+
+**Answer (simplified):**
+
+- It’s mostly about **warming** the proxy + having a believable browsing history/environment.
+- Biggest mistake is creating accounts immediately on a fresh proxy.
+- Warmup example he gave: browse common US sites (news, shopping, weather, sports), close, repeat next day.
+
+### Q7) “Gmail creation is hard. What about QR code / US text verification?”
+
+**Answer:** He acknowledged this is newer.
+
+- You told him switching from desktop to mobile browser avoided it (worked).
+- He warned against **temporary SMS numbers** you can’t reuse later (because you might need that number again).
+- Rental/owned numbers are safer.
+
+### Q8) “We’re using a ‘cracked’ Shrine theme zip. Is that an issue?”
+
+**Answer:** *Potentially*, but he didn’t think it’s likely to cause issues if it’s a fresh install.
+
+**Main warning:** Don’t copy themes/pages from store-to-store (it can cause a lot of problems).
+
+### Q9) “If we get suspended, do we need a new domain and rebuild everything?”
+
+**Answer:** Not immediately.
+
+- You can try a **new GMC using the same domain**.
+- If repeated failures, then consider changing domain.
+
+**If making a new GMC:**
+
+- Must delete the old GMC correctly (he referenced a community video)
+- New GMC should have:
+    - New IP / new proxy
+    - New anti-detect profile (Dolphin browser env)
+    - New address + phone
+    - New Gmail
+    - Slightly rewritten policies
+        
+        Only the **domain** can stay the same.
+        
+
+### Q10) “How many stores per LLC?”
+
+**Answer:** No official limit, but he suggested **around 5** as a practical risk-management number (not a hard rule).
+
+### Q11) “Any reference stores for font sizing and layout?”
+
+**Answer:** No single template store.
+
+- His suggestion: use **Google Shopping** and look at stores actively advertising, then mirror their general font sizing/layout (and confirm mobile looks good).
+
+---
+
+# 6) Your action checklist (what to do next)
+
+## Do on BOTH stores
+
+- Remove social media links (footer/header) until socials look established
+- Reduce excessive spacing and tighten sections
+- Slightly reduce font sizes (headers + body if needed)
+- Hyperlink:
+    - email addresses
+    - “Track your order”
+    - “Contact us”
+    - FAQ references to policies/contact pages
+- Remove heavy line breaks / horizontal separators in policy text
+
+## Vida-specific
+
+- Add response time under customer service hours
+- Fix mobile logo asset to prevent pixelation at tablet widths
+- Add Microsoft Clarity
+
+## Cute Kiwi-specific
+
+- Disable “right-click protection” in theme settings
+- Remove any Shrine source link if you want max cleanliness (optional)
+
+## GMC-specific
+
+- Ensure business address in GMC matches the exact address shown on the store (same wording)
+- Fill customer service details fully in Cute Kiwi GMC (contact page, email, phone)
+- Fix all GMC Scout 404s with Shopify URL redirects (expect up to 24 hours sometimes)
+
+
+
+Extra random advice
+, your menu in the header does not cover all of the product types: you have wall clocks and wall scones collections in the header menu but you have much more product type. Google says that the navigation of the website is poor. So, adjust menu using a menu item like "Collections" or "Our collections" and put every collection under that. Obviously you have to create the collections for every product type in Shopify first like: bedding, Ceiling lamps, Cutlery etc When I look at the all products then I can see the collection's name the product belongs to but I can't find/ can't navigate to the collection.
+At the bottom of the home page you have a section where is a stetement like this: "Our collections are carefully selected...." but when I click on Discover our catalog there I can't find a collections page but just all products in bulk.
+Your policies are ok. However the Scanner did not pick it up, you don't tell anything about the Restocking fee in your Refund policy. We must include that in the Refund policy as we have to set it in the GMC.
+You have this in Payment plicy: Any applicable taxes or shipping charges are calculated and displayed at checkout....shipping will not be calculated because you offer free shipping, I don't know if the prices include the taxes or you really calculate it at the checkout, this is not clear from the policy. Try to make it crystal clear: prices include VAT or not?
+Your about us page needs to be improved as well. It includes a few sentences and that is it. That page should present the brand story and should give more information about the store....even if it's a fiction or fairy tail 🙂
+This is what I found just now. Please, make the changes and get back to me, then I will check it again for you.
+
+---

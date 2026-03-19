@@ -1,0 +1,510 @@
+{% doc %}
+  @prompt
+    Create me a features section with the image in the middle. Allow me to choose which product page image I can use. Have the 4 icons and sections. Allow me to use dynamic fields for the features header and features body sections. Also give me the option to increase or decrases gaps between the features and icons both vericatally and a gap away from the image horizontally., Allow me the option to use dynamic sources for both my Heading and Body. Also give me the option to select a featured product image from my product page (e.g the 2nd image of all prodcut pages). Make the outside shape of the icon circular. Also let me choose an image for the icon, Allow me the option to choose typography, Make the icon on the images side
+    
+    , let me choose the size of the icon inside of the circle
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-features-section-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px 20px;
+  }
+
+  .ai-features-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.horizontal_gap }}px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .ai-features-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.vertical_gap }}px;
+    flex: 1;
+  }
+
+  .ai-features-image-wrapper-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    max-width: {{ block.settings.image_width }}px;
+    width: 100%;
+  }
+
+  .ai-features-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-features-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-features-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-feature-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ai-features-column-{{ ai_gen_id }}--left .ai-feature-item-{{ ai_gen_id }} {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .ai-features-column-{{ ai_gen_id }}--right .ai-feature-item-{{ ai_gen_id }} {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .ai-feature-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    border-radius: 50%;
+    background-color: {{ block.settings.icon_background_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: {{ block.settings.icon_padding }}px;
+  }
+
+  .ai-feature-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-feature-icon-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_background_color }};
+  }
+
+  .ai-feature-icon-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-feature-content-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-feature-heading-{{ ai_gen_id }} {
+    margin: 0 0 8px 0;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-style: {{ block.settings.heading_font.style }};
+    font-size: {{ block.settings.heading_font_size }}px;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .ai-feature-body-{{ ai_gen_id }} {
+    margin: 0;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-style: {{ block.settings.body_font.style }};
+    font-size: {{ block.settings.body_font_size }}px;
+    color: {{ block.settings.body_color }};
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-features-container-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .ai-features-column-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-features-column-{{ ai_gen_id }}--left .ai-feature-item-{{ ai_gen_id }},
+    .ai-features-column-{{ ai_gen_id }}--right .ai-feature-item-{{ ai_gen_id }} {
+      flex-direction: row;
+      text-align: left;
+    }
+
+    .ai-features-image-wrapper-{{ ai_gen_id }} {
+      max-width: 100%;
+      order: -1;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-features-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-features-container-{{ ai_gen_id }}">
+    <div class="ai-features-column-{{ ai_gen_id }} ai-features-column-{{ ai_gen_id }}--left">
+      {% for i in (1..2) %}
+        {% liquid
+          assign icon_key = 'feature_' | append: i | append: '_icon'
+          assign heading_key = 'feature_' | append: i | append: '_heading'
+          assign body_key = 'feature_' | append: i | append: '_body'
+          
+          assign feature_icon = block.settings[icon_key]
+          assign feature_heading = block.settings[heading_key]
+          assign feature_body = block.settings[body_key]
+        %}
+        
+        <div class="ai-feature-item-{{ ai_gen_id }}">
+          <div class="ai-feature-icon-{{ ai_gen_id }}">
+            {% if feature_icon %}
+              <img 
+                src="{{ feature_icon | image_url: width: 200 }}" 
+                alt="{{ feature_heading }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
+            {% else %}
+              <div class="ai-feature-icon-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+          <div class="ai-feature-content-{{ ai_gen_id }}">
+            {% if feature_heading != blank %}
+              <h3 class="ai-feature-heading-{{ ai_gen_id }}">{{ feature_heading }}</h3>
+            {% endif %}
+            {% if feature_body != blank %}
+              <p class="ai-feature-body-{{ ai_gen_id }}">{{ feature_body }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ai-features-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.product_image_index > 0 and product.media.size > 0 %}
+        {% assign image_index = block.settings.product_image_index | minus: 1 %}
+        {% if product.media[image_index] %}
+          <img 
+            src="{{ product.media[image_index] | image_url: width: 1000 }}" 
+            alt="{{ product.media[image_index].alt | escape }}"
+            class="ai-features-image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="{{ product.media[image_index].width }}"
+            height="{{ product.media[image_index].height }}"
+          >
+        {% else %}
+          <div class="ai-features-image-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="ai-features-image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-features-column-{{ ai_gen_id }} ai-features-column-{{ ai_gen_id }}--right">
+      {% for i in (3..4) %}
+        {% liquid
+          assign icon_key = 'feature_' | append: i | append: '_icon'
+          assign heading_key = 'feature_' | append: i | append: '_heading'
+          assign body_key = 'feature_' | append: i | append: '_body'
+          
+          assign feature_icon = block.settings[icon_key]
+          assign feature_heading = block.settings[heading_key]
+          assign feature_body = block.settings[body_key]
+        %}
+        
+        <div class="ai-feature-item-{{ ai_gen_id }}">
+          <div class="ai-feature-icon-{{ ai_gen_id }}">
+            {% if feature_icon %}
+              <img 
+                src="{{ feature_icon | image_url: width: 200 }}" 
+                alt="{{ feature_heading }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
+            {% else %}
+              <div class="ai-feature-icon-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+          <div class="ai-feature-content-{{ ai_gen_id }}">
+            {% if feature_heading != blank %}
+              <h3 class="ai-feature-heading-{{ ai_gen_id }}">{{ feature_heading }}</h3>
+            {% endif %}
+            {% if feature_body != blank %}
+              <p class="ai-feature-body-{{ ai_gen_id }}">{{ feature_body }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product features",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "range",
+      "id": "product_image_index",
+      "label": "Product image position",
+      "info": "Select which product image to display (1 = first image, 2 = second image, etc.)",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "horizontal_gap",
+      "label": "Horizontal gap",
+      "info": "Space between features and image",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "vertical_gap",
+      "label": "Vertical gap",
+      "info": "Space between feature items",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Circle size",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "label": "Icon padding",
+      "info": "Space between icon and circle edge",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Icon background",
+      "default": "#efefef"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_heading",
+      "label": "Heading",
+      "default": "Premium Quality"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_body",
+      "label": "Description",
+      "default": "Crafted with the finest materials for lasting durability"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_heading",
+      "label": "Heading",
+      "default": "Fast Shipping"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_body",
+      "label": "Description",
+      "default": "Free delivery on orders over $50"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_heading",
+      "label": "Heading",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_body",
+      "label": "Description",
+      "default": "30-day hassle-free return policy"
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_heading",
+      "label": "Heading",
+      "default": "Secure Payment"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_body",
+      "label": "Description",
+      "default": "Your payment information is always protected"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product features"
+    }
+  ]
+}
+{% endschema %}

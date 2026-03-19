@@ -1,0 +1,21 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "*",
+      "Bash(*)",
+      "mcp__*",
+      "mcp__playwright__*",
+      "mcp__supabase__*",
+      "mcp__context7__*",
+      "mcp__filesystem__*",
+      "Agent(*)",
+      "WebFetch(*)",
+      "WebSearch(*)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": true
+}
