@@ -1,0 +1,87 @@
+{%- if collection.metafields.custom.seo_content != blank -%}
+  <div class="collection-seo-content page-width section-{{ section.id }}-padding">
+    <div class="collection-seo-content__inner rte">
+      {{ collection.metafields.custom.seo_content | metafield_tag }}
+    </div>
+  </div>
+{%- endif -%}
+
+{% style %}
+  .collection-seo-content {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .collection-seo-content__inner {
+    max-width: 80ch;
+  }
+
+  .collection-seo-content__inner h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .collection-seo-content__inner h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .collection-seo-content__inner ul,
+  .collection-seo-content__inner ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .collection-seo-content__inner li {
+    margin-bottom: 0.5rem;
+  }
+
+  .collection-seo-content__inner p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .collection-seo-content__inner a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-seo-content__inner {
+      max-width: 100%;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Collection SEO Content",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Displays the collection's SEO buying guide content stored in the custom.seo_content metafield. This section renders below the product grid."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ]
+}
+{% endschema %}
