@@ -521,7 +521,7 @@
         "item_8BW4rt": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/unnamed_4.jpg",
+            "image": "",
             "icon": "heart",
             "title": "{{ product.metafields.custom.feature_1_header.value }}",
             "text": "{{ product.metafields.custom.feature_1_body.value }}"
@@ -530,7 +530,7 @@
         "item_94BAiY": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/unnamed_4.jpg",
+            "image": "",
             "icon": "time",
             "title": "{{ product.metafields.custom.feature_2_header.value }}",
             "text": "{{ product.metafields.custom.feature_2_body.value }}"
@@ -539,7 +539,7 @@
         "item_MVLgQx": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/unnamed_4.jpg",
+            "image": "",
             "icon": "gift",
             "title": "{{ product.metafields.custom.feature_3_header.value }}",
             "text": "{{ product.metafields.custom.feature_3_body.value }}"
@@ -548,7 +548,7 @@
         "item_ffdhLw": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/unnamed_4.jpg",
+            "image": "",
             "icon": "plant",
             "title": "{{ product.metafields.custom.feature_4_header.value }}",
             "text": "{{ product.metafields.custom.feature_4_body.value }}"
@@ -557,7 +557,7 @@
         "item_hJxqRa": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/unnamed_4.jpg",
+            "image": "",
             "icon": "bi-ecology",
             "title": "{{ product.metafields.custom.feature_5_header.value }}",
             "text": "{{ product.metafields.custom.feature_5_body.value }}"
@@ -566,7 +566,7 @@
         "item_xekyat": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/unnamed_4.jpg",
+            "image": "",
             "icon": "mobile",
             "title": "{{ product.metafields.custom.feature_6_header.value }}",
             "text": "{{ product.metafields.custom.feature_6_body.value }}"
