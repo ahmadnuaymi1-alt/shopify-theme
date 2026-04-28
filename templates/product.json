@@ -523,7 +523,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "heart",
-            "title": "product.metafields.custom.feature_1_header.value",
+            "title": "{{ product.metafields.custom.feature_1_header.value }}",
             "text": "{{ product.metafields.custom.feature_1_body.value }}"
           }
         },
@@ -532,7 +532,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "time",
-            "title": "product.metafields.custom.feature_2_header.value",
+            "title": "{{ product.metafields.custom.feature_2_header.value }}",
             "text": "{{ product.metafields.custom.feature_2_body.value }}"
           }
         },
@@ -541,7 +541,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "gift",
-            "title": "product.metafields.custom.feature_3_header.value",
+            "title": "{{ product.metafields.custom.feature_3_header.value }}",
             "text": "{{ product.metafields.custom.feature_3_body.value }}"
           }
         },
@@ -550,7 +550,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "plant",
-            "title": "product.metafields.custom.feature_4_header.value",
+            "title": "{{ product.metafields.custom.feature_4_header.value }}",
             "text": "{{ product.metafields.custom.feature_4_body.value }}"
           }
         },
@@ -559,7 +559,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "bi-ecology",
-            "title": "product.metafields.custom.feature_5_header.value",
+            "title": "{{ product.metafields.custom.feature_5_header.value }}",
             "text": "{{ product.metafields.custom.feature_5_body.value }}"
           }
         },
@@ -568,7 +568,7 @@
           "settings": {
             "image": "shopify://shop_images/unnamed_4.jpg",
             "icon": "mobile",
-            "title": "product.metafields.custom.feature_6_header.value",
+            "title": "{{ product.metafields.custom.feature_6_header.value }}",
             "text": "{{ product.metafields.custom.feature_6_body.value }}"
           }
         }
@@ -597,7 +597,7 @@
         "items_mt": 24,
         "items_mt_mobile": 22,
         "fallback_image_index": "2",
-        "image_position": "center",
+        "image_position": "left",
         "image_position_mobile": "first",
         "image_ratio": "portrait",
         "image_ratio_mobile": "original",
@@ -649,7 +649,7 @@
         "collapsible_row_EXdmEY": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "product.metafields.custom.faq_q1.value",
+            "heading": "{{ product.metafields.custom.faq_q1.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
@@ -660,7 +660,7 @@
         "collapsible_row_9gKwRR": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "product.metafields.custom.faq_q2.value",
+            "heading": "{{ product.metafields.custom.faq_q2.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
@@ -671,7 +671,7 @@
         "collapsible_row_dnyVPV": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "product.metafields.custom.faq_q3.value",
+            "heading": "{{ product.metafields.custom.faq_q3.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
@@ -682,7 +682,7 @@
         "collapsible_row_BbLNCT": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "product.metafields.custom.faq_q4.value",
+            "heading": "{{ product.metafields.custom.faq_q4.value }}",
             "icon": "check_box",
             "filled_icon": false,
             "custom_icon": "shopify://shop_images/BenQ-LH860ST-5000-Lumen-1080P-Ultra-Short-Throw-Laser-Golf_-Projector-slight-top-view_4.png",
