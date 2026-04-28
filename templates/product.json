@@ -596,8 +596,8 @@
         "items_gap_mobile": 30,
         "items_mt": 24,
         "items_mt_mobile": 22,
-        "fallback_image_index": "2",
-        "image_position": "left",
+        "fallback_image_index": "0",
+        "image_position": "center",
         "image_position_mobile": "first",
         "image_ratio": "portrait",
         "image_ratio_mobile": "original",
@@ -640,7 +640,8 @@
         "full_width": false,
         "content_width": 160,
         "border_thickness": 0,
-        "lazy": true
+        "lazy": true,
+        "image": ""
       }
     },
     "collapsible_content_bdGMNr": {
